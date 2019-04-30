@@ -1,6 +1,3 @@
-<!-- Page modifiée par l'équipe NumAg 2019
-Modification des lignes 107 à 108 et 154 à 155 qui permettent le remplissage du champ "consentement" dans la table "contact" -->
-
 <?php
 /**
  * Created by PhpStorm.
@@ -63,6 +60,10 @@ if (isset($_GET['notes'])){
     $notes = $_GET['notes'];
 }
 
+if (isset($_GET['Consentement'])){
+    $Consentement = $_GET['Consentement'];
+}
+
 if(isset($_GET["eleveur"])){
     $elev = $_GET["eleveur"];
     if($elev == 1){
@@ -82,10 +83,6 @@ if (isset($_GET["races"])){
     $races = [];
 }
 
-if (isset($_GET["consentement"])){
-    $consent = $_GET["consentement"];
-}
-
 // Connexion à la BDD
 
 	$con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
@@ -103,11 +100,9 @@ if (isset($_GET["consentement"])){
         }
         
         if($elev == 0){ //Si le contact n'a pas d'élevage
-		//Ligne modifiée par Numag2019
-            $sqlContact ="INSERT INTO ". DB_NAME .".contact (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, consentement)
-			              VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes','$consent')";
-		//Fin modification
-		
+            $sqlContact ="INSERT INTO ". DB_NAME .".contact (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, Consentement)
+			              VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes','$Consentement')";
+
             $query = $con -> query($sqlContact);
         } else {    //Si le contact a un élevage
             if ($idDbElevage == ''){    //Si l'élevage est inexistant --> on en crée un nouveau
@@ -119,7 +114,7 @@ if (isset($_GET["consentement"])){
                 $idDbElevage = $con->lastInsertId();
             }
 
-            //Comparer les races existentes pour l'id elevage en question avec les races qui ont été renseignées dans le formulaire
+            //Comparer les races existantes pour l'id elevage en question avec les races qui ont été renseignées dans le formulaire
             
             //Récupérer toutes les races de la table link_race_elevage pour l'élevage en question
             $sqlGetRacesElevage = "SELECT code_race FROM link_race_elevage WHERE id_elevage = {$idDbElevage}";
@@ -149,11 +144,10 @@ if (isset($_GET["consentement"])){
             }
             
             //On ajoute enfin le contact
-			//Ligne modifiée par Numag2019
             $sqlContact = "INSERT INTO ". DB_NAME .".contact 
-                        (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, id_elevage, consentement)
-                        VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes','$idDbElevage', '$consent')";
-			//Fin modification
+                        (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, Consentement, id_elevage)
+                        VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes', '$Consentement', '$idDbElevage')";
+
             $queryContact = $con->query($sqlContact);
         }
 

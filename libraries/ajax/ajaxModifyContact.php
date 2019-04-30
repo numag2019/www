@@ -175,6 +175,6 @@ function getTownSQL($data) {
  */
 
 function getContactSQL($data) {
-    $sqlContact = "UPDATE ". DB_NAME .".contact SET nom='{$data['nom']}', prenom='{$data['prenom']}', adresse='{$data['adresse']}', adresse2='{$data['adresseCompl']}', tel='{$data['tel1']}', tel2='{$data['tel2']}', mail='{$data['mail']}', notes='{$data['notes']}' WHERE id_contact={$data['idDbContact']};";
+    $sqlContact = "UPDATE ". DB_NAME .".contact SET nom='{$data['nom']}', prenom='{$data['prenom']}', adresse='{$data['adresse']}', adresse2='{$data['adresseCompl']}', tel='{$data['tel1']}', tel2='{$data['tel2']}', mail='{$data['mail']}', notes='{$data['notes']}', Consentement='{$data['Consentement']}' WHERE id_contact={$data['idDbContact']};";
     return $sqlContact;
 }

@@ -157,6 +157,9 @@ function autocompleteContact(event){
             $('#tel1').val(ui.item.tel);
             $('#tel2').val(ui.item.tel2);
             $('#notes').val(ui.item.notes);
+			
+			$('#Consentement').val(ui.item.Consentement);
+			
             $('#idVille').val(ui.item.id_commune);
             var racesNumber = ui.item.races.length, i=0;
             console.log(ui.item.races)
@@ -197,6 +200,9 @@ function autocompleteContact(event){
         $('#tel1').val('');
         $('#tel2').val('');
         $('#notes').val('');
+		
+		$('#Consentement').val('');
+		
         $('#idVille').val('');
         if (document.getElementById('idDbContact').value === '') {
             $('#eleveur2').prop("checked", true);
