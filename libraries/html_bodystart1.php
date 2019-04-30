@@ -153,7 +153,7 @@ if (isset($_SESSION['compte'])){
                 <ul>
                     <li <?php if ($_SESSION['current_page']=='visu_animal') echo 'class="current"'; ?>><a href="../animaux/visuAnimal.php">Fiches individuelles </a></li>
                     <li <?php if ($_SESSION['current_page']=='visu_elevage') echo 'class="current"'; ?>><a href="../animaux/visuElevage.php">Fiches élevage</a></li>
-					<!-- Ligne rajoutée par Marine -->
+					<!-- Ligne rajoutée par Numag2019 -->
 					<li <?php if ($_SESSION['current_page']=='visu_elevage') echo 'class="current"'; ?>><a href="../animaux/visuRace.php">*Fiches race</a></li>
 					<!-- Fin ajout -->
                     <li <?php if ($_SESSION['current_page']=='del_animal') echo 'class="current"'; ?>><a href="../animaux/delete_animals.php">Supprimer des animaux</a></li>
