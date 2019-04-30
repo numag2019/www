@@ -1,4 +1,6 @@
 <?php
+//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
+//élève référent : Amaury Branthomme
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -160,8 +162,8 @@ function FancyTable($header, $data)
 }
 
 
-//Tableau test
-function Tableau($header,$effectif,$largeur_col)
+//Fonction réalisant le tableau
+function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
 	$this->SetFillColor(255,0,0);
@@ -172,21 +174,41 @@ function Tableau($header,$effectif,$largeur_col)
     
 	// En-tête
 	foreach($header as $col)
-		$this->Cell($largeur_col,7,$col,1,0,'C',true);
+        if (is_numeric($col))
+            $this->Cell($largeur_col,7,$col,1,0,'C',true);
+        else
+            $this->Cell($largeur_lgd,7,$col,1,0,'C',true); //Si la case est la légende, on applique un style particulier
 	$this->Ln();
     
-    // Restauration des couleurs et de la police pour les données du tableau
-	$this->SetFillColor(224,235,255);
-	$this->SetTextColor(0);
-	$this->SetFont('');
     
 	// Données
 	foreach($effectif as $row)
 	{
         foreach($row as $col)
-            $this->Cell($largeur_col,6,$col,'LR',0,'C');
+        {
+            if (is_numeric($col))
+            {
+                // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(13);
+                $this->Cell($largeur_col,6,$col,'LR',0,'C');
+            }
+            else//Si la case est la légende, on applique un style particulier
+            {
+                // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(8);
+                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
+            }
+        }
 		$this->Ln();
 	}
+    // Trait de terminaison
+	$this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
 
 }
 
@@ -194,16 +216,41 @@ function Tableau($header,$effectif,$largeur_col)
 
 $pdf = new PDF();
 // Titres des colonnes
-$header = array('',2013,2014,2015,2016,2017);
+$header_inv = array('',2013,2014,2015,2016,2017);
+// Données des requetes SQL
 $effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
-// Première page
+
+//remplissage des pages
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
 $pdf->SetFont('');
-// Décalage de 6 cm à droite
-// $pdf->Cell(60);
-// $pdf->Cell(70,120,'Graphique',1,0,'C');
-//$pdf->FancyTable($header,$effectif);
-$pdf->Tableau($header,$effectif,30);
+
+//Tableau d'évolution des effectifs inventories dans la race
+$pdf->Tableau($header_inv,$effectif,30,40);
+
+//Espace entre les différents éléments de la page
+$pdf->Ln(40);
+
+//Graphique d'évolution des effectifs
+$pdf->Cell(70,120,'Graphique',1,0,'C');
+
+//Espace entre les différents éléments de la page
+$pdf->Ln(40);
+
+//Tableau d'évolution des naissances
+$pdf->Tableau($header_inv,$effectif,30,40);
+
+//Espace entre les différents éléments de la page
+$pdf->Ln(40);
+
+//Graphique d'évolution des naissances
+$pdf->Cell(70,120,'Graphique',1,0,'C');
+
+//Espace entre les différents éléments de la page
+$pdf->Ln(40);
+
+//Tableau d'évolution de la présence dans la race
+$pdf->Tableau($header_inv,$effectif,30,40);
+
 $pdf->Output();
 ?>
