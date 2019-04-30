@@ -35,23 +35,23 @@ function Footer()
 }
 }
 
-$nb_departement = 10;
-$nb_eleveurs = 3;
+$departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
+$nb_eleveurs = array(3,5,1);
 
 $pdf = new PDF();
 
 //création des pages pdf
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
-for($i=1;$i<=$nb_departement;$i++)
+for($i=1;$i<=count($departement);$i++)
 {
     $pdf->SetFont('Arial','U',20); //police des départements
-    $pdf->Cell(0,10,'Département '.$i,0,1);
+    $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
-    for($k=1;$k<=$nb_eleveurs;$k++)
+    for($k=1;$k<=count($nb_eleveurs);$k++)
     {
         $pdf->SetFont('Times','',15); //police des eleveurs
-        $pdf->Cell(0,10,'Eleveurs '.$k,0,1);
+        $pdf->Cell(0,10,'Eleveurs '.$nb_eleveurs[$k-1],0,1);
         $pdf->Ln(5);
     }
     $pdf->Ln();
