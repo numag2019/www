@@ -161,14 +161,13 @@ function FancyTable($header, $data)
 	$this->Cell(array_sum($w),0,'','T');
 }
 
-
 //Fonction réalisant le tableau
 function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(255,0,0);
+	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
-	$this->SetDrawColor(128,0,0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
     
@@ -215,9 +214,9 @@ function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
 function Tableau_presence($header,$effectif,$largeur_col)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(255,0,0);
+	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
-	$this->SetDrawColor(128,0,0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
     $this->SetFontSize(7);    
@@ -250,14 +249,13 @@ function Tableau_presence($header,$effectif,$largeur_col)
 }
 
 
-
 //Fonction réalisant le tableau
 function Tableau_nais($header,$effectif,$largeur_col,$largeur_lgd)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(255,0,0);
+	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
-	$this->SetDrawColor(128,0,0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
     
@@ -304,9 +302,9 @@ function Tableau_nais($header,$effectif,$largeur_col,$largeur_lgd)
 function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(255,0,0);
+	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
-	$this->SetDrawColor(128,0,0);
+	$this->SetDrawColor(0,0,0);
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
     
