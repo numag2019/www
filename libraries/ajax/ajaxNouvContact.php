@@ -6,6 +6,9 @@
  * Time: 14:29
  */
 
+//Page modifiée par l'équipe NumAg 2019
+//Ajout des lignes 107/108 et 153/154 qui permettent d'enregistrer la valeur de "consentement" choisie dans la BDD
+
 //header("Location:http://localhost/joomla/index.php?option=com_content&view=article&id=32");
 
 include '../fonctions.php';
@@ -100,9 +103,10 @@ if (isset($_GET["races"])){
         }
         
         if($elev == 0){ //Si le contact n'a pas d'élevage
+		//Ligne modifiée par Numag2019
             $sqlContact ="INSERT INTO ". DB_NAME .".contact (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, Consentement)
 			              VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes','$Consentement')";
-
+		//Fin modification
             $query = $con -> query($sqlContact);
         } else {    //Si le contact a un élevage
             if ($idDbElevage == ''){    //Si l'élevage est inexistant --> on en crée un nouveau
@@ -144,10 +148,11 @@ if (isset($_GET["races"])){
             }
             
             //On ajoute enfin le contact
+			//Ligne modifiée par Numag2019
             $sqlContact = "INSERT INTO ". DB_NAME .".contact 
                         (id_contact, nom, prenom, adresse, adresse2, tel, tel2, mail, id_commune, notes, Consentement, id_elevage)
                         VALUES (NULL,'$lastName','$firstName','$addressPersoA','$addressPersoB','$tel1','$tel2','$mail','$id_commune','$notes', '$Consentement', '$idDbElevage')";
-
+			//Fin modification
             $queryContact = $con->query($sqlContact);
         }
 

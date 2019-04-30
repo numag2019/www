@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Page modifiée par l'équipe NumAg 2019
+Ajout de la ligne 197 à 205 qui permet l'ajout d'un champ "consentement" dans le formulaire de modification de contact -->
 
   <title>GenIS</title>
 
@@ -190,7 +192,8 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                                   <textarea class="form-control" rows="5" placeholder="" style="resize: vertical" name="notes" id="notes"></textarea>
                               </div>
                             </div>
-
+							
+							<!-- Ligne rajoutée par Numag2019 -->
 							<div class="form-group">
                               <label class="col-lg-2 control-label" for="race">Consentement</label>
                               <div class="col-lg-3">
@@ -200,7 +203,7 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                                 </select>
                               </div>
                             </div>
-							
+							<!-- Fin ajout -->
 							
                             <div class="form-group" style="display:none">
                               <input type="text" id="idVille" name="idVille" value="1">

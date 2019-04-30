@@ -1,3 +1,5 @@
+//Page modifiée par l'équipe NumAg 2019
+//Ajout des lignes 163 et 206 qui permettent l'ajout d'un champ "consentement" dans le formulaire de modification de contact
 function autocompleteTown(event){
     var ville = $('#ville');
     ville.autocomplete({
@@ -157,9 +159,9 @@ function autocompleteContact(event){
             $('#tel1').val(ui.item.tel);
             $('#tel2').val(ui.item.tel2);
             $('#notes').val(ui.item.notes);
-			
+			//Ligne rajoutée par Numag2019
 			$('#Consentement').val(ui.item.Consentement);
-			
+			//Fin ajout
             $('#idVille').val(ui.item.id_commune);
             var racesNumber = ui.item.races.length, i=0;
             console.log(ui.item.races)
@@ -200,9 +202,9 @@ function autocompleteContact(event){
         $('#tel1').val('');
         $('#tel2').val('');
         $('#notes').val('');
-		
+		//Ligne rajoutée par Numag2019
 		$('#Consentement').val('');
-		
+		//Fin ajout
         $('#idVille').val('');
         if (document.getElementById('idDbContact').value === '') {
             $('#eleveur2').prop("checked", true);
