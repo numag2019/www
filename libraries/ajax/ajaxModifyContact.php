@@ -1,4 +1,6 @@
 <?php
+////Page modifiée par l'équipe NumAg 2019
+//Ajout de la ligne 180 qui permet d'enregistrer la valeur de "consentement" choisie dans la BDD
 
 include '../fonctions.php';
 
@@ -173,8 +175,9 @@ function getTownSQL($data) {
 /*
  * Retourne le code sql pour modifier les données de la table contact (pas les clés étrangères)
  */
-
+//Ligne modifiée par Numag2019
 function getContactSQL($data) {
-    $sqlContact = "UPDATE ". DB_NAME .".contact SET nom='{$data['nom']}', prenom='{$data['prenom']}', adresse='{$data['adresse']}', adresse2='{$data['adresseCompl']}', tel='{$data['tel1']}', tel2='{$data['tel2']}', mail='{$data['mail']}', notes='{$data['notes']}' WHERE id_contact={$data['idDbContact']};";
+    $sqlContact = "UPDATE ". DB_NAME .".contact SET nom='{$data['nom']}', prenom='{$data['prenom']}', adresse='{$data['adresse']}', adresse2='{$data['adresseCompl']}', tel='{$data['tel1']}', tel2='{$data['tel2']}', mail='{$data['mail']}', notes='{$data['notes']}', Consentement='{$data['Consentement']}' WHERE id_contact={$data['idDbContact']};";
     return $sqlContact;
 }
+//Fin modification

@@ -1,9 +1,8 @@
-<!-- Page modifiée par l'équipe NumAg 2019
-Ajout des lignes 198 à 204 qui permettent l'ajout d'un champ "consentement" dans la page nouveau contact -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Page modifiée par l'équipe NumAg 2019
+Ajout de la ligne 197 à 205 qui permet l'ajout d'un champ "consentement" dans le formulaire de modification de contact -->
 
   <title>GenIS</title>
 
@@ -195,15 +194,17 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                             </div>
 							
 							<!-- Ligne rajoutée par Numag2019 -->
-							<label class="col-lg-2 control-label" for="consentement">Consentement</label>
-							<div class="col-lg-2">
-							  <select name="consentement" id="consentement" size="1" class="form-control" required>
-								<option value="Oui">Oui</option>
-								<option value="Non" selected>Non</option>
-							  </select>
-							</div>
+							<div class="form-group">
+                              <label class="col-lg-2 control-label" for="race">Consentement</label>
+                              <div class="col-lg-3">
+                                <select name="Consentement" id="Consentement" size="1" class="form-control" required>
+                                  <option value="Oui">Oui</option>
+                                  <option value="Non" selected>Non</option>
+                                </select>
+                              </div>
+                            </div>
 							<!-- Fin ajout -->
-
+							
                             <div class="form-group" style="display:none">
                               <input type="text" id="idVille" name="idVille" value="1">
                             </div>
