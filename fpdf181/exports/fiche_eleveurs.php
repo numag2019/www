@@ -26,6 +26,7 @@ function Header()
 // Pied de page
 function Footer()
 {
+
 	// Positionnement à 1,5 cm du bas
 	$this->SetY(-15);
 	// Police Arial italique 8
@@ -33,6 +34,44 @@ function Footer()
 	// Numéro de page
 	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
+
+function WriteHTML($html)
+{
+	// Parseur HTML
+	$html = str_replace("\n",' ',$html);
+	$a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
+	foreach($a as $i=>$e)
+	{
+		if($i%2==0)
+		{
+			// Texte
+			if($this->HREF)
+				$this->PutLink($this->HREF,$e);
+			else
+				$this->Write(5,$e);
+		}
+		else
+		{
+			// Balise
+			if($e[0]=='/')
+				$this->CloseTag(strtoupper(substr($e,1)));
+			else
+			{
+				// Extraction des attributs
+				$a2 = explode(' ',$e);
+				$tag = strtoupper(array_shift($a2));
+				$attr = array();
+				foreach($a2 as $v)
+				{
+					if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
+						$attr[strtoupper($a3[1])] = $a3[2];
+				}
+				$this->OpenTag($tag,$attr);
+			}
+		}
+	}
+}
+
 }
 
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
