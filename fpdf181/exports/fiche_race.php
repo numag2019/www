@@ -161,7 +161,6 @@ function FancyTable($header, $data)
 	$this->Cell(array_sum($w),0,'','T');
 }
 
-
 //Fonction réalisant le tableau
 function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
 {
