@@ -1,0 +1,17 @@
+<html>
+	<head>
+	
+	</head>
+	
+	<body>
+		Entrez le nombre de ligne de votre tableaux svp.
+	<br>
+	<FORM action ="Exo2.php" method = "GET" name = "form1">
+				
+			Nombre de ligne: <input  name ="Ligne" value ="0"><br>
+			
+		<input Type = "submit" name ="bt_submit" value = "Envoyer">
+	
+	</FORM>
+	</body>
+</html>
