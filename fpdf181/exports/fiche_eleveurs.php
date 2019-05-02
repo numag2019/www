@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -75,7 +78,7 @@ function WriteHTML($html)
 }
 
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$nb_eleveurs = array(3,5,1);
+$nb_eleveurs = array(3,5,1,4,2,1,3);
 
 $pdf = new PDF();
 
@@ -94,6 +97,6 @@ for($i=1;$i<=count($departement);$i++)
         $pdf->Ln(5);
     }
     $pdf->Ln();
-}    
+}  
 $pdf->Output();
 ?>
