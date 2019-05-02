@@ -1,6 +1,7 @@
 <?php
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
 //élève référent : Amaury Branthomme
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -359,11 +360,13 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes
+//$header_inv_nais = array_splice($annee,0,0,NULL);     ajout d'un champ NULL en début des années pour laisser place à la légende
 $header_inv_nais = array(NULL,2013,2014,2015,2016,2017);
 $header_pre = array('Nom','N° id','Elevage','Sexe','Date naissance','Nom du père','N° id père','Nom de la mère','N° id mère','Naisseur');
 $header_nais2 = array(NULL,'Nb','%','Nb','%','Nb','%','Nb','%','Nb','%');
 
 // Données des requetes SQL
+//$effectif = array($nb_femmelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $detenteur);
 $effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
 $presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
 $naissance1 = array(array('nombre de veaux nés',118,130,141,159,164));
