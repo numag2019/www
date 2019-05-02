@@ -1,17 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 16 Avril 2019 à 07:19
--- Version du serveur :  5.7.14
--- Version de PHP :  7.0.10
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  jeu. 02 mai 2019 à 08:23
+-- Version du serveur :  5.7.24
+-- Version de PHP :  7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE DATABASE `genis_test` default character set utf8 collate utf8_general_ci;
-use `genis_test`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -22,14 +22,84 @@ use `genis_test`;
 -- Base de données :  `genis_test`
 --
 
+DELIMITER $$
+--
+-- Fonctions
+--
+DROP FUNCTION IF EXISTS `an_naissance`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `an_naissance` (`idani` INT) RETURNS INT(11) begin
+declare ret int(4);
+SELECT year(date_naiss) into ret from animal where id_animal = idani;
+RETURN ret;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_detenteur`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_detenteur` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(distinct id_elevage) into nb from v_ani_mort where year(date_naiss)<annee and (id_type=NULL or year(date_sortie)>annee) and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_femelle`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_femelle` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)<annee and (id_type=NULL or year(date_sortie)>annee) and sexe=2 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_femelle_2`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_femelle_2` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year((date_naiss)+1)<annee and (id_type=NULL or year(date_sortie)>annee) and sexe=2 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_femelle_nee`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_femelle_nee` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)=annee and sexe=2 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_taureau`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_taureau` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)<annee and (id_type=NULL or year(date_sortie)>annee) and sexe=1 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_veau_f`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_veau_f` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)=annee and sexe=2 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_veau_m`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_veau_m` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)=annee and (sexe=1 or sexe=3) and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_veau_tot`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_veau_tot` (`annee` INT, `race` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)=annee and code_race=race;
+RETURN nb;
+end$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `animal`
 --
 
-CREATE TABLE `animal` (
-  `id_animal` int(11) NOT NULL,
+DROP TABLE IF EXISTS `animal`;
+CREATE TABLE IF NOT EXISTS `animal` (
+  `id_animal` int(11) NOT NULL AUTO_INCREMENT,
   `nom_animal` char(50) NOT NULL,
   `sexe` int(1) NOT NULL,
   `no_identification` char(13) NOT NULL DEFAULT '0000000000',
@@ -43,11 +113,16 @@ CREATE TABLE `animal` (
   `code_race` int(10) DEFAULT NULL,
   `id_pere` int(11) DEFAULT NULL,
   `id_mere` int(11) DEFAULT NULL,
-  `id_photo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_photo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_animal`),
+  KEY `code_race` (`code_race`,`id_photo`),
+  KEY `fk_pere` (`id_pere`),
+  KEY `fk_mere` (`id_mere`),
+  KEY `id_livre` (`id_livre`)
+) ENGINE=InnoDB AUTO_INCREMENT=12170 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `animal`
+-- Déchargement des données de la table `animal`
 --
 
 INSERT INTO `animal` (`id_animal`, `nom_animal`, `sexe`, `no_identification`, `date_naiss`, `id_livre`, `reproducteur`, `fecondation`, `coeff_consang`, `conservatoire`, `valide_animal`, `code_race`, `id_pere`, `id_mere`, `id_photo`) VALUES
@@ -9713,10 +9788,13 @@ INSERT INTO `animal` (`id_animal`, `nom_animal`, `sexe`, `no_identification`, `d
 -- Structure de la table `attribut`
 --
 
-CREATE TABLE `attribut` (
-  `id_attribut` int(11) NOT NULL,
+DROP TABLE IF EXISTS `attribut`;
+CREATE TABLE IF NOT EXISTS `attribut` (
+  `id_attribut` int(11) NOT NULL AUTO_INCREMENT,
   `lib_attribut` char(50) NOT NULL,
-  `id_espece` int(11) NOT NULL
+  `id_espece` int(11) NOT NULL,
+  PRIMARY KEY (`id_attribut`),
+  KEY `fk_index` (`id_espece`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -9725,10 +9803,12 @@ CREATE TABLE `attribut` (
 -- Structure de la table `caractere_genetique`
 --
 
-CREATE TABLE `caractere_genetique` (
-  `id_caractere` int(11) NOT NULL,
+DROP TABLE IF EXISTS `caractere_genetique`;
+CREATE TABLE IF NOT EXISTS `caractere_genetique` (
+  `id_caractere` int(11) NOT NULL AUTO_INCREMENT,
   `lib_caractere` char(50) NOT NULL,
-  `comm_caractere` char(200) NOT NULL
+  `comm_caractere` char(200) NOT NULL,
+  PRIMARY KEY (`id_caractere`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -9737,15 +9817,18 @@ CREATE TABLE `caractere_genetique` (
 -- Structure de la table `commune`
 --
 
-CREATE TABLE `commune` (
-  `id_commune` int(11) NOT NULL,
+DROP TABLE IF EXISTS `commune`;
+CREATE TABLE IF NOT EXISTS `commune` (
+  `id_commune` int(11) NOT NULL AUTO_INCREMENT,
   `lib_commune` char(50) NOT NULL,
   `cp_commune` char(10) NOT NULL,
-  `no_dpt` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `no_dpt` int(11) NOT NULL,
+  PRIMARY KEY (`id_commune`),
+  KEY `fk_departement` (`no_dpt`)
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `commune`
+-- Déchargement des données de la table `commune`
 --
 
 INSERT INTO `commune` (`id_commune`, `lib_commune`, `cp_commune`, `no_dpt`) VALUES
@@ -10123,7 +10206,18 @@ INSERT INTO `commune` (`id_commune`, `lib_commune`, `cp_commune`, `no_dpt`) VALU
 (402, 'LE PIN EN MAUGES', '49110', 49),
 (403, 'SANVENSA', '12200', 12),
 (404, 'BALEYSSAGUES', '47120', 47),
-(406, 'GOUDON', '65190', 31);
+(406, 'GOUDON', '65190', 31),
+(407, 'GRADIGNAN', '33170', 33),
+(408, 'GRADIGNAN', '33170', 33),
+(409, 'GRADIGNAN', '33170', 33),
+(410, 'GRADIGNAN', '33170', 33),
+(411, 'GRADIGNAN', '33170', 33),
+(412, 'GRADIGNAN', '33170', 33),
+(413, 'ZZZZZZZZZZZ', '33000', 33),
+(414, 'ZZZZ', '33000', 33),
+(415, 'ZZZZ', '33000', 33),
+(416, 'YYY', '40000', 33),
+(418, 'ZZZ', '33000', 33);
 
 -- --------------------------------------------------------
 
@@ -10131,15 +10225,18 @@ INSERT INTO `commune` (`id_commune`, `lib_commune`, `cp_commune`, `no_dpt`) VALU
 -- Structure de la table `compte`
 --
 
-CREATE TABLE `compte` (
-  `id_compte` int(15) NOT NULL,
+DROP TABLE IF EXISTS `compte`;
+CREATE TABLE IF NOT EXISTS `compte` (
+  `id_compte` int(15) NOT NULL AUTO_INCREMENT,
   `identifiant` char(30) NOT NULL,
   `mdp` char(30) NOT NULL,
-  `id_privilege` int(2) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_privilege` int(2) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_compte`),
+  KEY `fk_privilege` (`id_privilege`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `compte`
+-- Déchargement des données de la table `compte`
 --
 
 INSERT INTO `compte` (`id_compte`, `identifiant`, `mdp`, `id_privilege`) VALUES
@@ -10153,8 +10250,9 @@ INSERT INTO `compte` (`id_compte`, `identifiant`, `mdp`, `id_privilege`) VALUES
 -- Structure de la table `contact`
 --
 
-CREATE TABLE `contact` (
-  `id_contact` int(11) NOT NULL,
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
+  `id_contact` int(11) NOT NULL AUTO_INCREMENT,
   `nom` char(50) DEFAULT NULL,
   `prenom` char(50) DEFAULT NULL,
   `adresse` char(200) DEFAULT NULL,
@@ -10164,479 +10262,496 @@ CREATE TABLE `contact` (
   `mail` char(200) DEFAULT NULL,
   `id_commune` int(11) DEFAULT NULL,
   `notes` char(250) DEFAULT NULL,
-  `id_elevage` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_elevage` int(11) DEFAULT NULL,
+  `Consentement` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`id_contact`),
+  KEY `fk_commune` (`id_commune`),
+  KEY `fk_elevage2` (`id_elevage`)
+) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `contact`
+-- Déchargement des données de la table `contact`
 --
 
-INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `tel`, `tel2`, `mail`, `id_commune`, `notes`, `id_elevage`) VALUES
-(1, 'ARRIEULA', 'Francis', '9 route de Saint Jacques', '', '05 59 04 87 27', '', '', 1, '', 1),
-(2, 'AUGEAU', 'Francis', '16 Baren de la Matte', '', '05 56 41 73 58', '', '', 2, '', 2),
-(3, 'BIOLATO', 'Jean-Paul', 'Lacouche', '', '05 53 95 11 68', '06 23 15 24 80', '', 56, '', 3),
-(4, 'BOCHE', 'Philippe', 'Belloc', '', '05 53 41 11 93', '06 73 68 43 29', '', 4, '', 4),
-(5, 'Prairies du Bois de Bordeaux', '', 'Prairies du Bois de Bordeaux', '', '05 57 35 60 86', '', '', 8, 'Conservatoire des Races dAquitaine', 7),
-(6, 'CASTETBIEILH', 'Fabienne et Jacques', 'EARL Bibane, route de Pau', '', '05 59 04 55 49', '06 83 12 14 30', 'bibane64@wanadoo.fr', 27, 'Poule gasconne : 15 femelles et 2 mâle\r\nDindon gascon  : 2 femelles et 1 mâle\r\nLapin chèvre : 3 femelles et 1 mâles', 8),
-(7, 'FROSSARD', 'Jacques', '27 route de la Barade', '', '05 57 97 09 09', '06 11 22 59 90', 'jacques.frossard@gmail.com', 199, '', 9),
-(8, 'Château Palmer (NE PAS UTILISER)', '', 'Issan', '', '', '', '', 38, '', 10),
-(9, 'Château Pontet Canet', '', 'Château Pontet Canet', '', '05 56 59 04 04', '', '', 72, '', 11),
-(10, 'COSTEDOAT', 'Marie', '1758 chemin de Chrestia', '', '', '', 'mariecostedoat40330@gmail.com', 58, '', 12),
-(11, 'DARROMAN', 'Rémy', 'Grabiaux', '', '05 56 25 62 59', '', '', 14, '', 13),
-(12, 'MARBAN', 'Joël', 'Domaine des Possessions', '', '05 57 35 60 86', '06 72 07 87 79', '', 15, 'Conservatoire des Races dAquitaine', 14),
-(13, 'DUBOIS', 'Jean-Denis', 'rue du Pont Neuf', '', '05 56 35 40 90', '06 70 37 02 99', '', 16, '', 15),
-(14, 'DUTRUEL', 'Jacques', 'Manibe', '', '05 58 73 65 32', '06 09 82 08 53', 'jacquesmanibe@fermegasconne.com', 17, '', 16),
-(15, 'EARL Des Broutissoux', '', 'Le Poirier', '', '05 53 56 45 19', '', '', 28, '', 17),
-(16, 'FERRAND EARL Lait P\'tits Béarnais', '', '1481 chemin de Balasque', '', '', '', '', 20, '', 18),
-(17, 'BELIN', 'Céline (Ferme Mérignac)', '31 avenue Bellevue', '', '05 56 34 27 45', '', 'ferme.decouverte@merignac.com', 21, 'FIEVET BARBARA\r\n\r\n1 femelle et 1 mâle : Dindon gascon', 19),
-(18, 'GAEC Goyhexia', '', 'Goyhexia', '', '', '', '', 22, '', 20),
-(19, 'GERNIEC', 'Agnès', 'Maillou', '', '05 61 04 80 12', '', '', 23, '', 21),
-(20, 'GUENON', 'Christophe', 'Domaine de Bagatelle, avenue de la Duragne', '', '', '06 22 70 18 87', 'guenon.christophe33@gmail.com', 24, '', 22),
-(21, 'LALANNE', 'Boris', '4 rue Camille Goillot', '', '', '', '', 21, '', 23),
-(22, 'LATASTE', 'Marie-France et Hugues', 'Domaine de Roy', '', '', '06 71 81 98 81', '', 26, '', 24),
-(23, 'LEROUX', 'Christophe', 'Savenas', '', '02 40 24 94 91', '06 98 00 70 59', '', 29, '', 25),
-(24, 'LOVATO', 'Géraldine', '1 Lagardère', '', '09 83 62 16 27', '', '', 30, '', 26),
-(25, 'MAISON', 'de la Nature', '53 rue du Moulineau', 'Christine DELSART', '05 56 89 51 74', '06 76 41 59 68', 'maisondelanature@ville-gradignan.fr', 156, 'Poule landaise : 10 femelles et quelques mâl\r\nDindon gascon : 1 femelle et 1 m�\r\nLapin chèvre : 5 femelles', 27),
-(26, 'MAROT', 'Nadine', 'Le Pourcat', '', '', '', '', 32, '', 28),
-(27, 'MARTET', 'Damien', 'Lamouthe', '', '', '06 74 97 43 97', 'dmartet@groupama-ca.fr', 33, '', 29),
-(28, 'VAUGEOIS', 'Delphine', 'Les tourets reverdit', '', '05 56 25 56 79', '', '', 35, '', 30),
-(29, 'TITE', 'Laurent', '36 lieu-dit Landes', '', '05 57 49 28 20', '', 'laurenttite@free.fr', 36, '', 31),
-(30, 'SCEA des Deux Pierre', '', 'Mussonville', '', '', '', '', 37, '', 32),
-(31, 'YASSAI', 'Yoann', '21 rue du Pujoulet', '', '', '06 26 33 20 91', '', 40, '', 33),
-(32, 'MASSEILLOU', 'Christian', '24 avenue de l Ouest', '', '05 59 81 07 05', '', '', 43, '', 36),
-(33, 'MAZIERE', 'Lisiane', '1 pièce Neuve', '', '05 56 61 67 52', '', '', 44, '', 37),
-(34, 'OUDIN', 'Patricia et Marc', '35 route de Beaugeay', '', '05 46 85 66 78', '06 76 80 27 32', 'oudin.marc@wanadoo.fr', 45, '', 38),
-(35, 'PERRIOL', 'Isabelle', 'La Mouthe', '', '', '', '', 46, '', 39),
-(36, 'PORTE', 'Jean Bernard', '8 Chemin d Aurous', '', '05 59 71 04 45', '06 27 84 24 57', '', 48, '', 41),
-(37, 'SAINT ORENS', 'Jean-François', '555 chemin de Laurens', '', '05 58 57 22 94', '06 07 68 35 70', '', 49, '', 42),
-(38, 'UBBEDA', 'Christophe', '2 au Merle', '', '', '06 22 41 16 31', '', 50, '', 43),
-(39, 'VASSEUR', 'Jean-Luc', 'Haras de Bazille', '', '', '06 63 98 40 36', 'harasdebazille@aol.com', 51, '', 44),
-(40, 'VERGNE', 'Michel', 'Sauvage', '', '05 53 89 61 89', '09 50 87 13 32', '', 52, '', 45),
-(41, 'PREVOT', 'Daniel', 'Borde Haute', '', '', '', '', 53, '', 46),
-(42, 'YOUX', 'Xavier', '47 route de la Lande', '', '', '', '', 54, '', 47),
-(43, 'SEUVE', 'Eric', '1 Les Petites Mottes', '', '', '', '', 55, '', 48),
-(44, 'RESERVE', 'Cousseau', 'Lieu-dit Marmande', '', '0687797476', '', 'sepanso33@sepanso.fr', 60, 'François SARGO  -  SEPANSO', 49),
-(45, 'MARAIS', 'Lafite', 'Marais de Lafite', '', '05 56 91 33 65', '', 'sepanso33@sepanso.org', 72, 'SEPANSO', 50),
-(46, 'RESERVE', 'Bruges', 'RNN Bruges, le Baron, avenue des 4 ponts', '', '05 56 57 09 89', '', 'sepanso33@sepanso.org', 16, 'SEPANSO', 51),
-(47, 'DUBUC', 'Dominique', '2695 route de Dax', '', '05 58 47 71 83', '', '', 66, 'Poule landaise : 8 femelles et 1 mâles \r\nPoule gasconne : 7 femelles et 1 mâles \r\nLapin chèvre : 9 femelles et 3 mâles', 52),
-(48, 'VERDON', 'Serge', '10 route Hourtin', '', '05 47 83 93 35', '06 21 28 02 94', '', 67, '', 53),
-(49, 'CRA', 'Avensan', '', '', '', '', '', 68, '', 54),
-(50, 'CRA', 'Batejin', '', '', '', '', '', 76, '', 55),
-(51, 'CRA', 'Hourtin', '', '', '', '', '', 69, '', 56),
-(52, 'MARAIS', 'CISSAC', '', '', '05 56 91 33 65', '', 'sepanso33@sepanso.org', 73, 'SEPANSO', 59),
-(53, 'FDC', '40', '111 chemin de l\'Herté - BP10', '', '05 58 90 18 69', '', 'contact@fdc40.fr', 75, '', 65),
-(54, 'PARC', 'Floral', 'Avenue de Pernon', '', '05 56 00 66 00', '', '', 173, '', 66),
-(55, 'SAINTE', 'Hélène', '', '', '', '', '', 77, '', 67),
-(56, 'BARBAN', 'Jean-François', 'Barré, 5 Le Bourg Est', '', '05 56 65 13 85', '', 'jean-françois.barban@orange.fr', 78, 'Poules landaise : 17 femelles et 2 mâles', 68),
-(57, 'CHAINTIOU', 'Sylvia', '4 Lhoste Sud', '', '05 56 62 46 39', '06 78 94 14 04', 'sylvia.chaintiou@orange.fr', 79, 'Poule landais : 6 femelles et 1 mâl\r\nPoule gasconne : 6 femelles et 1 mâl\r\nDindon gascon : 4 femelles et 2 mâles', 69),
-(58, 'CHARRIE', 'Eric', 'Corbieres', '', '', '', '', 80, '', 70),
-(59, 'LE NOHAIC', 'Philippe', '1 Kerglas Bian', '', '02 96 43 63 50', '', '', 81, '', 71),
-(60, 'NABOS', 'Pierre', 'Village', '', '05 62 69 41 91', '06 46 41 56 14', 'pierre.nabos@hotmail.fr', 82, 'Poule gasconne : 7 femelles et 1 mâl\r\nDindon gascon : 4 femelles et 1 mâl\r\nLapin chèvre : 4 femelles et 1 mâle', 72),
-(61, 'MASSOUBRE', 'Dominique', 'Leyssart', '', '06 76 65 30 08', '05 57 49 62 82', '', 83, '', 73),
-(62, 'AIME', 'Sylvain', 'Urriola', 'Quartier Egiptoa \r\n(Auriolle pour exploitation)', '06 20 22 76 34', '', '', 84, '', 74),
-(63, 'ARRIEULA', 'Jean-Bernard', '71 route d Angos', '', '05 59 33 82 33', '', '', 85, '', 75),
-(64, 'ARRIUBERGE', 'Jean-Pierre', '3 Impasse Joge', 'Quartier Fontaines', '05 59 34 92 06', '06 79 53 86 97', '', 86, '', 76),
-(65, 'BLANCEY', 'Maxime', 'Chemin Salie', '', '05 59 81 17 82', '06 29 15 68 55', '', 87, '', 77),
-(66, 'BARAILLE', 'Andre', '160 Cami Deu Gua', '', '05 59 33 24 33', '', '', 88, '', 78),
-(67, 'BAYLAUCQ', 'Bruno', 'Rue d Ayguebere', '', '', '', '', 89, '', 79),
-(68, 'BERNATAS', 'Jean-Bernard', '13 avenue du Pic du Midi', '', '', '', '', 90, '', 80),
-(69, 'BERROGAIN', 'Nicolas', 'Chemin des Cretes', 'Parlayou', '05 59 34 34 78', '', '', 91, '', 81),
-(70, 'BETBEDER', 'Roger', '', '', '05 59 34 44 96', '', '', 92, '', 82),
-(71, 'BEUDOU', 'Claude', 'Route Athas', 'Quartier l Estremeau', '', '', '', 93, '', 83),
-(72, 'BLAYE', 'Michel', 'Maison Felisse', 'Quartier Rachù', '05 59 34 45 56', '', '', 94, '', 84),
-(73, 'BOCHER', 'Franck', 'Maison Mestejean, 375 chemin de Pouts', '', '', '', '', 95, '', 85),
-(74, 'BONNECAZE', 'Marcel', 'Le Bourg', '', '05 59 38 05 45', '', '', 96, '', 86),
-(75, 'BORDEGARAY', 'Pierre', 'Chemin de Soumsus', '', '05 59 34 43 00', '06 88 48 34 18', '', 97, '', 87),
-(76, 'BOURDET', 'Gisele', 'Quartier Marquesouquère', '', '05 59 34 35 89', '', 'bourdet.gisele@wanadoo.fr', 91, 'Poule gasconne : 1 mâle', 88),
-(77, 'BURS-ESCARY', 'Bernadette', 'Haoure, route Barlanes', '', '05 59 34 68 13', '06 87 51 99 02', 'burs.bernadette@wanadoo.fr', 98, '', 89),
-(78, 'CASANAVE-LAULIVE', 'Germain', 'Quartier Lacrouts', '', '05 59 34 44 32', '', '', 99, '', 90),
-(79, 'CAZABIELLE', 'Laurent', '17 route du Bourg', '', '', '', '', 100, '', 91),
-(80, 'CAZALA', 'Serge', '1350 Chemin de Mative', '', '', '', '', 88, '', 92),
-(81, 'CIMORRA', 'Marie et Bernard', 'Chemin de Gabarn, Percilhon', '', '05 59 39 99 58', '', '', 101, 'Poule gasconne : 14 femelles et 2 mâles', 93),
-(82, 'DELAS et CIMORRA', 'Gilles et Genevieve', '', '', '07 86 43 84 98', '', 'gilles.delas@yahoo.fr', 102, '', 94),
-(83, 'DIES', 'Frederic', '4 Rue du Pont de Salles', '', '', '', '', 86, '', 95),
-(84, 'DOMENGUEUS', 'Bertrand', '', '', '', '', '', 103, '', 96),
-(85, 'DOMENGUEUS', 'Jean-Marc et Marie-Claude', 'Le Bourg', '', '05 59 34 72 78', '06 73 80 35 68 / 06 86 80 56 47', '', 99, '', 97),
-(86, 'CAMOU JUNCA', 'Eric', '', '', '', '', '', 92, '', 98),
-(87, 'FAURIE', 'Pierre', 'Maison Bat', '', '05 59 34 72 25', '', '', 104, '', 99),
-(88, 'FORTON', 'Yoanna', 'Maison Trebuc, Route de Pessaron', '', '', '', 'yoyo-eh@hotmail.Fr', 105, '', 100),
-(89, 'FOURTICQ TIRET', 'Fabien', 'Chemin de Bernateix', 'Domaine Castagnouse', '', '', 'fabienfourticq@orange.fr / mmendiburu64@gmail.com', 91, '', 101),
-(90, 'GAEC', 'de la Portera', '1 Chemin des forges', 'Quartier Pedehouart 15', '', '', '', 106, 'Exploitation : Pedehouart, 64260 LOUVIE JUZON', 102),
-(91, 'GAEC', 'du Bouchet', 'Maison Peset', 'Quartier Bourdes', '', '', '', 107, '', 103),
-(92, 'GAILLARD et REID', 'Jean-François et Caroline', 'Mailhos', 'Quartier Lasbordes', '05 24 37 18 01', '06 46 04 32 83', 'cjfgaillard@gmail.com', 108, '', 104),
-(93, 'GUEDOT', 'Gédric', '6 Chemin Derriere le Pic', '', '05 59 05 54 15', '', '', 109, '', 105),
-(94, 'HATOIG CASTERA', 'Michel', 'Quartier Bosdapous', '', '05 59 34 55 77', '', '', 110, '', 106),
-(95, 'HELBO', 'Sandrine et David', '31 Chemin Lapoudge', '', '', '', '', 111, '', 107),
-(96, 'HOURQUEIG', 'Daniel', '3 Chemin de Pujoo', '', '05 59 05 81 13', '', '', 112, '', 108),
-(97, 'LABORDEBOY', 'Jean-Louis', '7 Rue Plaine', '', '', '', '05 59 39 88 46', 113, '', 109),
-(98, 'LACOSTE', 'Jean-Louis', 'Domaine Nigri, Candeloup', '', '05 59 21 42 01', '06 75 79 95 22', 'domaine.nigri@wanadoo.fr', 114, '', 110),
-(99, 'LAGOUARDETTE', 'Jean-Pierre', 'Pereuilh, 20 route de la Marie', '', '05 59 66 57 73', '', '', 115, '', 111),
-(100, 'LAHITETTE', 'Jantet', 'Chemin de la Viele', '', '05 59 39 64 13', '06 89 68 57 73', '', 93, '', 112),
-(101, 'LANDA', 'Cédric et Francette', '8 bis, Rue de Beuste', '', '05 59 04 14 02', '06 84 77 42 34', '', 116, '', 113),
-(102, 'LANNE', 'Gerard', 'Quartier Rache', '', '05 59 34 44 29', '', '', 94, '', 114),
-(103, 'LANNE TOUYAGUE', 'Jean-Bernard', '', '', '05 59 68 03 10', '', '', 117, '', 115),
-(104, 'LARRAGNAGUA', 'Frédéric', 'Maison Kakoa, Ainhard', '', '', '', '', 118, '', 116),
-(105, 'LARRE', 'Emmanuel', 'SCEA du Faget', '', '05 59 39 72 71', '', '', 119, '', 117),
-(106, 'LAUGA', 'Grégoire', 'Choho', '', '', '', '', 120, '', 118),
-(107, 'LES BERGERES GAEC', '', '66 Route du Col du Soulor', '', '', '', '', 121, '', 119),
-(108, 'LESCLOUPE', 'Martine', '1 Chemin de Picas', '', '', '', '', 48, '', 120),
-(109, 'LOUSTAU', 'Laurent', 'Le Bourg', '', '', '', '', 122, '', 121),
-(110, 'LOUSTAU', 'Remi', 'Quartier Moulaprat', '', '05 59 82 66 37', '', '', 122, '', 122),
-(111, 'Lycée Professionnel Agricole', 'Oloron St Marie', '1051 Route du Gave d , SoeixAspe', '', '05 59 36 38 61', '06 19 40 21 06', 'mathilde.poivre@educagri.fr', 123, 'Mathilde POIVRE\r\nEmmanuel LARRE', 123),
-(112, 'MAIGRE', 'Olivier', 'Bexka', '', '06 60 98 09 64', '', 'oliviermaigre@orange.fr', 124, 'Poule gasconne : 40 femelles et 7 mâles \r\nDindon gascon : 10 femelles et 8 mâles', 124),
-(113, 'MALEIG', 'Marcel', '24 Rue Oustalots', '', '05 59 39 89 33', '06 76 84 66 75', '', 123, '', 125),
-(114, 'MAUPEU', 'Hervé', 'Route de Rebenacq', 'Ferme Toujaga', '05 59 32 76 93', '', '', 125, '', 126),
-(115, 'MAYSTROU', 'Joel', '10 Chemin des Labasserre', '', '', '', '', 112, '', 127),
-(116, 'MINVIEILLE BAYLE', 'Thierry', 'Quartier Angos', '', '05 59 33 84 18', '', '', 85, '', 128),
-(117, 'MIRAMON', 'Michel', '521 Chemin du Pond Noir St Pee', '', '', '', '', 123, '', 129),
-(118, 'MONTREJAU', '', 'Maison Montregeau', '', '', '', '', 108, '', 130),
-(119, 'MORA', 'Bernard', '216 Rue du Gave, Arros', '', '05 59 39 24 52', '06 74 31 45 78', '', 126, '', 131),
-(120, 'MURCUILLAT', 'Jean-Yves', 'EARL Machtera', '', '05 59 36 08 84', '', '', 127, '', 132),
-(121, 'PAROIX', 'Joseph', 'Plateau du Benou', 'Maison Baget, Quartier Arrouste', '05 59 82 64 24', '06 38 58 14 74', '', 128, '', 133),
-(122, 'PRETOU', 'Patrick', 'Quartier Rache', '', '05 59 34 44 77', '06 85 75 40 60', '', 94, '', 134),
-(123, 'PUCHIN', 'Jean-Baptiste', 'Chemin Casanaube', '', '05 59 34 60 37', '06 85 75 40 60', '', 98, 'Adresse 2 : Ferme Oscamou, Quartier Vic Debat, 64570 Arette', 135),
-(124, 'PUJALET', 'Patrick', 'Beon', '', '', '', '', 122, '', 136),
-(125, 'ROUSSEU', 'François', 'Maison Lachicane, Quartier Barenne', '', '', '', '', 127, '', 137),
-(126, 'SOMPS BARADAT', 'Raphael', 'Chemin de Lapoutge', '', '05 59 13 86 62', '06 31 83 28 66', '', 129, '', 138),
-(127, 'VIGNAU LANNE', 'Claude', 'La Mairie', '', '06 71 08 18 82', '', '', 130, '', 139),
-(128, 'CAP', 'Michel', '741 Route de Reis', '', '05 62 31 52 18', '06 81 53 92 35', '', 131, '', 140),
-(129, 'CASSOU', 'André', 'Les Angles', '', '', '', '', 132, '', 141),
-(130, 'DOCHE ET FILS', '', '727 Chemin de la Fiance', '', '', '', '', 133, '', 142),
-(131, 'BOURGEOIS', 'Nicolas', 'Cité du Lac', '', '', '', '', 134, 'Chez Mme BOURGEOIS Emmanuelle\r\nExploitation : Hameau Listo, 64440 LOUVIE SOUBIRON', 143),
-(132, 'ARMENGAUD', 'Simon', 'Puech Amant', '', '05 63 72 10 27', '06 84 28 78 33', '', 135, 'Poule gasconne : 6 femelles et 1 mâle', 144),
-(133, 'BOUYSSOU', 'Jean-Pierre', 'Parc vision de Gramat', '', '05 65 38 81 22', '06 33 24 94 52', 'gramat.parc.animalier@wanadoo.fr', 136, 'Poule gasconne : 5 femelles et 1 mâle', 145),
-(134, 'CHAINEAUD', 'Ange', 'Allée des castors', '', '07 77 28 42 86', '', 'ferme-barbanne@mairie-libourne.fr', 137, 'Poule landaise : 15 femelles et 2 m�\r\nPoule gasconne : 4 femelles et 2 m�\r\nDindon gascon : 5 femelles et 5 m�\r\nLapin chèvre : 3 femelles et 2 mâles', 146),
-(135, 'BONNEAUD', 'Guy', 'Les Jardins du Broy', '4 Broy Sud', '05 56 25 74 46', '', 'visa.vies@yahoo.fr', 138, 'Poule gasconne : 14 femelles et 2 mâles\r\nMouton : Animaux placés chez Mr Jeanson pour le moment, ne savent pas s\'ils vont les récupérer', 147),
-(136, 'CANDELON', 'Bernard', '28, Lieu dit Au Village', '', '05 62 28 63 22', '06 83 08 90 93', '', 139, 'Poule gasconne: 3 femelles et 1 mâles\r\nDindon gascon : 3 femelles et 1 mâles', 148),
-(137, 'COSSOU', 'Benjamin', '3 route de l Ageline', '', '06 65 11 68 56', '', 'benj1ccs@hotmail.com', 140, 'Poule gasconne : 15 femelles et 5 mâles', 149),
-(138, 'CHARRETEUR', 'Thierry', 'Jardin de Noé', '', '05 53 64 43 27', '06 88 23 07 38', 'thierry@jardindenoe.fr', 141, 'Poule landaise : 2 femelles', 150),
-(139, 'CHAMBOLLE', 'Christophe', 'Fernot', '', '05 53 01 28 85', '', 'christophe.chambolle@laposte.net', 142, 'Poule landaise : 12 femelles et 5 mâles', 151),
-(140, 'COUTARD', 'Jean', 'Chez Bedochaud', '', '05 46 48 36 85', '', '', 143, 'Lapin chèvre : 15 femelles et 6 mâles', 152),
-(141, 'DULOUT', 'Joel', '6 rue Ricalis', '', '05 62 96 51 08', '', '', 144, 'Poule gasconne : 10 femelles et 2 mâles', 153),
-(142, 'DUCAZEAU', 'Frédéric', 'Asimerie de Pierretoun', 'Quartier Pessarou', '05 59 31 58 39', '06 37 85 02 50', 'contact@pierretoun.fr', 145, 'Lapin chèvre : 1 femelle et 1 mâle', 154),
-(143, 'ESTRADE', 'Camille', '22 rue Grangier', '', '05 56 25 68 45', '', 'camille@zone-r.org / zone.r@free.fr', 30, 'Poule landaise : 26 femelles et 5 mâles', 155),
-(144, 'FAGOT', 'Christian', 'Jouan Belis', '', '05 58 51 49 24', '06 70 92 21 09', 'fagotchristian@orange.fr', 146, 'Poule gasconne : 20 femelles et 3 mâles \r\nLapin chèvre : 3 femelles et 1 mâles', 156),
-(145, 'FORGET', 'Samuel', 'Erets', '', '06 23 42 18 93', '', 'samuel.forget@gmail.com', 147, 'Lapin chèvre : 5 femelles et 3 mâles', 157),
-(146, 'GRAUBY', 'Daniel', '3 chemin des bouichous', '', '04 68 69 30 48', '', '', 148, 'Poule gasconne : 20 femelles et 2 mâles', 158),
-(147, 'GAUTIER', 'Jean-Marie', 'Pouchet', '', '06 20 81 41 67', '', '', 149, 'Poule landaise : 40 femelles et 7 mâles', 159),
-(148, 'GINTRAND', 'Jean Claude', 'Les bousquet', '', '06 82 33 12 98', '', '', 150, 'Dindon gascon : 20 femelles et 10 mâles', 160),
-(149, 'GEOFFROY', 'Agnès', 'Chemin de Ligal', '', '05 53 06 98 75', '06 72 78 84 01', 'agnes.drevet0114@orange.Fr', 151, 'Lapin chèvre : 4 femelles et 1 mâle', 161),
-(150, 'HARGUES', 'Régis', 'Lieu dit Aux Quatre Vents', '', '06 48 05 78 42', '', 'rhargues@fdc40.fr', 152, 'Poule gasconne : 7 femelles et 1 mâle\r\nDindon gascon : 5 femelles et 1 mâle', 162),
-(151, 'LEROUX', 'Jean-Louis', '32 chemin de Marge', '', '09 62 59 40 66', '', '', 153, 'Lapin chèvre :4 femelles et 1 mâle', 163),
-(152, 'Ecomusée de Marquèze', '', 'Route de la Gare', '', '05 58 08 31 31', '', 'ecomusee-marqueze@parc-landes-de-gascogne.fr', 154, 'Poule landaise : 40 femelles et 6 mâle\r\nLapin chèvre : 1 femelle', 164),
-(153, 'MAIGRE', 'Guy', 'Lassalle', '', '05 56 72 75 45', '', '', 155, 'Poule gasconne : 5 femelles et 1 mâle \r\nDindon gascon : 10 femelles et 3 mâles', 165),
-(154, 'MAURICE', 'Laurent', '39 chemin de Treuil Duval', '', '05 46 97 04 41', '', '', 157, 'Lapin chèvre : 2 femelles et 1 mâle', 166),
-(155, 'MOINE', 'Epoux', '4 chemin de la Fontaine Merlot', '', '05 49 07 88 90', '', 'jacme79@orange.fr', 158, 'Lapin chèvre : 6 femelles et 3 mâles', 167),
-(156, 'ORTUSI', 'Isabelle', 'Domaine de Jarry', '', '06 03 48 03 97', '', 'iortusi@yahoo.fr', 159, 'Poule gasconne : 150 femelles et 20 mâles', 168),
-(157, 'PAUQUET', 'Epoux', 'Lieu-dit Le Passage', '', '05 53 94 45 68', '', '', 160, 'Poule gasconne : 2 femelles', 169),
-(158, 'RABEISEN', 'Jean-Jacques', 'Les graves, 191 avenue de Labarde', '', '05 56 69 72 11', '06 22 28 90 19', '', 161, 'Poule gasconne : 7 femelles et 4 mâles', 170),
-(159, 'ROUAIX', 'Jean-Pierre', 'Ham Cazeau', '', '05 61 66 75 23', '', '', 162, 'Poule gasconne : 6 femelles et 2 mâles', 171),
-(160, 'RIHOUX', 'Epoux', '548 route de la Lande', '', '05 58 56 02 59', '06 44 15 92 13', '', 163, 'Poule landaise : 4 femelles et 1 mâle', 172),
-(161, 'CASAZZA', 'Anna', 'Moussinot', '', '06 62 08 68 28', '', 'contact@terredesorigines.com', 165, 'Poule landaise : 6 femelles et 1 m�\r\nPoule gasconne : 10 femelles et 1 m�\r\nDindon gascon : 1 femelle et 1 m�\r\nLapin chèvre : 1 femelle et 1 mâle', 173),
-(162, 'RICHER', 'François', 'Laboria, 1890 route de Grenade', '', '06 16 44 47 03', '', 'laboriablog@free.fr', 166, 'Poule gasconne : 12 femelles et 2 mâles', 174),
-(163, 'SARRAUTE', 'Bernard', 'Rue du Barry', '', '06 83 27 79 96', '', '', 167, 'Poule gasconne : 40 femelles et 20 mâles', 175),
-(164, 'SOLEILHAC', 'Jean-Jacques', '1 chemin des Greloux', '', '09 51 09 00 04', '', 'jjs9124@netc.fr ; JJS9224@4mail.com', 168, 'Poule landaise : 6 femelles et 3 mâle\r\nDindon gascon : 3 femelles et 1 mâle', 176),
-(165, 'SENAC', 'Francis', '11 rue Escondeaux', '', '05 62 31 19 60', '', '', 169, 'Poule gasconne : 5 femelles et 3 mâles', 177),
-(166, 'VENTRIBOUT', 'Régis', '1, Coulim', '', '05 56 25 04 05', '06 78 95 67 52', '', 170, 'Poule landaise : 15 femelles et 5 mâle\r\nLapin chèvre : 1 femelle et 1 mâle', 178),
-(167, 'RAYMOND', 'Henri', '', '', '05 61 69 81 04', '', '', 171, 'Dindon gascon : 12 femelles et 3 mâles', 179),
-(168, 'FIEVET', 'Barbara', '31 Avenue de Bellevue', '', '05 56 34 27 45', '', 'fermemerignac@free.fr', 21, 'Dindon gascon : 1 femelle et 1 mâle', 180),
-(169, 'Parc cimetière Artigues', '', 'Avenue du Peyrou', '', '', '', '', 172, '', 181),
-(170, 'ARRETCHE', 'Alphred', 'Esnazuko bidea', '', '0675022584', '', '', 174, '', 182),
-(171, 'LARRALDE', 'Ignace', 'Etcekoborda', '', '05 59 29 99 52', '', '', 175, '', 183),
-(172, 'LAGARDE', 'Laurent', 'Etxexuriko Borda quart Rokos', '', '05 59 29 81 13', '', 'lagarde_laurent@sfr.fr', 175, '', 184),
-(173, 'FALXA', 'Jean-Michel', 'Olhaberrieta', '', '05 59 37 42 19', '', '', 176, '', 185),
-(174, 'ELISSALDE', 'Christophe', 'Halty', '', '06 66 99 21 00', '', '', 177, '', 186),
-(175, 'EYHERABIDE', 'Christophe', 'Anxaronxa, Quatier Bassebour', '', '06 66 72 67 07', '', '', 177, '', 187),
-(176, 'JAUREGUI', 'Ramuntxo', '30 Merkatu Plaza', '', '05 59 59 52 08', '', '', 177, '', 188),
-(177, 'OLAIZOLA', 'Panpi et Leire', 'Belazkabieta Etxeberria', '', '06 08 78 31 96', '', 'gaecbelazbieta@gmail.com', 177, '', 189),
-(178, 'DURRUTY', 'Gabriel', 'Panixtonia', '', '06 12 15 85 82', '', 'panixka@yahoo.fr', 178, '', 190),
-(179, 'ETCHART', 'Xavier et Maider', 'Makolatea', '', '05 59 29 50 93', '', 'makolatea@gmail.com', 178, '', 191),
-(180, 'LASSALLE', 'Jean', 'Enseigne bidea', '', '05 59 29 55 55', '', '', 178, '', 192),
-(181, 'FALXA-LARRABURU', 'Dominique', 'Maison Santa Maria quart Plaza', '', '05 59 37 98 09', '', '', 179, '', 193),
-(182, 'AYNETO', 'Christian', 'Route de l église', '', '05 59 42 68 90', '', '', 181, '', 195),
-(183, 'IRIQUIN', 'Jean-Paul', 'Olasur Etcheberria', '', '06 20 23 04 26', '', 'iriquin.jpm@orange.fr', 181, '', 196),
-(184, 'TEILLERIE', 'Jean Baptiste', 'Xudurenea', '', '', '', '', 181, '', 197),
-(185, 'LIGEIX', 'Michel', 'Salagoiti', '', '', '', '', 182, '', 198),
-(186, 'ERRANDONEA', 'Pettan', 'Ainesseneko Borda', '', '06 23 74 33 34', '', 'pattanerrando@hotmail.fr', 183, '', 199),
-(187, 'GUERENDIAIN', 'Raphaël', 'Aiztiburua', '', '06 15 06 89 51', '', '', 183, '', 200),
-(188, 'LAMOTHE', 'Jean', 'Katienborda', '', '', '', '', 183, '', 201),
-(189, 'GOYTY', 'Xabi', '11 Carrele del baus', '', '06 88 15 39 61', '', 'xabi.goyty@yahoo.fr', 184, '', 202),
-(190, 'MARCILLAC', 'Lucie', 'EHLG, Maison Zuentzat', '', '05 59 37 18 82', '', 'lucie.ehlg@orange.fr', 185, '', NULL),
-(191, 'ALZUGARAY', '', '', '', '', '', '', 186, '', 203),
-(192, 'ARRETCHE', 'C.', '', '', '', '', '', 176, '', 204),
-(193, 'DE OREGUY', '', '', '', '', '', '', 187, '', 205),
-(194, 'ETCHAMENDY', '', '', '', '', '', '', 188, '', 206),
-(195, 'MATEO', '', '', '', '', '', '', 189, '', 207),
-(196, 'RECARTE', '', '', '', '', '', '', 174, '', 208),
-(197, 'Bordeaux Sciences Agro', '', '1 cours du Général de Gaulle', '', '', '', '', 156, '', 209),
-(198, 'GIRAUD', 'Catherine', 'Chourdens', '', '06 20 68 78 46', '', 'fermedechourdens@gmail.com', 190, '', 210),
-(199, 'HECQUET', 'Paul', 'Château de Rodié', '', '05 53 40 89 24', '06 72 61 69 43', 'mail@chateauderodie,com', 191, 'Portable : Suzanne', 211),
-(200, 'LEMBEYE', 'Guy', '17 Gémelhan', '', '05 56 58 57 05', '', '', 77, '', 212),
-(201, 'BRAUD ET ST LOUIS', 'Site', '120 avenue du Port de Roy', '', '', '', '', 15, 'Isabelle Maille', 213),
-(202, 'VAUCOULOUX', 'Delphine', 'Pinchaou, 1497 chemin des 4 carrères', '', '06 70 12 35 61', '', '', 192, '', 214),
-(203, 'PARC BORDELAIS', '', 'Rue du Bocage', '', '', '', '', 173, '', 215),
-(204, 'DEGUINE', 'Alain', '5 rue de la Porte d\'Uzan', '', '06 73 87 55 09', '', 'deguinea@wanadoo.fr', 193, '', 216),
-(205, 'MAGESTE', 'Paul', '6 rue Pierre et Marie Currie', '', '05 58 46 56 80', '', '', 194, '', 217),
-(206, 'JEGO', 'Jean-Yves', 'Les Farges', '', '05 53 80 53 86', '', 'canardou@wanadoo,fr', 195, 'N\'a plus de moutons', NULL),
-(207, 'LYPHOUT', 'Eric', 'La rougerie', '', '05 53 50 09 49', '', '', 196, 'Vend son troupeau et garde uniquement quelques brebis pour faire du croisement', 218),
-(208, 'JEANSON', 'Thomas', '3837 route de Mimizan', 'La courgeyre', '05 58 07 34 77', '', '', 197, '', 219),
-(209, 'LAMAUD', 'Emmanuelle', 'Les Granges', '', '05 53 24 67 25', '', '', 198, '', 220),
-(210, 'BARRERE', 'Jean', '75 Boulevard Lapègue', '', '06 26 34 94 76', '', 'barrere.jean@free.fr', 200, '', 221),
-(211, 'MARTIN', 'Luc', 'Lieu-dit PIARRIC', '', '06 24 33 83 27', '', '', 201, '', 222),
-(212, 'DE MONREDON', 'Maylis', 'Bousquès', '', '05 58 06 25 10', '', 'landes.nature@laposte.net', 202, '', 223),
-(213, 'EPIARD', 'Colette', 'Lieu-dit Les Bordes', '', '05 53 83 45 24', '', 'colette.epiard@gmail.com', 203, '', 224),
-(214, 'ARMELLIN', 'Pascal', 'Route de Solférino', '', '', '', 'f.raguenes@parc-landes-de-gascogne.fr', 154, '', 225),
-(215, 'CENTRE ANIMATION du LAC', '', 'Rue du Petit Miot', '', '', '', '', 173, '', 226),
-(216, 'BETIN', 'François', 'Rue André Dupin BP n°1', '', '06 76 98 65 63', '', '', 204, '', 227),
-(217, 'LUQUEDEY', 'Philippe', 'Route de Maillas', '', '05 56 65 62 29 ', '', 'luquedey.ph@hautelande.org', 205, 'N\'as plus de mouton', 228),
-(218, 'DAINE', 'Sabri', 'Logis de la cour', '', '05 45 71 45 33', '06 63 56 73 36', '', 206, '', 229),
-(219, 'LAURETTE', 'Janik', 'Cavalerie', 'Lieu-dit Les Gatineaux', '', '', '', 207, 'INJOIGNABLE', 230),
-(220, 'DINARD', 'Stéphane', 'La Mole', '', '', '', '', 208, 'INJOIGNABLE', 231),
-(221, 'BONNELLE', 'Ludovic', 'Domaine du Pech', '', '', '', '', 209, 'INJOIGNABLE', 232),
-(222, 'TONNERRE', 'Loïc', '153 bis chemin de Lumné', '', '07 62 85 91 42', '', '', 210, '', 233),
-(223, 'JOUBERT', 'Laurent', 'Réserve de la Mazière', '', '06 78 35 05 41', '', '', 141, '', 234),
-(224, 'KPADONOU', 'Valérie', '24 route de Pey de Bordes', '', '06 24 05 26 36', '', 'valerienk@free.fr', 211, '', 235),
-(225, 'LE BIOME', 'PETIT Enrique', '463 chemin des faisans', '', '05 24 28 57 24', '06 28 69 14 77', '', 212, 'Cherche à placer ses moutons 18/03/16', 236),
-(226, 'CHARLET', 'Annika', '360 rue Courbertin', '', '07 60 10 48 49', '', 'caleches.annika@gmail.com', 213, '', 237),
-(227, 'GRATIANNETTE', 'Valérie', '21 bis avenue de la côte d Argent', '', '06 11 74 34 48', '', 'valerie.gratiannette@laposte.net', 76, '', 239),
-(228, 'CORVOISIER', 'Denis', 'Gardit', '', '05 56 65 78 07', '', '', 138, '', 240),
-(229, 'JUBILY', 'Frank', 'Lieu-dit Marahans', '', '06 63 53 49 14', '', 'michele.jubily@live.fr', 205, '', 241),
-(230, 'LEVEQUE', 'Olivier', 'Lieu dit Samson-Est', '', '06 48 15 52 30', '', 'olivier.leveque70@gmail.com', 214, '', 242),
-(231, 'RIFFAUD', 'François-Xavier', '', '', '06 58 97 37 70', '', 'fxriffaud@hotmail.com', 215, '', 243),
-(232, 'PERNET', 'Sabrina (Château Palmer)', 'Issan, Château Palmer', '', '', '', '', 38, '', 244),
-(233, 'RABENEL', 'Epoux', '', '', '06 28 66 69 65', '', '', 216, 'En attente de visite sur site', 245),
-(234, 'LE CORRE', 'Jean-Michel', '', '', '', '', '', 217, '', 246),
-(235, 'CRA', 'Le Porge', '', '', '', '', '', 218, '', 247),
-(236, 'LIBOURNE', '(a supprimer - DOUBLON BARBANNE)', '', '', '', '', '', 137, '', 248),
-(237, 'PARC RENE CANIVENC', '', '53 rue du Moulineau', '', '', '', '', 156, '', 249),
-(238, 'SARL Les écuries de l\'isle', '', '2 Anguieux', '', '0557514146', '', '', 219, '', 250),
-(239, 'PC Bon Air', '', '49 rue de Malbos', '', '', '0611194334', '', 21, '', 251),
-(240, 'UCPA St Médard en Jalles', '', 'Centre équestre château de Belfort-Issac', '', '0556050533', '', '', 220, '', 252),
-(241, 'PC de Rhode', '', 'Domaine de Rhodes', '', '0556724876', '', '', 221, '', 253),
-(242, 'Haras du Pujoulet', '', '21 rue du Pujoulet', '', '', '', '', 40, '', 254),
-(243, 'SARL domaine d\'ourles', '', 'oules', '', '0557462680', '', '', 222, '', 255),
-(244, 'Ecole d\'equitation Kerdoen', '', '849 route du Bayle', '', '05 58 42 74 84', '', '', 223, '', 256),
-(245, 'EARL Heliande', '', '560 rte d\'orthevielle sardeluc', '', '0558891278', '', '', 224, '', 257),
-(246, 'CE Ous Pins', '', 'Route de Rion', '', '0558734465', '', '', 225, '', 258),
-(247, 'SNEV', '', 'La Grace', '', '0553705999', '', '', 226, '', 259),
-(248, 'SCEA de Cassou', '', 'Cap de Bosc', '', '0553654207', '', '', 227, '', 260),
-(249, 'CH de Biarritz', '', 'Allée Gabrielle Dorziat', '', '05 59 23 52 33', '', '', 228, '', 261),
-(250, 'EARL Equipassion Pyrennee', '', '20 Chemin Bois Côte', '', '', '', '', 229, '', 262),
-(251, 'Les Ecuries des Pyrénées (SARL)', '', '20 chemin Bois Côte', '', '0559337171', '', '', 230, '', 263),
-(252, 'EARL Les Ecuries de Vervent', '', 'Vervent', '', '', '0680952414', '', 231, '', 264),
-(253, 'SARL Ecurie de la Foret', '', '900 rte de la Foret', '', '0238355321', '', '', 232, '', 265),
-(254, 'Ecurie Franck Thermeau', '', '30 rue de Montauban', '', '', '0622750360', '', 233, '', 266),
-(255, 'CE Montgeron Equitation', '', '16 av du maréchl foch', '', '0169831582', '', '', 234, '', 267),
-(256, 'Ecuries d\'Attilly', '', 'Route de Servon', '', '', '0662012575', '', 235, '', 268),
-(257, 'SARL Equicrin Olima', '', 'vallon d\'Olima', '', '0329821633', '', '', 236, '', 269),
-(258, 'CH Combelles', '', 'Le Monastère', '', '0565773008', '', '', 237, '', 270),
-(259, 'Ferme Equestre Faron', '', 'Hameau de Bayon RD 48', '', '0442304538', '', '', 238, '', 271),
-(260, 'SARL Guy Trosset', '', 'ch rural de l\'orge', '', '', '', '', 239, '', 272),
-(261, 'AGERON', 'Patrick', 'Kervernir', '', '0297580677', '', '', 240, '', 273),
-(262, 'AMIET', 'Marie-Pierre', '7 route Nationale 117', '', '', '0686410402', '', 241, '', 274),
-(263, 'ARGET', 'Colette', 'Bois de Boulogne', '', '05 58 74 09 15', '', '', 242, '', 275),
-(264, 'ARREDE', 'Maurice', '14 bis chemin de Peyrous', '', '0559821061', '', '', 243, '', 276),
-(265, 'BADOZ', 'Thierry', 'Chemin de Loustau Neuf', '', '0556894752', '', '', 24, '', 277),
-(266, 'BAUDRAND', 'Jean-Paul', 'Haras de Mondesir', '', '05 53 79 09 71', '', '', 244, '', 278),
-(267, 'BECAT', 'Morgane', '17 Route du Lion d\'Or', '', '0557645264', '06 82 90 98 80', '', 55, '', 279),
-(268, 'BEGARDS', 'Eric', 'Maison Grammont', '', '0559563874', '', '', 245, '', 280),
-(269, 'BEGU', 'Jean-Jacques', 'Impasse du moulin de larras', '', '0558982274', '', '', 246, '', 281),
-(270, 'BEGUIN', 'Nathalie', 'PC de la tour', '', '0232559504', '', '', 247, '', 282),
-(271, 'BENEY', 'Laurent', '14B Peyreffite', '', '0556611985', '06 85 29 01 81', '', 248, '', 283),
-(272, 'BEREAU', 'Dominique', 'CE La Cabriole', '', '', '0667430602', '', 249, '', 284),
-(273, 'BOURDENX', 'Elodie', 'CH Dax', '', '05 58 74 09 14', '', '', 250, '', 285),
-(274, 'BOURGEOIS', 'Arnaud', 'Domaine de la Valette', '', '', '07 61 60 60 04', 'arnaud.bourgeois@kalinnova.com', 251, '', NULL),
-(275, 'BOUYRIE', 'Christine', '334 Avenue de l\'Argonne', '', '', '0675896133', '', 21, '', 287),
-(276, 'BOYAVAL', 'Béatrice', 'PC du Parc', '', '0139123108', '', '', 252, '', 288),
-(277, 'BROCAS', 'Francis', 'Cazala', '', '05 58 57 81 69', '', '', 253, '', 289),
-(278, 'BROUCHIER', 'Justine', 'CE du Rouret', '', '0475939869', '', '', 254, '', 290),
-(279, 'BROUSSE', 'Marielle', 'Team Top 82', '', '', '0614223215', '', 255, '', 291),
-(280, 'BRUNO', 'Nadine', 'Le Bosc', '', '0561270074', '', '', 256, '', 292),
-(281, 'CACHAU', 'Jean', 'Quartier JeanBayle', '', '', '0684691353', 'poneysduparc@orange.fr', 257, '', 293),
-(282, 'CAROUR', 'Marie-Béatrice', 'Les Rondeais', '', '0228248098', '', '', 258, '', 294),
-(283, 'CARTIER', 'Alice', 'Attelage du pays d\'ouche', '', '0232431624', '', '', 259, '', 295),
-(284, 'CASSEN', 'Gael', 'Quartier Jean de Paul', '', '', '0628651487', '', 223, '', 296),
-(285, 'CASTAGNET', 'Gérard', '1475 rte du Vimport', '', '0558975447', '', '', 260, '', 297),
-(286, 'CAZENAVE', 'Christiane', '93, rte de Coustaou', '', '0558899045', '', '', 261, '', 298),
-(287, 'CERISY', 'Emmanuel', 'AVSA Ecuries de Trousseau', '', '', '0680406716', '', 262, '', 299),
-(288, 'CHACHOUR', 'Alain', '191 Impasse de Peylin', '', '0558975104', '', '', 263, '', 300),
-(289, 'CHARBONNIER', 'Flavien', 'Pole equestre du lys', '', '', '', '', 264, '', 301),
-(290, 'CIBRAY', 'Corinne', 'Relai de Coco Ci', '', '0534269145', '', '', 265, '', 302),
-(291, 'CLERC', 'Valérie', '148 Route de Caplanne', '', '0558777821', '', '', 266, '', 303),
-(292, 'COIGNET', 'Catherine', 'Chemin de Farnier', '', '0471007792', '', '', 267, '', 304),
-(293, 'COLLIN', 'Rodolphe', 'Club du Poney Landais', '', '', '0620281370', '', 268, '', 305),
-(294, 'CONRIE', 'Laura', '24 allée des coreaux du mousson', '', '', '', '', 269, '', 306),
-(295, 'CONSTANT BRIONES', 'Marie-Christine', '1 domaine de Bafave', '', '0557494686', '', '', 270, '', 307),
-(296, 'DABRYO', 'Juan', 'Allée de Darricau', '', '0558783020', '', '', 271, '', 308),
-(297, 'DALAT', 'Philippe', 'ferme St Ferreol', '', '0562381794', '', '', 272, '', 309),
-(298, 'D ARAGON', 'Antoine', 'Le Château', '', '0563790226', '', 'aurelia.daragon@orange.fr', 273, '', 310),
-(299, 'D AVEZAC DE CASTERA', 'Luc', 'Le château', '', '0558975701', '', '', 274, '', 311),
-(300, 'DEBSKI', 'Maureen', '2 La Barouette', '', '', '0688145602', '', 275, '', 312),
-(301, 'DEFOS', 'Caroline', 'Haras de St Aubin Elevage du Thya', '', '0562083841', '', 'caroline.defos@orange.fr', 276, '', 313),
-(302, 'DELAVIGNE', 'Marie-France', 'Haras de l\'étang rouge', '', '0254833358', '', 'mariefrance.delavigne@akeonet.com', 277, '', 314),
-(303, 'DENEBOUR', 'Pauline', 'Quartier Gaillard', '', '0558071595', '', '', 278, '', 315),
-(304, 'DENIS', 'Alain', '58 Rue Des Petites Nouettes', '', '', '', '', 279, '', 316),
-(305, 'DESBIEYS', 'Bernard', '', '', '', '', '', 280, '', 317),
-(306, 'DESCHAMPS', 'Celia', 'CE La Foret', '', '', '0683566153', '', 281, '', 318),
-(307, 'DESGROPPES', 'Roger', 'Les Parcs', '', '0553524595', '', '', 282, '', 319),
-(308, 'DIZABO', 'Benoit', '192 impasse de Houndouban', '', '0558777623', '', '', 266, '', 320),
-(309, 'DOEN', 'Claude', 'Rte du bayle', '', '0558427484', '', '', 223, '', 321),
-(310, 'DOMENGER', 'Jean-Guy', 'Le Treuilh 750 Chemin de la Basse', '', '0558572583', '', '', 163, '', 322),
-(311, 'DONANON', 'Elisa', 'Manège d\'Aix les bains', '', '0479883567', '', '', 283, '', 323),
-(312, 'DUFAU', 'Thierry', '309 Route du Grand Arrigan', '', '0558980182', '', '', 284, '', 324),
-(313, 'DULFOUR', 'Coralie', 'Ecuries de Trouillas', '', '', '0676853464', '', 285, '', 325),
-(314, 'DUPEYRON', 'Pierre-Paul', '1, Deves Nord', '', '0556595668', '', '', 286, '', 326),
-(315, 'DUPUY', 'Séverine', 'Elevage du Hat', '', '0556253361', '', 'contact@elevage-du-hat.fr', 287, '', 327),
-(316, 'DURANTE', 'Yves', '873 Chemin de Pastou', '', '0558715164', '', '', 288, '', 328),
-(317, 'ESCOFFIER', 'Martine', 'Le Sortin', '', '', '', '', 289, '', 329),
-(318, 'ESPIET MAZOYER', 'Joelle', 'La Devinière', '', '0562094786', '', '', 290, '', 330),
-(319, 'ESSIG', 'Maelya', 'CE du Bois de Maulny', '', '', '0682965040', '', 291, '', 331),
-(320, 'FAGES', 'Adeline', '', '', '', '0678137549', '', 292, '', 332),
-(321, 'FAYET', 'David', 'Ecuries de Verduzan', '', '', '0625428325', '', 293, '', 333),
-(322, 'FERCHAUD', 'Morgane', '"DOMAINE DU PETIT BOIS', 'ROUTE DE PUYNORMAND "', '', '', '0642732205', 294, '', 334),
-(323, 'FERRAS', 'Maeva', 'Ecuries de Bernicot', '', '0562666326', '', '', 295, '', 335),
-(324, 'FLAQUIN', 'Tristan', 'PC de Ste Consorce', '', '0478871688', '', '', 296, '', 336),
-(325, 'FREVAL', 'Nicolas', '430 Rte de bois de Cazere', '', '0468718399', '', '', 297, '', 337),
-(326, 'GAGNEUX', 'Laure', 'Asso sportive todor light', '', '', '0683059128', '', 298, '', 338),
-(327, 'GALLAIS', 'Rose-Anne', 'La Marquisanne', '', '', '0689863231', '', 299, '', 339),
-(328, 'GBUEL', 'Simon', 'Ecurie d\'Emmelo', '', '', '0603408927', '', 300, '', 340),
-(329, 'GIBILARO', 'Marie-Hélène', 'Château de Valbonne', '', '', '', '', 301, '', 341),
-(330, 'GIOVALE', 'Léa', 'Asso les cavaliers du petit soleil', '', '', '0674862014', '', 302, '', 342),
-(331, 'GODEC', 'Carine', 'Le Ménil St Michel', '', '0383267338', '', 'contact@le-menil-st-michel.fr', 303, '', 343),
-(332, 'GOMBAUD SAINTONGE', 'Marie-Laure', 'NECA', '', '', '0660270838', '', 304, '', 344),
-(333, 'GRANGETEAU DUCONGE', 'Florence', 'Ecurie de Flore', '', '', '0637357734', '', 305, '', 345),
-(334, 'GUERIN', 'Victoria', 'Compet en Fleche', '', '', '0683178179', '', 306, '', 346),
-(335, 'GUIGEN', 'Léna', 'Le shet landes', '', '0558722683', '', '', 307, '', 347),
-(336, 'GUITTON', 'Ronan', 'Ecurie du montois', '', '', '0607034072', '', 308, '', 348),
-(337, 'GUITTON', 'Jeannick', '43 rue de Montfort les granits', '', '0243767483', '', '', 309, '', 349),
-(338, 'HAAS', 'Eric', 'Domaine de Las Peyres Route de Tosse', '', '0558774482', '', '', 310, '', 350),
-(339, 'HARNIEH', 'Maryse', 'Ecurie Ty Fulenn', '', '', '0683025718', '', 311, '', 351),
-(340, 'HAURET', 'Daniel', 'CE Ous Pins', '', '0558734465', '', '', 225, '', 352),
-(341, 'HENON', 'Alain', '32, Quinquies Belle Etoile', '', '0238923331', '', '', 312, '', 353),
-(342, 'HENRION', 'Anne-Marie', 'Talon', '', '0558570183', '', '', 313, '', 354),
-(343, 'HERMAL', 'Sébastien', '6 ruelle demennemey', '', '0329522803', '', '', 314, '', 355),
-(344, 'HUCHET', 'Michel', 'La Peutoire', '', '0243708623', '', '', 315, '', 356),
-(345, 'HUDELLE', 'Rea', 'Equi libre 19', '', '', '', '', 316, '', 357),
-(346, 'JEANNE', 'Françoise', 'Le Rivage', '', '0233715357', '', '', 317, '', 358),
-(347, 'JEANSON', 'Marie', '1343 Chemin de Lio', '', '05 58 42 42 88', '', 'grandlio@orange.fr', 223, '', 359),
-(348, 'JOUANNEAU', 'Déborah', '36 rue Lulli', '', '0169922236', '', '', 318, '', 360),
-(349, 'KUSSWIEDER', 'Laurence', '26 rue de la folie', '', '0387257010', '', '', 319, '', 361),
-(350, 'LABENNE', 'Pierre', 'Tasteut', '', '0558975560', '', '', 260, '', 362),
-(351, 'LABOIS', 'Annie', 'les verneres brenne', '', '0254363903', '', '', 320, '', 363),
-(352, 'LACROIX', 'Jean-Baptiste', '546, rte du Berceau', '', '0558899189', '', '', 261, '', 364),
-(353, 'LAFITTE', 'Claude', '258 Rte de Paregot', '', '', '', '', 321, '', 365),
-(354, 'LAFONT', 'Christelle', 'Quart Laulhé', '', '', '0619454064', '', 322, '', 366),
-(355, 'LAJUS', 'François', '19 rue Bosquet', '', '', '', '', 194, '', 367),
-(356, 'LALANDE', 'Philippe', 'Le grand Aunay', '', '', '0620271395', '', 323, '', 368),
-(357, 'LARTIGAU', 'Georges', 'Le Barthote', '', '0558577289', '', '', 324, '', 369),
-(358, 'LASSERRE', 'Alain-Pierre', 'Route de Lourgon Parcaou', '', '0558573661', '', '', 325, '', 370),
-(359, 'LAVIELLE', 'Jean-Louis', 'Rte de St Geours', '', '', '', '', 326, '', 371),
-(360, 'LE DEZ', 'Fabienne', 'Lieu-dit Peli', '', '0559454554', '', '', 327, '', 372),
-(361, 'LEBARQUE', 'Patrice', 'PC La Houssaye', '', '0130420599', '', '', 328, '', 373),
-(362, 'LELEU', 'Victor', 'Ecurie du haras du bosc', '', '', '0681555474', '', 329, '', 374),
-(363, 'LEROY', 'Camille', 'Asso Caval Passion', '', '', '0676168694', '', 330, '', 375),
-(364, 'LESCLAUX', 'Corinne', '490 Rte Lande de Mouillerat', '', '0558975456', '', '', 260, '', 376),
-(365, 'LIGNEAU', 'Jean-Claude', '1 Rte d\'auch', '', '0562980342', '', '', 331, '', 377),
-(366, 'MAGNOUX', 'Mélanie', 'Le cheval autrement', '', '', '0603530791', '', 332, '', 378),
-(367, 'MAIGNON', 'Isabelle', 'Chartres sports Equestres', '', '0237301010', '', '', 333, '', 379),
-(368, 'MAINBOURG', 'Camille', 'PC de la tour', '', '0232559504', '', '', 247, '', 380),
-(369, 'MALANDAIN', 'Claire', 'CE le Mollard', '', '0477837172', '', '', 334, '', 381),
-(370, 'MATHEVET', 'Claire', '12 Allée de l\'Octroi', '', '06 76 48 51 46', '', '', 335, '', 382),
-(371, 'MAZE', 'Erell', '1150 route de Sore', '', '0558089654', '', '', 336, '', 383),
-(372, 'MEMHELD', 'Viviane', 'La lunoterie', '', '0549857409', '', '', 337, '', 384),
-(373, 'MERLET', 'Robert', 'Bourdeton', '', '0558893230', '', '', 338, '', 385),
-(374, 'MICOULEAU', 'Marie', 'Asso Cheval Nature', '', '0467371308', '', '', 339, '', 386),
-(375, 'MIRAMONT', 'Alexia', '502 route des Vignes', '', '', '0615365225', 'antega.alexia@gmail.com', 340, '', 387),
-(376, 'MOEN', 'Peder', 'Château Pimbo', '', '0559660851', '', '', 341, '', 388),
-(377, 'MONTEIL', 'Véronique', 'Ferme Equestre de Peylin', '', '0558975104', '', '', 260, '', 389),
-(378, 'MORAUD', 'Carole', 'PC de Digny Ste Fraize', '', '0237379400', '', '', 342, '', 390),
-(379, 'MOREAU', 'Alain', 'EE du Menuse', '', '0558777821', '', '', 266, '', 391),
-(380, 'MOULIN', 'Yves', 'CH Domaine du rouret', '', '0475939860', '', '', 343, '', 392),
-(381, 'NAROLLES', 'Alix', 'Ecutie Narolle', '', '0546041655', '', '', 344, '', 393),
-(382, 'NEIL', 'Richard', 'Attelage du pays d\'ouche', '', '0232431624', '', '', 259, '', 394),
-(383, 'N GOM', 'Lisa', 'Narbonne Equitation', '', '0468490002', '', '', 345, '', 395),
-(384, 'OXIBAR', 'Isabelle', '103 allée des boissandières', '', '', '', '', 346, '', 396),
-(385, 'PASQUINE', 'Dominique', 'Haras de Saeeabouze', '', '0562947909', '', '', 347, '', 397),
-(386, 'PECQUEUX', 'Julie', '', '', '', '', '', 123, '', 398),
-(387, 'PEILHO BROCAS', 'Marie-José', '1151, route du braou', '', '0558578169', '', '', 253, '', 399),
-(388, 'PERRON', 'Paule', 'CE Le Benquet', '', '0562089611', '', '', 276, '', 400),
-(389, 'PLANTE', 'Reine', '210 Rte de Bardos', '', '0558577149', '', '', 348, '', 401),
-(390, 'PLANTE', 'Véronique', '100 rte de la Pierrelongue', '', '0558577360', '', '', 349, '', 402),
-(391, 'POITEVIN', 'Jackie', 'La vieille cour', '', '0241425280', '', '', 350, '', 403),
-(392, 'PONTRUCHE', 'Axel', 'Ecurie Lionel Huc', '', '', '0661621279', '', 351, '', 404),
-(393, 'PORTEAUD', 'Olivier', 'La font des Loges', '', '0557647309', '', '', 352, 'jolie du bercail 97053494 W ondine de cotaire', 405),
-(394, 'PRAT COYE', 'Patricia', '', '', '', '', '', 353, '', 406),
-(395, 'PUSSAC', 'Jean-Charles', '19, av de la Bourboule', '', '', '', '', 354, '', 407),
-(396, 'QUETELART', 'Chrystele', 'Domaine des 3pins la Colle', '', '0240878108', '06 16  61 06 57', 'chrytele.quetelart@hotmail.fr / contact@lesecuriesdelarros.fr', 268, '', 408),
-(397, 'RAHAIN', 'Aurélie', 'Pyrène elevage', '', '0559614896', '', '', 355, '', 409),
-(398, 'RAYO', 'Sophie', 'CE La Vallée des Bois', '', '', '0614956118', '', 356, '', 410),
-(399, 'RESTE', 'Céline', 'Houriettes', '', '', '', '', 284, '', 411),
-(400, 'ROCHETTE', 'Paola', 'Club du poney landais', '', '', '0620281370', '', 268, '', 412),
-(401, 'RODIGHIERO', 'Isabelle', 'Ecuries de Verduzan', '', '', '0625428325', '', 293, '', 413),
-(402, 'ROGER FAGES', 'Adeline', 'Mas de Donat', '', '', '', '', 357, '', 414),
-(403, 'ROSSET', 'Olivier', 'Ferme des Vallées', '', '0545602888', '', '', 358, '', 415),
-(404, 'ROTIVAL', 'Jean-Claude', 'CE du Rouret', '', '0475939869', '', '', 254, '', 416),
-(405, 'ROUSSET', 'Pascal', '40, rue des vallées', '', '0241321079', '', '', 359, '', 417),
-(406, 'RUELLOT', 'Thérèse', '2220 chemin de sablaret', '', '0558724235', '', '', 360, '', 418),
-(407, 'SAGOT DUVAUROUX', 'Louis', 'Bounéou, 753, route de Parentis en Born', '', '0558097593', '', '', 361, '', 419),
-(408, 'SAN JOSE', 'Frédéric', '63 rte d\'Hostens', '', '0556880268', '', '', 362, '', 420),
-(409, 'SCHMITT', 'Valérie', '154 Le Chiblin', '', '0389783502', '', '', 363, '', 421),
-(410, 'SEGEAR', 'Olivier', 'CE du Vieux Moulin', '', '0478732183', '', '', 364, '', 422),
-(411, 'SERVAES', 'Daniel', 'AE La Pouladière', '', '0238761959', '', '', 365, '', 423),
-(412, 'SIBE', 'Fabienne', '', '', '0558573751', '', '', 366, '', 424),
-(413, 'SIGNAC', 'Marc', 'Ferme des Vallées', '', '0545602882', '', '', 367, '', 425),
-(414, 'SNOY', 'Marie-Alexandrine', '2 Garlope', '', '0556259863', '', '', 30, '', 426),
-(415, 'SOULE', 'Henri et Geneviève', '551 Rte de Maremne', '', '0558577479', '', '', 368, '', 427),
-(416, 'SOULE', 'Jean-Marc', 'Riston', '', '0558577465', '', '', 369, '', 428),
-(417, 'TANGUY', 'Charlotte', 'Ecuries de Roquebere', '', '', '0621103336', '', 293, '', 429),
-(418, 'TARDY', 'Catherine', '19 Rue de St Dié', '', '0329566736', '', '', 370, '', 430),
-(419, 'TAUDON', 'Christian', 'la piece aux loups', '', '0241917012', '', '', 371, '', 431),
-(420, 'TEMINE', 'Michel', 'Domaine du pré gaillard', '', '0442828132', '', '', 301, '', 432),
-(421, 'TESSIER', 'Marie-Annick', 'Domaine de Lassalle', '', '', '0687561191', '', 372, '', 433),
-(422, 'THOBIE', 'Alain', '16 Rue de la courtiletais', '', '', '', '', 373, '', 434),
-(423, 'VACHER', 'Stéphanie', 'Domaine de Lassalle', '', '', '0687561191', '', 374, '', 435),
-(424, 'VAILLEAU', 'Floriane', '13 av. Jules Pernette', '', '06 86 54 87 44', '', '', 375, '', 436),
-(425, 'VANTROYS', 'Mathilde', '11 rue Beauregard', '', '0344880018', '', '', 376, '', 437),
-(426, 'VERGER', 'Michel', '1280 rte de Siest', '', '0558577210', '', '', 377, '', 438),
-(427, 'VERGER', 'Marie-Pierre', 'Route de Leudeville', '', '0164560931', '', '', 378, '', 439),
-(428, 'VILLEMONTE DE LA CLERGERIE', 'Hervé', '1, chemin de la Gravette le Plec', '', '0556585082', '', '', 379, '', 440),
-(429, 'VOTTIER', 'Patricia', 'Ecurie de Jarion', '', '', '0678206577', '', 380, '', 441),
-(430, 'CE Bois Brulé', '', 'CE Bois Brulé', '', '02 40 34 21 62', '', '', 279, '', 442),
-(431, 'CONVERS', 'Romane', 'PC les Etrets', '', '04 74 09 84 17', '', '', 381, '', 443),
-(432, 'GUITTON', 'Jérôme', 'Le petit bois route de prevelles', '', '', '', '', 382, '', 444),
-(433, 'ZAMORA', 'Bérengère', 'Domaine de Gensac', '', '06 83 47 32 15', '', '', 293, '', 445),
-(434, 'MARRAULD', 'Florian', 'La Gaillardine', '', '', '', '', 138, '', 446),
-(435, 'CAZABAT', 'Séverine', 'Lagune de Brana, route de Massé', '', '06 40 33 49 09', '', 'severine.cazabat@wanadoo.fr', 383, '', 447),
-(436, 'BARBE', 'Jean-Christophe', 'Chateau Laville SCEA', '', '05 56 63 59 45', '', 'chateaulaville@hotmail.com', 384, '', 448),
-(437, 'Ferme de Camdelan', '', '3792 Route de Contis', '', '07 68 67 72 66', '', 'contact@camdelan.com', 223, '', 449),
-(438, 'MARTY', 'Pascal', 'EARL des Saumagnes', '', '', '', '', 385, '', 450),
-(439, 'Lenormand', 'Serge', '', '', '', '', '', 386, '', NULL),
-(440, 'Chaperon', 'Marcel', '66 impasse des landes', '', '', '', 'marcel.chaperon@organe.fr', 387, '', 453),
-(441, 'Domaine de Certes', '', '', '', '', '', '', 222, '', 455),
-(442, 'ROUX', 'Barbara', 'Le Mandot', '', '', '', '', 388, '', 456),
-(443, 'PERRET', 'Louis', 'La Colle', '', '06 67 83 79 14', '', '', 268, '', 457),
-(444, 'Cassen', 'Gael', 'Quartier Jean de Paul', '', '', '', '', 223, '', 458),
-(445, 'BARRE', 'Stéphanie', 'Chemin des Bois Jourdan', '', '', '', '', 389, '', 459),
-(446, 'Conservatoire des Races dAquitaine', '', 'Bordeaux Sciences Agro, 1 Cours du Général de Gaulle', 'CS 40201', '05 57 35 60 86', '', 'conservatoire.races.aquitaine@gmail.com', 392, '', 460),
-(447, 'DARRIBET', 'Rolande-Véronique', '65 Route du Vimport La Coda', '', '', '', '', 260, '', 461),
-(448, 'MARIEL', 'Françoise', 'La Bezanterie', '', '09 52 51 95 01', '', '', 393, '', 462),
-(449, 'LORMEAU', 'Vanessa', 'Las Barthes', '', '', '', '', 394, '', 463),
-(450, 'THEBAULT', 'Lydie', '16 Rue Anatole', '', '', '', '', 395, '', 464),
-(451, 'COHUAU', 'Laurence', 'Rue des Eturcies', '', '', '', '', 306, '', 465),
-(452, 'BOSSARD', 'Lionel', '9 Place de l Eglise', '', '', '', '', 396, '', 466),
-(453, 'CHAPELLE', 'Emilie', 'Les Bobins', '', '', '', '', 397, '', 467),
-(454, 'GUIRAUTON', 'Bernard', '', '', '05 58 98 12 61', '', '', 246, '', 468),
-(455, 'Doyhenard', 'Olivier', 'Maison Agerrea', 'Harrimexaharreko bidea', '0684204723', '', 'ogervais@infonie.fr', 398, '', 469),
-(456, 'Szpetkowski', 'Eric', '', '', '', '', '', 399, '', 470),
-(457, 'Cazenave', 'Sébastien', 'Chemin Laguangue', '', '', '', '', 400, '', 471),
-(458, 'Château de Commarque', '', '', '', '', '', '', 151, '', 472),
-(459, 'Gallard', 'Mael', 'Lieu-dit Cesserou', '', '0672232303', '', '', 401, '', 473),
-(460, 'Glaser', 'Iska', 'Les Bordes', '', '0610122190', '0683345369', 'ferme@iska-marina.fr', 203, '', 475),
-(461, 'Loiseau', 'Mickael', 'Frimardiere', '', '0674166811', '', '', 402, '', 476),
-(462, 'Nattes', 'Yoan', 'Le Breil', '', '', '', '', 403, '', 477),
-(463, 'Pacha', '', '527 route de Dax', '', '', '', '', 284, '', 478),
-(464, 'Vincenzi', 'Pierre', 'Mirathon', '', '', '', '', 404, '', 479),
-(465, 'Caussieu', 'Francis', '14 route de l Arros', '', '', '', '', 406, '', 481);
+INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `tel`, `tel2`, `mail`, `id_commune`, `notes`, `id_elevage`, `Consentement`) VALUES
+(1, 'XXX', 'XXX', 'XXX', 'XXX', '0303030303', '0404040404', 'aaa@gmail.com', 1, 'aa', 1, 'Oui'),
+(2, 'AUGEAU', 'Francis', '16 Baren de la Matte', '', '05 56 41 73 58', '', '', 2, '', 2, NULL),
+(3, 'BIOLATO', 'Jean-Paul', 'Lacouche', '', '05 53 95 11 68', '06 23 15 24 80', '', 56, '', 3, NULL),
+(4, 'BOCHE', 'Philippe', 'Belloc', '', '05 53 41 11 93', '06 73 68 43 29', '', 4, '', 4, NULL),
+(5, 'Prairies du Bois de Bordeaux', '', 'Prairies du Bois de Bordeaux', '', '05 57 35 60 86', '', '', 8, 'Conservatoire des Races dAquitaine', 7, NULL),
+(6, 'CASTETBIEILH', 'Fabienne et Jacques', 'EARL Bibane, route de Pau', '', '05 59 04 55 49', '06 83 12 14 30', 'bibane64@wanadoo.fr', 27, 'Poule gasconne : 15 femelles et 2 mâle\r\nDindon gascon  : 2 femelles et 1 mâle\r\nLapin chèvre : 3 femelles et 1 mâles', 8, NULL),
+(7, 'FROSSARD', 'Jacques', '27 route de la Barade', '', '05 57 97 09 09', '06 11 22 59 90', 'jacques.frossard@gmail.com', 199, '', 9, NULL),
+(8, 'Château Palmer (NE PAS UTILISER)', '', 'Issan', '', '', '', '', 38, '', 10, NULL),
+(9, 'Château Pontet Canet', '', 'Château Pontet Canet', '', '05 56 59 04 04', '', '', 72, '', 11, NULL),
+(10, 'COSTEDOAT', 'Marie', '1758 chemin de Chrestia', '', '', '', 'mariecostedoat40330@gmail.com', 58, '', 12, NULL),
+(11, 'DARROMAN', 'Rémy', 'Grabiaux', '', '05 56 25 62 59', '', '', 14, '', 13, NULL),
+(12, 'MARBAN', 'Joël', 'Domaine des Possessions', '', '05 57 35 60 86', '06 72 07 87 79', '', 15, 'Conservatoire des Races dAquitaine', 14, NULL),
+(13, 'DUBOIS', 'Jean-Denis', 'rue du Pont Neuf', '', '05 56 35 40 90', '06 70 37 02 99', '', 16, '', 15, NULL),
+(14, 'DUTRUEL', 'Jacques', 'Manibe', '', '05 58 73 65 32', '06 09 82 08 53', 'jacquesmanibe@fermegasconne.com', 17, '', 16, NULL),
+(15, 'EARL Des Broutissoux', '', 'Le Poirier', '', '05 53 56 45 19', '', '', 28, '', 17, NULL),
+(16, 'FERRAND EARL Lait P\'tits Béarnais', '', '1481 chemin de Balasque', '', '', '', '', 20, '', 18, NULL),
+(17, 'BELIN', 'Céline (Ferme Mérignac)', '31 avenue Bellevue', '', '05 56 34 27 45', '', 'ferme.decouverte@merignac.com', 21, 'FIEVET BARBARA\r\n\r\n1 femelle et 1 mâle : Dindon gascon', 19, NULL),
+(18, 'GAEC Goyhexia', '', 'Goyhexia', '', '', '', '', 22, '', 20, NULL),
+(19, 'GERNIEC', 'Agnès', 'Maillou', '', '05 61 04 80 12', '', '', 23, '', 21, NULL),
+(20, 'GUENON', 'Christophe', 'Domaine de Bagatelle, avenue de la Duragne', '', '', '06 22 70 18 87', 'guenon.christophe33@gmail.com', 24, '', 22, NULL),
+(21, 'LALANNE', 'Boris', '4 rue Camille Goillot', '', '', '', '', 21, '', 23, NULL),
+(22, 'LATASTE', 'Marie-France et Hugues', 'Domaine de Roy', '', '', '06 71 81 98 81', '', 26, '', 24, NULL),
+(23, 'LEROUX', 'Christophe', 'Savenas', '', '02 40 24 94 91', '06 98 00 70 59', '', 29, '', 25, NULL),
+(24, 'LOVATO', 'Géraldine', '1 Lagardère', '', '09 83 62 16 27', '', '', 30, '', 26, NULL),
+(25, 'MAISON', 'de la Nature', '53 rue du Moulineau', 'Christine DELSART', '05 56 89 51 74', '06 76 41 59 68', 'maisondelanature@ville-gradignan.fr', 156, 'Poule landaise : 10 femelles et quelques mâl\r\nDindon gascon : 1 femelle et 1 m�\r\nLapin chèvre : 5 femelles', 27, NULL),
+(26, 'MAROT', 'Nadine', 'Le Pourcat', '', '', '', '', 32, '', 28, NULL),
+(27, 'MARTET', 'Damien', 'Lamouthe', '', '', '06 74 97 43 97', 'dmartet@groupama-ca.fr', 33, '', 29, NULL),
+(28, 'VAUGEOIS', 'Delphine', 'Les tourets reverdit', '', '05 56 25 56 79', '', '', 35, '', 30, NULL),
+(29, 'TITE', 'Laurent', '36 lieu-dit Landes', '', '05 57 49 28 20', '', 'laurenttite@free.fr', 36, '', 31, NULL),
+(30, 'SCEA des Deux Pierre', '', 'Mussonville', '', '', '', '', 37, '', 32, NULL),
+(31, 'YASSAI', 'Yoann', '21 rue du Pujoulet', '', '', '06 26 33 20 91', '', 40, '', 33, NULL),
+(32, 'MASSEILLOU', 'Christian', '24 avenue de l Ouest', '', '05 59 81 07 05', '', '', 43, '', 36, NULL),
+(33, 'MAZIERE', 'Lisiane', '1 pièce Neuve', '', '05 56 61 67 52', '', '', 44, '', 37, NULL),
+(34, 'OUDIN', 'Patricia et Marc', '35 route de Beaugeay', '', '05 46 85 66 78', '06 76 80 27 32', 'oudin.marc@wanadoo.fr', 45, '', 38, NULL),
+(35, 'PERRIOL', 'Isabelle', 'La Mouthe', '', '', '', '', 46, '', 39, NULL),
+(36, 'PORTE', 'Jean Bernard', '8 Chemin d Aurous', '', '05 59 71 04 45', '06 27 84 24 57', '', 48, '', 41, NULL),
+(37, 'SAINT ORENS', 'Jean-François', '555 chemin de Laurens', '', '05 58 57 22 94', '06 07 68 35 70', '', 49, '', 42, NULL),
+(38, 'UBBEDA', 'Christophe', '2 au Merle', '', '', '06 22 41 16 31', '', 50, '', 43, NULL),
+(39, 'VASSEUR', 'Jean-Luc', 'Haras de Bazille', '', '', '06 63 98 40 36', 'harasdebazille@aol.com', 51, '', 44, NULL),
+(40, 'VERGNE', 'Michel', 'Sauvage', '', '05 53 89 61 89', '09 50 87 13 32', '', 52, '', 45, NULL),
+(41, 'PREVOT', 'Daniel', 'Borde Haute', '', '', '', '', 53, '', 46, NULL),
+(42, 'YOUX', 'Xavier', '47 route de la Lande', '', '', '', '', 54, '', 47, NULL),
+(43, 'SEUVE', 'Eric', '1 Les Petites Mottes', '', '', '', '', 55, '', 48, NULL),
+(44, 'RESERVE', 'Cousseau', 'Lieu-dit Marmande', '', '0687797476', '', 'sepanso33@sepanso.fr', 60, 'François SARGO  -  SEPANSO', 49, NULL),
+(45, 'MARAIS', 'Lafite', 'Marais de Lafite', '', '05 56 91 33 65', '', 'sepanso33@sepanso.org', 72, 'SEPANSO', 50, NULL),
+(46, 'RESERVE', 'Bruges', 'RNN Bruges, le Baron, avenue des 4 ponts', '', '05 56 57 09 89', '', 'sepanso33@sepanso.org', 16, 'SEPANSO', 51, NULL),
+(47, 'DUBUC', 'Dominique', '2695 route de Dax', '', '05 58 47 71 83', '', '', 66, 'Poule landaise : 8 femelles et 1 mâles \r\nPoule gasconne : 7 femelles et 1 mâles \r\nLapin chèvre : 9 femelles et 3 mâles', 52, NULL),
+(48, 'VERDON', 'Serge', '10 route Hourtin', '', '05 47 83 93 35', '06 21 28 02 94', '', 67, '', 53, NULL),
+(49, 'CRA', 'Avensan', '', '', '', '', '', 68, '', 54, NULL),
+(50, 'CRA', 'Batejin', '', '', '', '', '', 76, '', 55, NULL),
+(51, 'CRA', 'Hourtin', '', '', '', '', '', 69, '', 56, NULL),
+(52, 'MARAIS', 'CISSAC', '', '', '05 56 91 33 65', '', 'sepanso33@sepanso.org', 73, 'SEPANSO', 59, NULL),
+(53, 'FDC', '40', '111 chemin de l\'Herté - BP10', '', '05 58 90 18 69', '', 'contact@fdc40.fr', 75, '', 65, NULL),
+(54, 'PARC', 'Floral', 'Avenue de Pernon', '', '05 56 00 66 00', '', '', 173, '', 66, NULL),
+(55, 'SAINTE', 'Hélène', '', '', '', '', '', 77, '', 67, NULL),
+(56, 'BARBAN', 'Jean-François', 'Barré, 5 Le Bourg Est', '', '05 56 65 13 85', '', 'jean-françois.barban@orange.fr', 78, 'Poules landaise : 17 femelles et 2 mâles', 68, NULL),
+(57, 'CHAINTIOU', 'Sylvia', '4 Lhoste Sud', '', '05 56 62 46 39', '06 78 94 14 04', 'sylvia.chaintiou@orange.fr', 79, 'Poule landais : 6 femelles et 1 mâl\r\nPoule gasconne : 6 femelles et 1 mâl\r\nDindon gascon : 4 femelles et 2 mâles', 69, NULL),
+(58, 'CHARRIE', 'Eric', 'Corbieres', '', '', '', '', 80, '', 70, NULL),
+(59, 'LE NOHAIC', 'Philippe', '1 Kerglas Bian', '', '02 96 43 63 50', '', '', 81, '', 71, NULL),
+(60, 'NABOS', 'Pierre', 'Village', '', '05 62 69 41 91', '06 46 41 56 14', 'pierre.nabos@hotmail.fr', 82, 'Poule gasconne : 7 femelles et 1 mâl\r\nDindon gascon : 4 femelles et 1 mâl\r\nLapin chèvre : 4 femelles et 1 mâle', 72, NULL),
+(61, 'MASSOUBRE', 'Dominique', 'Leyssart', '', '06 76 65 30 08', '05 57 49 62 82', '', 83, '', 73, NULL),
+(62, 'AIME', 'Sylvain', 'Urriola', 'Quartier Egiptoa \r\n(Auriolle pour exploitation)', '06 20 22 76 34', '', '', 84, '', 74, NULL),
+(63, 'ARRIEULA', 'Jean-Bernard', '71 route d Angos', '', '05 59 33 82 33', '', '', 85, '', 75, NULL),
+(64, 'ARRIUBERGE', 'Jean-Pierre', '3 Impasse Joge', 'Quartier Fontaines', '05 59 34 92 06', '06 79 53 86 97', '', 86, '', 76, NULL),
+(65, 'BLANCEY', 'Maxime', 'Chemin Salie', '', '05 59 81 17 82', '06 29 15 68 55', '', 87, '', 77, NULL),
+(66, 'BARAILLE', 'Andre', '160 Cami Deu Gua', '', '05 59 33 24 33', '', '', 88, '', 78, NULL),
+(67, 'BAYLAUCQ', 'Bruno', 'Rue d Ayguebere', '', '', '', '', 89, '', 79, NULL),
+(68, 'BERNATAS', 'Jean-Bernard', '13 avenue du Pic du Midi', '', '', '', '', 90, '', 80, NULL),
+(69, 'BERROGAIN', 'Nicolas', 'Chemin des Cretes', 'Parlayou', '05 59 34 34 78', '', '', 91, '', 81, NULL),
+(70, 'BETBEDER', 'Roger', '', '', '05 59 34 44 96', '', '', 92, '', 82, NULL),
+(71, 'BEUDOU', 'Claude', 'Route Athas', 'Quartier l Estremeau', '', '', '', 93, '', 83, NULL),
+(72, 'BLAYE', 'Michel', 'Maison Felisse', 'Quartier Rachù', '05 59 34 45 56', '', '', 94, '', 84, NULL),
+(73, 'BOCHER', 'Franck', 'Maison Mestejean, 375 chemin de Pouts', '', '', '', '', 95, '', 85, NULL),
+(74, 'BONNECAZE', 'Marcel', 'Le Bourg', '', '05 59 38 05 45', '', '', 96, '', 86, NULL),
+(75, 'BORDEGARAY', 'Pierre', 'Chemin de Soumsus', '', '05 59 34 43 00', '06 88 48 34 18', '', 97, '', 87, NULL),
+(76, 'BOURDET', 'Gisele', 'Quartier Marquesouquère', '', '05 59 34 35 89', '', 'bourdet.gisele@wanadoo.fr', 91, 'Poule gasconne : 1 mâle', 88, NULL),
+(77, 'BURS-ESCARY', 'Bernadette', 'Haoure, route Barlanes', '', '05 59 34 68 13', '06 87 51 99 02', 'burs.bernadette@wanadoo.fr', 98, '', 89, NULL),
+(78, 'CASANAVE-LAULIVE', 'Germain', 'Quartier Lacrouts', '', '05 59 34 44 32', '', '', 99, '', 90, NULL),
+(79, 'CAZABIELLE', 'Laurent', '17 route du Bourg', '', '', '', '', 100, '', 91, NULL),
+(80, 'CAZALA', 'Serge', '1350 Chemin de Mative', '', '', '', '', 88, '', 92, NULL),
+(81, 'CIMORRA', 'Marie et Bernard', 'Chemin de Gabarn, Percilhon', '', '05 59 39 99 58', '', '', 101, 'Poule gasconne : 14 femelles et 2 mâles', 93, NULL),
+(82, 'DELAS et CIMORRA', 'Gilles et Genevieve', '', '', '07 86 43 84 98', '', 'gilles.delas@yahoo.fr', 102, '', 94, NULL),
+(83, 'DIES', 'Frederic', '4 Rue du Pont de Salles', '', '', '', '', 86, '', 95, NULL),
+(84, 'DOMENGUEUS', 'Bertrand', '', '', '', '', '', 103, '', 96, NULL),
+(85, 'DOMENGUEUS', 'Jean-Marc et Marie-Claude', 'Le Bourg', '', '05 59 34 72 78', '06 73 80 35 68 / 06 86 80 56 47', '', 99, '', 97, NULL),
+(86, 'CAMOU JUNCA', 'Eric', '', '', '', '', '', 92, '', 98, NULL),
+(87, 'FAURIE', 'Pierre', 'Maison Bat', '', '05 59 34 72 25', '', '', 104, '', 99, NULL),
+(88, 'FORTON', 'Yoanna', 'Maison Trebuc, Route de Pessaron', '', '', '', 'yoyo-eh@hotmail.Fr', 105, '', 100, NULL),
+(89, 'FOURTICQ TIRET', 'Fabien', 'Chemin de Bernateix', 'Domaine Castagnouse', '', '', 'fabienfourticq@orange.fr / mmendiburu64@gmail.com', 91, '', 101, NULL),
+(90, 'GAEC', 'de la Portera', '1 Chemin des forges', 'Quartier Pedehouart 15', '', '', '', 106, 'Exploitation : Pedehouart, 64260 LOUVIE JUZON', 102, NULL),
+(91, 'GAEC', 'du Bouchet', 'Maison Peset', 'Quartier Bourdes', '', '', '', 107, '', 103, NULL),
+(92, 'GAILLARD et REID', 'Jean-François et Caroline', 'Mailhos', 'Quartier Lasbordes', '05 24 37 18 01', '06 46 04 32 83', 'cjfgaillard@gmail.com', 108, '', 104, NULL),
+(93, 'GUEDOT', 'Gédric', '6 Chemin Derriere le Pic', '', '05 59 05 54 15', '', '', 109, '', 105, NULL),
+(94, 'HATOIG CASTERA', 'Michel', 'Quartier Bosdapous', '', '05 59 34 55 77', '', '', 110, '', 106, NULL),
+(95, 'HELBO', 'Sandrine et David', '31 Chemin Lapoudge', '', '', '', '', 111, '', 107, NULL),
+(96, 'HOURQUEIG', 'Daniel', '3 Chemin de Pujoo', '', '05 59 05 81 13', '', '', 112, '', 108, NULL),
+(97, 'LABORDEBOY', 'Jean-Louis', '7 Rue Plaine', '', '', '', '05 59 39 88 46', 113, '', 109, NULL),
+(98, 'LACOSTE', 'Jean-Louis', 'Domaine Nigri, Candeloup', '', '05 59 21 42 01', '06 75 79 95 22', 'domaine.nigri@wanadoo.fr', 114, '', 110, NULL),
+(99, 'LAGOUARDETTE', 'Jean-Pierre', 'Pereuilh, 20 route de la Marie', '', '05 59 66 57 73', '', '', 115, '', 111, NULL),
+(100, 'LAHITETTE', 'Jantet', 'Chemin de la Viele', '', '05 59 39 64 13', '06 89 68 57 73', '', 93, '', 112, NULL),
+(101, 'LANDA', 'Cédric et Francette', '8 bis, Rue de Beuste', '', '05 59 04 14 02', '06 84 77 42 34', '', 116, '', 113, NULL),
+(102, 'LANNE', 'Gerard', 'Quartier Rache', '', '05 59 34 44 29', '', '', 94, '', 114, NULL),
+(103, 'LANNE TOUYAGUE', 'Jean-Bernard', '', '', '05 59 68 03 10', '', '', 117, '', 115, NULL),
+(104, 'LARRAGNAGUA', 'Frédéric', 'Maison Kakoa, Ainhard', '', '', '', '', 118, '', 116, NULL),
+(105, 'LARRE', 'Emmanuel', 'SCEA du Faget', '', '05 59 39 72 71', '', '', 119, '', 117, NULL),
+(106, 'LAUGA', 'Grégoire', 'Choho', '', '', '', '', 120, '', 118, NULL),
+(107, 'LES BERGERES GAEC', '', '66 Route du Col du Soulor', '', '', '', '', 121, '', 119, NULL),
+(108, 'LESCLOUPE', 'Martine', '1 Chemin de Picas', '', '', '', '', 48, '', 120, NULL),
+(109, 'LOUSTAU', 'Laurent', 'Le Bourg', '', '', '', '', 122, '', 121, NULL),
+(110, 'LOUSTAU', 'Remi', 'Quartier Moulaprat', '', '05 59 82 66 37', '', '', 122, '', 122, NULL),
+(111, 'Lycée Professionnel Agricole', 'Oloron St Marie', '1051 Route du Gave d , SoeixAspe', '', '05 59 36 38 61', '06 19 40 21 06', 'mathilde.poivre@educagri.fr', 123, 'Mathilde POIVRE\r\nEmmanuel LARRE', 123, NULL),
+(112, 'MAIGRE', 'Olivier', 'Bexka', '', '06 60 98 09 64', '', 'oliviermaigre@orange.fr', 124, 'Poule gasconne : 40 femelles et 7 mâles \r\nDindon gascon : 10 femelles et 8 mâles', 124, NULL),
+(113, 'MALEIG', 'Marcel', '24 Rue Oustalots', '', '05 59 39 89 33', '06 76 84 66 75', '', 123, '', 125, NULL),
+(114, 'MAUPEU', 'Hervé', 'Route de Rebenacq', 'Ferme Toujaga', '05 59 32 76 93', '', '', 125, '', 126, NULL),
+(115, 'MAYSTROU', 'Joel', '10 Chemin des Labasserre', '', '', '', '', 112, '', 127, NULL),
+(116, 'MINVIEILLE BAYLE', 'Thierry', 'Quartier Angos', '', '05 59 33 84 18', '', '', 85, '', 128, NULL),
+(117, 'MIRAMON', 'Michel', '521 Chemin du Pond Noir St Pee', '', '', '', '', 123, '', 129, NULL),
+(118, 'MONTREJAU', '', 'Maison Montregeau', '', '', '', '', 108, '', 130, NULL),
+(119, 'MORA', 'Bernard', '216 Rue du Gave, Arros', '', '05 59 39 24 52', '06 74 31 45 78', '', 126, '', 131, NULL),
+(120, 'MURCUILLAT', 'Jean-Yves', 'EARL Machtera', '', '05 59 36 08 84', '', '', 127, '', 132, NULL),
+(121, 'PAROIX', 'Joseph', 'Plateau du Benou', 'Maison Baget, Quartier Arrouste', '05 59 82 64 24', '06 38 58 14 74', '', 128, '', 133, NULL),
+(122, 'PRETOU', 'Patrick', 'Quartier Rache', '', '05 59 34 44 77', '06 85 75 40 60', '', 94, '', 134, NULL),
+(123, 'PUCHIN', 'Jean-Baptiste', 'Chemin Casanaube', '', '05 59 34 60 37', '06 85 75 40 60', '', 98, 'Adresse 2 : Ferme Oscamou, Quartier Vic Debat, 64570 Arette', 135, NULL),
+(124, 'PUJALET', 'Patrick', 'Beon', '', '', '', '', 122, '', 136, NULL),
+(125, 'ROUSSEU', 'François', 'Maison Lachicane, Quartier Barenne', '', '', '', '', 127, '', 137, NULL),
+(126, 'SOMPS BARADAT', 'Raphael', 'Chemin de Lapoutge', '', '05 59 13 86 62', '06 31 83 28 66', '', 129, '', 138, NULL),
+(127, 'VIGNAU LANNE', 'Claude', 'La Mairie', '', '06 71 08 18 82', '', '', 130, '', 139, NULL),
+(128, 'CAP', 'Michel', '741 Route de Reis', '', '05 62 31 52 18', '06 81 53 92 35', '', 131, '', 140, NULL),
+(129, 'CASSOU', 'André', 'Les Angles', '', '', '', '', 132, '', 141, NULL),
+(130, 'DOCHE ET FILS', '', '727 Chemin de la Fiance', '', '', '', '', 133, '', 142, NULL),
+(131, 'BOURGEOIS', 'Nicolas', 'Cité du Lac', '', '', '', '', 134, 'Chez Mme BOURGEOIS Emmanuelle\r\nExploitation : Hameau Listo, 64440 LOUVIE SOUBIRON', 143, NULL),
+(132, 'ARMENGAUD', 'Simon', 'Puech Amant', '', '05 63 72 10 27', '06 84 28 78 33', '', 135, 'Poule gasconne : 6 femelles et 1 mâle', 144, NULL),
+(133, 'BOUYSSOU', 'Jean-Pierre', 'Parc vision de Gramat', '', '05 65 38 81 22', '06 33 24 94 52', 'gramat.parc.animalier@wanadoo.fr', 136, 'Poule gasconne : 5 femelles et 1 mâle', 145, NULL),
+(134, 'CHAINEAUD', 'Ange', 'Allée des castors', '', '07 77 28 42 86', '', 'ferme-barbanne@mairie-libourne.fr', 137, 'Poule landaise : 15 femelles et 2 m�\r\nPoule gasconne : 4 femelles et 2 m�\r\nDindon gascon : 5 femelles et 5 m�\r\nLapin chèvre : 3 femelles et 2 mâles', 146, NULL),
+(135, 'BONNEAUD', 'Guy', 'Les Jardins du Broy', '4 Broy Sud', '05 56 25 74 46', '', 'visa.vies@yahoo.fr', 138, 'Poule gasconne : 14 femelles et 2 mâles\r\nMouton : Animaux placés chez Mr Jeanson pour le moment, ne savent pas s\'ils vont les récupérer', 147, NULL),
+(136, 'CANDELON', 'Bernard', '28, Lieu dit Au Village', '', '05 62 28 63 22', '06 83 08 90 93', '', 139, 'Poule gasconne: 3 femelles et 1 mâles\r\nDindon gascon : 3 femelles et 1 mâles', 148, NULL),
+(137, 'COSSOU', 'Benjamin', '3 route de l Ageline', '', '06 65 11 68 56', '', 'benj1ccs@hotmail.com', 140, 'Poule gasconne : 15 femelles et 5 mâles', 149, NULL),
+(138, 'CHARRETEUR', 'Thierry', 'Jardin de Noé', '', '05 53 64 43 27', '06 88 23 07 38', 'thierry@jardindenoe.fr', 141, 'Poule landaise : 2 femelles', 150, NULL),
+(139, 'CHAMBOLLE', 'Christophe', 'Fernot', '', '05 53 01 28 85', '', 'christophe.chambolle@laposte.net', 142, 'Poule landaise : 12 femelles et 5 mâles', 151, NULL),
+(140, 'COUTARD', 'Jean', 'Chez Bedochaud', '', '05 46 48 36 85', '', '', 143, 'Lapin chèvre : 15 femelles et 6 mâles', 152, NULL),
+(141, 'DULOUT', 'Joel', '6 rue Ricalis', '', '05 62 96 51 08', '', '', 144, 'Poule gasconne : 10 femelles et 2 mâles', 153, NULL),
+(142, 'DUCAZEAU', 'Frédéric', 'Asimerie de Pierretoun', 'Quartier Pessarou', '05 59 31 58 39', '06 37 85 02 50', 'contact@pierretoun.fr', 145, 'Lapin chèvre : 1 femelle et 1 mâle', 154, NULL),
+(143, 'ESTRADE', 'Camille', '22 rue Grangier', '', '05 56 25 68 45', '', 'camille@zone-r.org / zone.r@free.fr', 30, 'Poule landaise : 26 femelles et 5 mâles', 155, NULL),
+(144, 'FAGOT', 'Christian', 'Jouan Belis', '', '05 58 51 49 24', '06 70 92 21 09', 'fagotchristian@orange.fr', 146, 'Poule gasconne : 20 femelles et 3 mâles \r\nLapin chèvre : 3 femelles et 1 mâles', 156, NULL),
+(145, 'FORGET', 'Samuel', 'Erets', '', '06 23 42 18 93', '', 'samuel.forget@gmail.com', 147, 'Lapin chèvre : 5 femelles et 3 mâles', 157, NULL),
+(146, 'GRAUBY', 'Daniel', '3 chemin des bouichous', '', '04 68 69 30 48', '', '', 148, 'Poule gasconne : 20 femelles et 2 mâles', 158, NULL),
+(147, 'GAUTIER', 'Jean-Marie', 'Pouchet', '', '06 20 81 41 67', '', '', 149, 'Poule landaise : 40 femelles et 7 mâles', 159, NULL),
+(148, 'GINTRAND', 'Jean Claude', 'Les bousquet', '', '06 82 33 12 98', '', '', 150, 'Dindon gascon : 20 femelles et 10 mâles', 160, NULL),
+(149, 'GEOFFROY', 'Agnès', 'Chemin de Ligal', '', '05 53 06 98 75', '06 72 78 84 01', 'agnes.drevet0114@orange.Fr', 151, 'Lapin chèvre : 4 femelles et 1 mâle', 161, NULL),
+(150, 'HARGUES', 'Régis', 'Lieu dit Aux Quatre Vents', '', '06 48 05 78 42', '', 'rhargues@fdc40.fr', 152, 'Poule gasconne : 7 femelles et 1 mâle\r\nDindon gascon : 5 femelles et 1 mâle', 162, NULL),
+(151, 'LEROUX', 'Jean-Louis', '32 chemin de Marge', '', '09 62 59 40 66', '', '', 153, 'Lapin chèvre :4 femelles et 1 mâle', 163, NULL),
+(152, 'Ecomusée de Marquèze', '', 'Route de la Gare', '', '05 58 08 31 31', '', 'ecomusee-marqueze@parc-landes-de-gascogne.fr', 154, 'Poule landaise : 40 femelles et 6 mâle\r\nLapin chèvre : 1 femelle', 164, NULL),
+(153, 'MAIGRE', 'Guy', 'Lassalle', '', '05 56 72 75 45', '', '', 155, 'Poule gasconne : 5 femelles et 1 mâle \r\nDindon gascon : 10 femelles et 3 mâles', 165, NULL),
+(154, 'MAURICE', 'Laurent', '39 chemin de Treuil Duval', '', '05 46 97 04 41', '', '', 157, 'Lapin chèvre : 2 femelles et 1 mâle', 166, NULL),
+(155, 'MOINE', 'Epoux', '4 chemin de la Fontaine Merlot', '', '05 49 07 88 90', '', 'jacme79@orange.fr', 158, 'Lapin chèvre : 6 femelles et 3 mâles', 167, NULL),
+(156, 'ORTUSI', 'Isabelle', 'Domaine de Jarry', '', '06 03 48 03 97', '', 'iortusi@yahoo.fr', 159, 'Poule gasconne : 150 femelles et 20 mâles', 168, NULL),
+(157, 'PAUQUET', 'Epoux', 'Lieu-dit Le Passage', '', '05 53 94 45 68', '', '', 160, 'Poule gasconne : 2 femelles', 169, NULL),
+(158, 'RABEISEN', 'Jean-Jacques', 'Les graves, 191 avenue de Labarde', '', '05 56 69 72 11', '06 22 28 90 19', '', 161, 'Poule gasconne : 7 femelles et 4 mâles', 170, NULL),
+(159, 'ROUAIX', 'Jean-Pierre', 'Ham Cazeau', '', '05 61 66 75 23', '', '', 162, 'Poule gasconne : 6 femelles et 2 mâles', 171, NULL),
+(160, 'RIHOUX', 'Epoux', '548 route de la Lande', '', '05 58 56 02 59', '06 44 15 92 13', '', 163, 'Poule landaise : 4 femelles et 1 mâle', 172, NULL),
+(161, 'CASAZZA', 'Anna', 'Moussinot', '', '06 62 08 68 28', '', 'contact@terredesorigines.com', 165, 'Poule landaise : 6 femelles et 1 m�\r\nPoule gasconne : 10 femelles et 1 m�\r\nDindon gascon : 1 femelle et 1 m�\r\nLapin chèvre : 1 femelle et 1 mâle', 173, NULL),
+(162, 'RICHER', 'François', 'Laboria, 1890 route de Grenade', '', '06 16 44 47 03', '', 'laboriablog@free.fr', 166, 'Poule gasconne : 12 femelles et 2 mâles', 174, NULL),
+(163, 'SARRAUTE', 'Bernard', 'Rue du Barry', '', '06 83 27 79 96', '', '', 167, 'Poule gasconne : 40 femelles et 20 mâles', 175, NULL),
+(164, 'SOLEILHAC', 'Jean-Jacques', '1 chemin des Greloux', '', '09 51 09 00 04', '', 'jjs9124@netc.fr ; JJS9224@4mail.com', 168, 'Poule landaise : 6 femelles et 3 mâle\r\nDindon gascon : 3 femelles et 1 mâle', 176, NULL),
+(165, 'SENAC', 'Francis', '11 rue Escondeaux', '', '05 62 31 19 60', '', '', 169, 'Poule gasconne : 5 femelles et 3 mâles', 177, NULL),
+(166, 'VENTRIBOUT', 'Régis', '1, Coulim', '', '05 56 25 04 05', '06 78 95 67 52', '', 170, 'Poule landaise : 15 femelles et 5 mâle\r\nLapin chèvre : 1 femelle et 1 mâle', 178, NULL),
+(167, 'RAYMOND', 'Henri', '', '', '05 61 69 81 04', '', '', 171, 'Dindon gascon : 12 femelles et 3 mâles', 179, NULL),
+(168, 'FIEVET', 'Barbara', '31 Avenue de Bellevue', '', '05 56 34 27 45', '', 'fermemerignac@free.fr', 21, 'Dindon gascon : 1 femelle et 1 mâle', 180, NULL),
+(169, 'Parc cimetière Artigues', '', 'Avenue du Peyrou', '', '', '', '', 172, '', 181, NULL),
+(170, 'ARRETCHE', 'Alphred', 'Esnazuko bidea', '', '0675022584', '', '', 174, '', 182, NULL),
+(171, 'LARRALDE', 'Ignace', 'Etcekoborda', '', '05 59 29 99 52', '', '', 175, '', 183, NULL),
+(172, 'LAGARDE', 'Laurent', 'Etxexuriko Borda quart Rokos', '', '05 59 29 81 13', '', 'lagarde_laurent@sfr.fr', 175, '', 184, NULL),
+(173, 'FALXA', 'Jean-Michel', 'Olhaberrieta', '', '05 59 37 42 19', '', '', 176, '', 185, NULL),
+(174, 'ELISSALDE', 'Christophe', 'Halty', '', '06 66 99 21 00', '', '', 177, '', 186, NULL),
+(175, 'EYHERABIDE', 'Christophe', 'Anxaronxa, Quatier Bassebour', '', '06 66 72 67 07', '', '', 177, '', 187, NULL),
+(176, 'JAUREGUI', 'Ramuntxo', '30 Merkatu Plaza', '', '05 59 59 52 08', '', '', 177, '', 188, NULL),
+(177, 'OLAIZOLA', 'Panpi et Leire', 'Belazkabieta Etxeberria', '', '06 08 78 31 96', '', 'gaecbelazbieta@gmail.com', 177, '', 189, NULL),
+(178, 'DURRUTY', 'Gabriel', 'Panixtonia', '', '06 12 15 85 82', '', 'panixka@yahoo.fr', 178, '', 190, NULL),
+(179, 'ETCHART', 'Xavier et Maider', 'Makolatea', '', '05 59 29 50 93', '', 'makolatea@gmail.com', 178, '', 191, NULL),
+(180, 'LASSALLE', 'Jean', 'Enseigne bidea', '', '05 59 29 55 55', '', '', 178, '', 192, NULL),
+(181, 'FALXA-LARRABURU', 'Dominique', 'Maison Santa Maria quart Plaza', '', '05 59 37 98 09', '', '', 179, '', 193, NULL),
+(182, 'AYNETO', 'Christian', 'Route de l église', '', '05 59 42 68 90', '', '', 181, '', 195, NULL),
+(183, 'IRIQUIN', 'Jean-Paul', 'Olasur Etcheberria', '', '06 20 23 04 26', '', 'iriquin.jpm@orange.fr', 181, '', 196, NULL),
+(184, 'TEILLERIE', 'Jean Baptiste', 'Xudurenea', '', '', '', '', 181, '', 197, NULL),
+(185, 'LIGEIX', 'Michel', 'Salagoiti', '', '', '', '', 182, '', 198, NULL),
+(186, 'ERRANDONEA', 'Pettan', 'Ainesseneko Borda', '', '06 23 74 33 34', '', 'pattanerrando@hotmail.fr', 183, '', 199, NULL),
+(187, 'GUERENDIAIN', 'Raphaël', 'Aiztiburua', '', '06 15 06 89 51', '', '', 183, '', 200, NULL),
+(188, 'LAMOTHE', 'Jean', 'Katienborda', '', '', '', '', 183, '', 201, NULL),
+(189, 'GOYTY', 'Xabi', '11 Carrele del baus', '', '06 88 15 39 61', '', 'xabi.goyty@yahoo.fr', 184, '', 202, NULL),
+(190, 'MARCILLAC', 'Lucie', 'EHLG, Maison Zuentzat', '', '05 59 37 18 82', '', 'lucie.ehlg@orange.fr', 185, '', NULL, NULL),
+(191, 'ALZUGARAY', '', '', '', '', '', '', 186, '', 203, NULL),
+(192, 'ARRETCHE', 'C.', '', '', '', '', '', 176, '', 204, NULL),
+(193, 'DE OREGUY', '', '', '', '', '', '', 187, '', 205, NULL),
+(194, 'ETCHAMENDY', '', '', '', '', '', '', 188, '', 206, NULL),
+(195, 'MATEO', '', '', '', '', '', '', 189, '', 207, NULL),
+(196, 'RECARTE', '', '', '', '', '', '', 174, '', 208, NULL),
+(197, 'Bordeaux Sciences Agro', '', '1 cours du Général de Gaulle', '', '', '', '', 156, '', 209, NULL),
+(198, 'GIRAUD', 'Catherine', 'Chourdens', '', '06 20 68 78 46', '', 'fermedechourdens@gmail.com', 190, '', 210, NULL),
+(199, 'HECQUET', 'Paul', 'Château de Rodié', '', '05 53 40 89 24', '06 72 61 69 43', 'mail@chateauderodie,com', 191, 'Portable : Suzanne', 211, NULL),
+(200, 'LEMBEYE', 'Guy', '17 Gémelhan', '', '05 56 58 57 05', '', '', 77, '', 212, NULL),
+(201, 'BRAUD ET ST LOUIS', 'Site', '120 avenue du Port de Roy', '', '', '', '', 15, 'Isabelle Maille', 213, NULL),
+(202, 'VAUCOULOUX', 'Delphine', 'Pinchaou, 1497 chemin des 4 carrères', '', '06 70 12 35 61', '', '', 192, '', 214, NULL),
+(203, 'PARC BORDELAIS', '', 'Rue du Bocage', '', '', '', '', 173, '', 215, NULL),
+(204, 'DEGUINE', 'Alain', '5 rue de la Porte d\'Uzan', '', '06 73 87 55 09', '', 'deguinea@wanadoo.fr', 193, '', 216, NULL),
+(205, 'MAGESTE', 'Paul', '6 rue Pierre et Marie Currie', '', '05 58 46 56 80', '', '', 194, '', 217, NULL),
+(206, 'JEGO', 'Jean-Yves', 'Les Farges', '', '05 53 80 53 86', '', 'canardou@wanadoo,fr', 195, 'N\'a plus de moutons', NULL, NULL),
+(207, 'LYPHOUT', 'Eric', 'La rougerie', '', '05 53 50 09 49', '', '', 196, 'Vend son troupeau et garde uniquement quelques brebis pour faire du croisement', 218, NULL),
+(208, 'JEANSON', 'Thomas', '3837 route de Mimizan', 'La courgeyre', '05 58 07 34 77', '', '', 197, '', 219, NULL),
+(209, 'LAMAUD', 'Emmanuelle', 'Les Granges', '', '05 53 24 67 25', '', '', 198, '', 220, NULL),
+(210, 'BARRERE', 'Jean', '75 Boulevard Lapègue', '', '06 26 34 94 76', '', 'barrere.jean@free.fr', 200, '', 221, NULL),
+(211, 'MARTIN', 'Luc', 'Lieu-dit PIARRIC', '', '06 24 33 83 27', '', '', 201, '', 222, NULL),
+(212, 'DE MONREDON', 'Maylis', 'Bousquès', '', '05 58 06 25 10', '', 'landes.nature@laposte.net', 202, '', 223, NULL),
+(213, 'EPIARD', 'Colette', 'Lieu-dit Les Bordes', '', '05 53 83 45 24', '', 'colette.epiard@gmail.com', 203, '', 224, NULL),
+(214, 'ARMELLIN', 'Pascal', 'Route de Solférino', '', '', '', 'f.raguenes@parc-landes-de-gascogne.fr', 154, '', 225, NULL),
+(215, 'CENTRE ANIMATION du LAC', '', 'Rue du Petit Miot', '', '', '', '', 173, '', 226, NULL),
+(216, 'BETIN', 'François', 'Rue André Dupin BP n°1', '', '06 76 98 65 63', '', '', 204, '', 227, NULL),
+(217, 'LUQUEDEY', 'Philippe', 'Route de Maillas', '', '05 56 65 62 29 ', '', 'luquedey.ph@hautelande.org', 205, 'N\'as plus de mouton', 228, NULL),
+(218, 'DAINE', 'Sabri', 'Logis de la cour', '', '05 45 71 45 33', '06 63 56 73 36', '', 206, '', 229, NULL),
+(219, 'LAURETTE', 'Janik', 'Cavalerie', 'Lieu-dit Les Gatineaux', '', '', '', 207, 'INJOIGNABLE', 230, NULL),
+(220, 'DINARD', 'Stéphane', 'La Mole', '', '', '', '', 208, 'INJOIGNABLE', 231, NULL),
+(221, 'BONNELLE', 'Ludovic', 'Domaine du Pech', '', '', '', '', 209, 'INJOIGNABLE', 232, NULL),
+(222, 'TONNERRE', 'Loïc', '153 bis chemin de Lumné', '', '07 62 85 91 42', '', '', 210, '', 233, NULL),
+(223, 'JOUBERT', 'Laurent', 'Réserve de la Mazière', '', '06 78 35 05 41', '', '', 141, '', 234, NULL),
+(224, 'KPADONOU', 'Valérie', '24 route de Pey de Bordes', '', '06 24 05 26 36', '', 'valerienk@free.fr', 211, '', 235, NULL),
+(225, 'LE BIOME', 'PETIT Enrique', '463 chemin des faisans', '', '05 24 28 57 24', '06 28 69 14 77', '', 212, 'Cherche à placer ses moutons 18/03/16', 236, NULL),
+(226, 'CHARLET', 'Annika', '360 rue Courbertin', '', '07 60 10 48 49', '', 'caleches.annika@gmail.com', 213, '', 237, NULL),
+(227, 'GRATIANNETTE', 'Valérie', '21 bis avenue de la côte d Argent', '', '06 11 74 34 48', '', 'valerie.gratiannette@laposte.net', 76, '', 239, NULL),
+(228, 'CORVOISIER', 'Denis', 'Gardit', '', '05 56 65 78 07', '', '', 138, '', 240, NULL),
+(229, 'JUBILY', 'Frank', 'Lieu-dit Marahans', '', '06 63 53 49 14', '', 'michele.jubily@live.fr', 205, '', 241, NULL),
+(230, 'LEVEQUE', 'Olivier', 'Lieu dit Samson-Est', '', '06 48 15 52 30', '', 'olivier.leveque70@gmail.com', 214, '', 242, NULL),
+(231, 'RIFFAUD', 'François-Xavier', '', '', '06 58 97 37 70', '', 'fxriffaud@hotmail.com', 215, '', 243, NULL),
+(232, 'PERNET', 'Sabrina (Château Palmer)', 'Issan, Château Palmer', '', '', '', '', 38, '', 244, NULL),
+(233, 'RABENEL', 'Epoux', '', '', '06 28 66 69 65', '', '', 216, 'En attente de visite sur site', 245, NULL),
+(234, 'LE CORRE', 'Jean-Michel', '', '', '', '', '', 217, '', 246, NULL),
+(235, 'CRA', 'Le Porge', '', '', '', '', '', 218, '', 247, NULL),
+(236, 'LIBOURNE', '(a supprimer - DOUBLON BARBANNE)', '', '', '', '', '', 137, '', 248, NULL),
+(237, 'PARC RENE CANIVENC', '', '53 rue du Moulineau', '', '', '', '', 156, '', 249, NULL),
+(238, 'SARL Les écuries de l\'isle', '', '2 Anguieux', '', '0557514146', '', '', 219, '', 250, NULL),
+(239, 'PC Bon Air', '', '49 rue de Malbos', '', '', '0611194334', '', 21, '', 251, NULL),
+(240, 'UCPA St Médard en Jalles', '', 'Centre équestre château de Belfort-Issac', '', '0556050533', '', '', 220, '', 252, NULL),
+(241, 'PC de Rhode', '', 'Domaine de Rhodes', '', '0556724876', '', '', 221, '', 253, NULL),
+(242, 'Haras du Pujoulet', '', '21 rue du Pujoulet', '', '', '', '', 40, '', 254, NULL),
+(243, 'SARL domaine d\'ourles', '', 'oules', '', '0557462680', '', '', 222, '', 255, NULL),
+(244, 'Ecole d\'equitation Kerdoen', '', '849 route du Bayle', '', '05 58 42 74 84', '', '', 223, '', 256, NULL),
+(245, 'EARL Heliande', '', '560 rte d\'orthevielle sardeluc', '', '0558891278', '', '', 224, '', 257, NULL),
+(246, 'CE Ous Pins', '', 'Route de Rion', '', '0558734465', '', '', 225, '', 258, NULL),
+(247, 'SNEV', '', 'La Grace', '', '0553705999', '', '', 226, '', 259, NULL),
+(248, 'SCEA de Cassou', '', 'Cap de Bosc', '', '0553654207', '', '', 227, '', 260, NULL),
+(249, 'CH de Biarritz', '', 'Allée Gabrielle Dorziat', '', '05 59 23 52 33', '', '', 228, '', 261, NULL),
+(250, 'EARL Equipassion Pyrennee', '', '20 Chemin Bois Côte', '', '', '', '', 229, '', 262, NULL),
+(251, 'Les Ecuries des Pyrénées (SARL)', '', '20 chemin Bois Côte', '', '0559337171', '', '', 230, '', 263, NULL),
+(252, 'EARL Les Ecuries de Vervent', '', 'Vervent', '', '', '0680952414', '', 231, '', 264, NULL),
+(253, 'SARL Ecurie de la Foret', '', '900 rte de la Foret', '', '0238355321', '', '', 232, '', 265, NULL),
+(254, 'Ecurie Franck Thermeau', '', '30 rue de Montauban', '', '', '0622750360', '', 233, '', 266, NULL),
+(255, 'CE Montgeron Equitation', '', '16 av du maréchl foch', '', '0169831582', '', '', 234, '', 267, NULL),
+(256, 'Ecuries d\'Attilly', '', 'Route de Servon', '', '', '0662012575', '', 235, '', 268, NULL),
+(257, 'SARL Equicrin Olima', '', 'vallon d\'Olima', '', '0329821633', '', '', 236, '', 269, NULL),
+(258, 'CH Combelles', '', 'Le Monastère', '', '0565773008', '', '', 237, '', 270, NULL),
+(259, 'Ferme Equestre Faron', '', 'Hameau de Bayon RD 48', '', '0442304538', '', '', 238, '', 271, NULL),
+(260, 'SARL Guy Trosset', '', 'ch rural de l\'orge', '', '', '', '', 239, '', 272, NULL),
+(261, 'AGERON', 'Patrick', 'Kervernir', '', '0297580677', '', '', 240, '', 273, 'Non'),
+(262, 'AMIET', 'Marie-Pierre', '7 route Nationale 117', '', '', '0686410402', '', 241, '', 274, NULL),
+(263, 'ARGET', 'Colette', 'Bois de Boulogne', '', '05 58 74 09 15', '', '', 242, '', 275, NULL),
+(264, 'ARREDE', 'Maurice', '14 bis chemin de Peyrous', '', '0559821061', '', '', 243, '', 276, NULL),
+(265, 'BADOZ', 'Thierry', 'Chemin de Loustau Neuf', '', '0556894752', '', '', 24, '', 277, NULL),
+(266, 'BAUDRAND', 'Jean-Paul', 'Haras de Mondesir', '', '05 53 79 09 71', '', '', 244, '', 278, NULL),
+(267, 'BECAT', 'Morgane', '17 Route du Lion d\'Or', '', '0557645264', '06 82 90 98 80', '', 55, '', 279, NULL),
+(268, 'BEGARDS', 'Eric', 'Maison Grammont', '', '0559563874', '', '', 245, '', 280, NULL),
+(269, 'BEGU', 'Jean-Jacques', 'Impasse du moulin de larras', '', '0558982274', '', '', 246, '', 281, NULL),
+(270, 'BEGUIN', 'Nathalie', 'PC de la tour', '', '0232559504', '', '', 247, '', 282, NULL),
+(271, 'BENEY', 'Laurent', '14B Peyreffite', '', '0556611985', '06 85 29 01 81', '', 248, '', 283, NULL),
+(272, 'BEREAU', 'Dominique', 'CE La Cabriole', '', '', '0667430602', '', 249, '', 284, NULL),
+(273, 'BOURDENX', 'Elodie', 'CH Dax', '', '05 58 74 09 14', '', '', 250, '', 285, NULL),
+(274, 'BOURGEOIS', 'Arnaud', 'Domaine de la Valette', '', '', '07 61 60 60 04', 'arnaud.bourgeois@kalinnova.com', 251, '', NULL, NULL),
+(275, 'BOUYRIE', 'Christine', '334 Avenue de l\'Argonne', '', '', '0675896133', '', 21, '', 287, NULL),
+(276, 'BOYAVAL', 'Béatrice', 'PC du Parc', '', '0139123108', '', '', 252, '', 288, NULL),
+(277, 'BROCAS', 'Francis', 'Cazala', '', '05 58 57 81 69', '', '', 253, '', 289, NULL),
+(278, 'BROUCHIER', 'Justine', 'CE du Rouret', '', '0475939869', '', '', 254, '', 290, NULL),
+(279, 'BROUSSE', 'Marielle', 'Team Top 82', '', '', '0614223215', '', 255, '', 291, NULL),
+(280, 'BRUNO', 'Nadine', 'Le Bosc', '', '0561270074', '', '', 256, '', 292, NULL),
+(281, 'CACHAU', 'Jean', 'Quartier JeanBayle', '', '', '0684691353', 'poneysduparc@orange.fr', 257, '', 293, NULL),
+(282, 'CAROUR', 'Marie-Béatrice', 'Les Rondeais', '', '0228248098', '', '', 258, '', 294, NULL),
+(283, 'CARTIER', 'Alice', 'Attelage du pays d\'ouche', '', '0232431624', '', '', 259, '', 295, NULL),
+(284, 'CASSEN', 'Gael', 'Quartier Jean de Paul', '', '', '0628651487', '', 223, '', 296, NULL),
+(285, 'CASTAGNET', 'Gérard', '1475 rte du Vimport', '', '0558975447', '', '', 260, '', 297, NULL),
+(286, 'CAZENAVE', 'Christiane', '93, rte de Coustaou', '', '0558899045', '', '', 261, '', 298, NULL),
+(287, 'CERISY', 'Emmanuel', 'AVSA Ecuries de Trousseau', '', '', '0680406716', '', 262, '', 299, NULL),
+(288, 'CHACHOUR', 'Alain', '191 Impasse de Peylin', '', '0558975104', '', '', 263, '', 300, NULL),
+(289, 'CHARBONNIER', 'Flavien', 'Pole equestre du lys', '', '', '', '', 264, '', 301, NULL),
+(290, 'CIBRAY', 'Corinne', 'Relai de Coco Ci', '', '0534269145', '', '', 265, '', 302, NULL),
+(291, 'CLERC', 'Valérie', '148 Route de Caplanne', '', '0558777821', '', '', 266, '', 303, NULL),
+(292, 'COIGNET', 'Catherine', 'Chemin de Farnier', '', '0471007792', '', '', 267, '', 304, NULL),
+(293, 'COLLIN', 'Rodolphe', 'Club du Poney Landais', '', '', '0620281370', '', 268, '', 305, NULL),
+(294, 'CONRIE', 'Laura', '24 allée des coreaux du mousson', '', '', '', '', 269, '', 306, NULL),
+(295, 'CONSTANT BRIONES', 'Marie-Christine', '1 domaine de Bafave', '', '0557494686', '', '', 270, '', 307, NULL),
+(296, 'DABRYO', 'Juan', 'Allée de Darricau', '', '0558783020', '', '', 271, '', 308, NULL),
+(297, 'DALAT', 'Philippe', 'ferme St Ferreol', '', '0562381794', '', '', 272, '', 309, NULL),
+(298, 'D ARAGON', 'Antoine', 'Le Château', '', '0563790226', '', 'aurelia.daragon@orange.fr', 273, '', 310, NULL),
+(299, 'D AVEZAC DE CASTERA', 'Luc', 'Le château', '', '0558975701', '', '', 274, '', 311, NULL),
+(300, 'DEBSKI', 'Maureen', '2 La Barouette', '', '', '0688145602', '', 275, '', 312, NULL),
+(301, 'DEFOS', 'Caroline', 'Haras de St Aubin Elevage du Thya', '', '0562083841', '', 'caroline.defos@orange.fr', 276, '', 313, NULL),
+(302, 'DELAVIGNE', 'Marie-France', 'Haras de l\'étang rouge', '', '0254833358', '', 'mariefrance.delavigne@akeonet.com', 277, '', 314, NULL),
+(303, 'DENEBOUR', 'Pauline', 'Quartier Gaillard', '', '0558071595', '', '', 278, '', 315, NULL),
+(304, 'DENIS', 'Alain', '58 Rue Des Petites Nouettes', '', '', '', '', 279, '', 316, NULL),
+(305, 'DESBIEYS', 'Bernard', '', '', '', '', '', 280, '', 317, NULL),
+(306, 'DESCHAMPS', 'Celia', 'CE La Foret', '', '', '0683566153', '', 281, '', 318, NULL),
+(307, 'DESGROPPES', 'Roger', 'Les Parcs', '', '0553524595', '', '', 282, '', 319, NULL),
+(308, 'DIZABO', 'Benoit', '192 impasse de Houndouban', '', '0558777623', '', '', 266, '', 320, NULL),
+(309, 'DOEN', 'Claude', 'Rte du bayle', '', '0558427484', '', '', 223, '', 321, NULL),
+(310, 'DOMENGER', 'Jean-Guy', 'Le Treuilh 750 Chemin de la Basse', '', '0558572583', '', '', 163, '', 322, NULL),
+(311, 'DONANON', 'Elisa', 'Manège d\'Aix les bains', '', '0479883567', '', '', 283, '', 323, NULL),
+(312, 'DUFAU', 'Thierry', '309 Route du Grand Arrigan', '', '0558980182', '', '', 284, '', 324, NULL),
+(313, 'DULFOUR', 'Coralie', 'Ecuries de Trouillas', '', '', '0676853464', '', 285, '', 325, NULL),
+(314, 'DUPEYRON', 'Pierre-Paul', '1, Deves Nord', '', '0556595668', '', '', 286, '', 326, NULL),
+(315, 'DUPUY', 'Séverine', 'Elevage du Hat', '', '0556253361', '', 'contact@elevage-du-hat.fr', 287, '', 327, NULL),
+(316, 'DURANTE', 'Yves', '873 Chemin de Pastou', '', '0558715164', '', '', 288, '', 328, NULL),
+(317, 'ESCOFFIER', 'Martine', 'Le Sortin', '', '', '', '', 289, '', 329, NULL),
+(318, 'ESPIET MAZOYER', 'Joelle', 'La Devinière', '', '0562094786', '', '', 290, '', 330, NULL),
+(319, 'ESSIG', 'Maelya', 'CE du Bois de Maulny', '', '', '0682965040', '', 291, '', 331, NULL),
+(320, 'FAGES', 'Adeline', '', '', '', '0678137549', '', 292, '', 332, NULL),
+(321, 'FAYET', 'David', 'Ecuries de Verduzan', '', '', '0625428325', '', 293, '', 333, NULL),
+(322, 'FERCHAUD', 'Morgane', '\"DOMAINE DU PETIT BOIS', 'ROUTE DE PUYNORMAND \"', '', '', '0642732205', 294, '', 334, NULL),
+(323, 'FERRAS', 'Maeva', 'Ecuries de Bernicot', '', '0562666326', '', '', 295, '', 335, NULL),
+(324, 'FLAQUIN', 'Tristan', 'PC de Ste Consorce', '', '0478871688', '', '', 296, '', 336, NULL),
+(325, 'FREVAL', 'Nicolas', '430 Rte de bois de Cazere', '', '0468718399', '', '', 297, '', 337, NULL),
+(326, 'GAGNEUX', 'Laure', 'Asso sportive todor light', '', '', '0683059128', '', 298, '', 338, NULL),
+(327, 'GALLAIS', 'Rose-Anne', 'La Marquisanne', '', '', '0689863231', '', 299, '', 339, NULL),
+(328, 'GBUEL', 'Simon', 'Ecurie d\'Emmelo', '', '', '0603408927', '', 300, '', 340, NULL),
+(329, 'GIBILARO', 'Marie-Hélène', 'Château de Valbonne', '', '', '', '', 301, '', 341, NULL),
+(330, 'GIOVALE', 'Léa', 'Asso les cavaliers du petit soleil', '', '', '0674862014', '', 302, '', 342, NULL),
+(331, 'GODEC', 'Carine', 'Le Ménil St Michel', '', '0383267338', '', 'contact@le-menil-st-michel.fr', 303, '', 343, NULL),
+(332, 'GOMBAUD SAINTONGE', 'Marie-Laure', 'NECA', '', '', '0660270838', '', 304, '', 344, NULL),
+(333, 'GRANGETEAU DUCONGE', 'Florence', 'Ecurie de Flore', '', '', '0637357734', '', 305, '', 345, NULL),
+(334, 'GUERIN', 'Victoria', 'Compet en Fleche', '', '', '0683178179', '', 306, '', 346, NULL),
+(335, 'GUIGEN', 'Léna', 'Le shet landes', '', '0558722683', '', '', 307, '', 347, NULL),
+(336, 'GUITTON', 'Ronan', 'Ecurie du montois', '', '', '0607034072', '', 308, '', 348, NULL),
+(337, 'GUITTON', 'Jeannick', '43 rue de Montfort les granits', '', '0243767483', '', '', 309, '', 349, NULL),
+(338, 'HAAS', 'Eric', 'Domaine de Las Peyres Route de Tosse', '', '0558774482', '', '', 310, '', 350, NULL),
+(339, 'HARNIEH', 'Maryse', 'Ecurie Ty Fulenn', '', '', '0683025718', '', 311, '', 351, NULL),
+(340, 'HAURET', 'Daniel', 'CE Ous Pins', '', '0558734465', '', '', 225, '', 352, NULL),
+(341, 'HENON', 'Alain', '32, Quinquies Belle Etoile', '', '0238923331', '', '', 312, '', 353, NULL),
+(342, 'HENRION', 'Anne-Marie', 'Talon', '', '0558570183', '', '', 313, '', 354, NULL),
+(343, 'HERMAL', 'Sébastien', '6 ruelle demennemey', '', '0329522803', '', '', 314, '', 355, NULL),
+(344, 'HUCHET', 'Michel', 'La Peutoire', '', '0243708623', '', '', 315, '', 356, NULL),
+(345, 'HUDELLE', 'Rea', 'Equi libre 19', '', '', '', '', 316, '', 357, NULL),
+(346, 'JEANNE', 'Françoise', 'Le Rivage', '', '0233715357', '', '', 317, '', 358, NULL),
+(347, 'JEANSON', 'Marie', '1343 Chemin de Lio', '', '05 58 42 42 88', '', 'grandlio@orange.fr', 223, '', 359, NULL),
+(348, 'JOUANNEAU', 'Déborah', '36 rue Lulli', '', '0169922236', '', '', 318, '', 360, NULL),
+(349, 'KUSSWIEDER', 'Laurence', '26 rue de la folie', '', '0387257010', '', '', 319, '', 361, NULL),
+(350, 'LABENNE', 'Pierre', 'Tasteut', '', '0558975560', '', '', 260, '', 362, NULL),
+(351, 'LABOIS', 'Annie', 'les verneres brenne', '', '0254363903', '', '', 320, '', 363, NULL),
+(352, 'LACROIX', 'Jean-Baptiste', '546, rte du Berceau', '', '0558899189', '', '', 261, '', 364, NULL),
+(353, 'LAFITTE', 'Claude', '258 Rte de Paregot', '', '', '', '', 321, '', 365, NULL),
+(354, 'LAFONT', 'Christelle', 'Quart Laulhé', '', '', '0619454064', '', 322, '', 366, NULL),
+(355, 'LAJUS', 'François', '19 rue Bosquet', '', '', '', '', 194, '', 367, NULL),
+(356, 'LALANDE', 'Philippe', 'Le grand Aunay', '', '', '0620271395', '', 323, '', 368, NULL),
+(357, 'LARTIGAU', 'Georges', 'Le Barthote', '', '0558577289', '', '', 324, '', 369, NULL),
+(358, 'LASSERRE', 'Alain-Pierre', 'Route de Lourgon Parcaou', '', '0558573661', '', '', 325, '', 370, NULL),
+(359, 'LAVIELLE', 'Jean-Louis', 'Rte de St Geours', '', '', '', '', 326, '', 371, NULL),
+(360, 'LE DEZ', 'Fabienne', 'Lieu-dit Peli', '', '0559454554', '', '', 327, '', 372, NULL),
+(361, 'LEBARQUE', 'Patrice', 'PC La Houssaye', '', '0130420599', '', '', 328, '', 373, NULL),
+(362, 'LELEU', 'Victor', 'Ecurie du haras du bosc', '', '', '0681555474', '', 329, '', 374, NULL),
+(363, 'LEROY', 'Camille', 'Asso Caval Passion', '', '', '0676168694', '', 330, '', 375, NULL),
+(364, 'LESCLAUX', 'Corinne', '490 Rte Lande de Mouillerat', '', '0558975456', '', '', 260, '', 376, NULL),
+(365, 'LIGNEAU', 'Jean-Claude', '1 Rte d\'auch', '', '0562980342', '', '', 331, '', 377, NULL),
+(366, 'MAGNOUX', 'Mélanie', 'Le cheval autrement', '', '', '0603530791', '', 332, '', 378, NULL),
+(367, 'MAIGNON', 'Isabelle', 'Chartres sports Equestres', '', '0237301010', '', '', 333, '', 379, NULL),
+(368, 'MAINBOURG', 'Camille', 'PC de la tour', '', '0232559504', '', '', 247, '', 380, NULL),
+(369, 'MALANDAIN', 'Claire', 'CE le Mollard', '', '0477837172', '', '', 334, '', 381, NULL),
+(370, 'MATHEVET', 'Claire', '12 Allée de l\'Octroi', '', '06 76 48 51 46', '', '', 335, '', 382, NULL),
+(371, 'MAZE', 'Erell', '1150 route de Sore', '', '0558089654', '', '', 336, '', 383, NULL),
+(372, 'MEMHELD', 'Viviane', 'La lunoterie', '', '0549857409', '', '', 337, '', 384, NULL),
+(373, 'MERLET', 'Robert', 'Bourdeton', '', '0558893230', '', '', 338, '', 385, NULL),
+(374, 'MICOULEAU', 'Marie', 'Asso Cheval Nature', '', '0467371308', '', '', 339, '', 386, NULL),
+(375, 'MIRAMONT', 'Alexia', '502 route des Vignes', '', '', '0615365225', 'antega.alexia@gmail.com', 340, '', 387, NULL),
+(376, 'MOEN', 'Peder', 'Château Pimbo', '', '0559660851', '', '', 341, '', 388, NULL),
+(377, 'MONTEIL', 'Véronique', 'Ferme Equestre de Peylin', '', '0558975104', '', '', 260, '', 389, NULL),
+(378, 'MORAUD', 'Carole', 'PC de Digny Ste Fraize', '', '0237379400', '', '', 342, '', 390, NULL),
+(379, 'MOREAU', 'Alain', 'EE du Menuse', '', '0558777821', '', '', 266, '', 391, NULL),
+(380, 'MOULIN', 'Yves', 'CH Domaine du rouret', '', '0475939860', '', '', 343, '', 392, NULL),
+(381, 'NAROLLES', 'Alix', 'Ecutie Narolle', '', '0546041655', '', '', 344, '', 393, NULL),
+(382, 'NEIL', 'Richard', 'Attelage du pays d\'ouche', '', '0232431624', '', '', 259, '', 394, NULL),
+(383, 'N GOM', 'Lisa', 'Narbonne Equitation', '', '0468490002', '', '', 345, '', 395, NULL),
+(384, 'OXIBAR', 'Isabelle', '103 allée des boissandières', '', '', '', '', 346, '', 396, NULL),
+(385, 'PASQUINE', 'Dominique', 'Haras de Saeeabouze', '', '0562947909', '', '', 347, '', 397, NULL),
+(386, 'PECQUEUX', 'Julie', '', '', '', '', '', 123, '', 398, NULL),
+(387, 'PEILHO BROCAS', 'Marie-José', '1151, route du braou', '', '0558578169', '', '', 253, '', 399, NULL),
+(388, 'PERRON', 'Paule', 'CE Le Benquet', '', '0562089611', '', '', 276, '', 400, NULL),
+(389, 'PLANTE', 'Reine', '210 Rte de Bardos', '', '0558577149', '', '', 348, '', 401, NULL),
+(390, 'PLANTE', 'Véronique', '100 rte de la Pierrelongue', '', '0558577360', '', '', 349, '', 402, NULL),
+(391, 'POITEVIN', 'Jackie', 'La vieille cour', '', '0241425280', '', '', 350, '', 403, NULL),
+(392, 'PONTRUCHE', 'Axel', 'Ecurie Lionel Huc', '', '', '0661621279', '', 351, '', 404, NULL),
+(393, 'PORTEAUD', 'Olivier', 'La font des Loges', '', '0557647309', '', '', 352, 'jolie du bercail 97053494 W ondine de cotaire', 405, NULL),
+(394, 'PRAT COYE', 'Patricia', '', '', '', '', '', 353, '', 406, NULL),
+(395, 'PUSSAC', 'Jean-Charles', '19, av de la Bourboule', '', '', '', '', 354, '', 407, NULL),
+(396, 'QUETELART', 'Chrystele', 'Domaine des 3pins la Colle', '', '0240878108', '06 16  61 06 57', 'chrytele.quetelart@hotmail.fr / contact@lesecuriesdelarros.fr', 268, '', 408, NULL),
+(397, 'RAHAIN', 'Aurélie', 'Pyrène elevage', '', '0559614896', '', '', 355, '', 409, NULL),
+(398, 'RAYO', 'Sophie', 'CE La Vallée des Bois', '', '', '0614956118', '', 356, '', 410, NULL),
+(399, 'RESTE', 'Céline', 'Houriettes', '', '', '', '', 284, '', 411, NULL),
+(400, 'ROCHETTE', 'Paola', 'Club du poney landais', '', '', '0620281370', '', 268, '', 412, NULL),
+(401, 'RODIGHIERO', 'Isabelle', 'Ecuries de Verduzan', '', '', '0625428325', '', 293, '', 413, NULL),
+(402, 'ROGER FAGES', 'Adeline', 'Mas de Donat', '', '', '', '', 357, '', 414, NULL),
+(403, 'ROSSET', 'Olivier', 'Ferme des Vallées', '', '0545602888', '', '', 358, '', 415, NULL),
+(404, 'ROTIVAL', 'Jean-Claude', 'CE du Rouret', '', '0475939869', '', '', 254, '', 416, NULL),
+(405, 'ROUSSET', 'Pascal', '40, rue des vallées', '', '0241321079', '', '', 359, '', 417, NULL),
+(406, 'RUELLOT', 'Thérèse', '2220 chemin de sablaret', '', '0558724235', '', '', 360, '', 418, NULL),
+(407, 'SAGOT DUVAUROUX', 'Louis', 'Bounéou, 753, route de Parentis en Born', '', '0558097593', '', '', 361, '', 419, NULL),
+(408, 'SAN JOSE', 'Frédéric', '63 rte d\'Hostens', '', '0556880268', '', '', 362, '', 420, NULL),
+(409, 'SCHMITT', 'Valérie', '154 Le Chiblin', '', '0389783502', '', '', 363, '', 421, NULL),
+(410, 'SEGEAR', 'Olivier', 'CE du Vieux Moulin', '', '0478732183', '', '', 364, '', 422, NULL),
+(411, 'SERVAES', 'Daniel', 'AE La Pouladière', '', '0238761959', '', '', 365, '', 423, NULL),
+(412, 'SIBE', 'Fabienne', '', '', '0558573751', '', '', 366, '', 424, NULL),
+(413, 'SIGNAC', 'Marc', 'Ferme des Vallées', '', '0545602882', '', '', 367, '', 425, NULL),
+(414, 'SNOY', 'Marie-Alexandrine', '2 Garlope', '', '0556259863', '', '', 30, '', 426, NULL),
+(415, 'SOULE', 'Henri et Geneviève', '551 Rte de Maremne', '', '0558577479', '', '', 368, '', 427, NULL),
+(416, 'SOULE', 'Jean-Marc', 'Riston', '', '0558577465', '', '', 369, '', 428, NULL),
+(417, 'TANGUY', 'Charlotte', 'Ecuries de Roquebere', '', '', '0621103336', '', 293, '', 429, NULL),
+(418, 'TARDY', 'Catherine', '19 Rue de St Dié', '', '0329566736', '', '', 370, '', 430, NULL),
+(419, 'TAUDON', 'Christian', 'la piece aux loups', '', '0241917012', '', '', 371, '', 431, NULL),
+(420, 'TEMINE', 'Michel', 'Domaine du pré gaillard', '', '0442828132', '', '', 301, '', 432, NULL),
+(421, 'TESSIER', 'Marie-Annick', 'Domaine de Lassalle', '', '', '0687561191', '', 372, '', 433, NULL),
+(422, 'THOBIE', 'Alain', '16 Rue de la courtiletais', '', '', '', '', 373, '', 434, NULL),
+(423, 'VACHER', 'Stéphanie', 'Domaine de Lassalle', '', '', '0687561191', '', 374, '', 435, NULL),
+(424, 'VAILLEAU', 'Floriane', '13 av. Jules Pernette', '', '06 86 54 87 44', '', '', 375, '', 436, NULL),
+(425, 'VANTROYS', 'Mathilde', '11 rue Beauregard', '', '0344880018', '', '', 376, '', 437, NULL),
+(426, 'VERGER', 'Michel', '1280 rte de Siest', '', '0558577210', '', '', 377, '', 438, NULL),
+(427, 'VERGER', 'Marie-Pierre', 'Route de Leudeville', '', '0164560931', '', '', 378, '', 439, NULL),
+(428, 'VILLEMONTE DE LA CLERGERIE', 'Hervé', '1, chemin de la Gravette le Plec', '', '0556585082', '', '', 379, '', 440, NULL),
+(429, 'VOTTIER', 'Patricia', 'Ecurie de Jarion', '', '', '0678206577', '', 380, '', 441, NULL),
+(430, 'CE Bois Brulé', '', 'CE Bois Brulé', '', '02 40 34 21 62', '', '', 279, '', 442, NULL),
+(431, 'CONVERS', 'Romane', 'PC les Etrets', '', '04 74 09 84 17', '', '', 381, '', 443, NULL),
+(432, 'GUITTON', 'Jérôme', 'Le petit bois route de prevelles', '', '', '', '', 382, '', 444, NULL),
+(433, 'ZAMORA', 'Bérengère', 'Domaine de Gensac', '', '06 83 47 32 15', '', '', 293, '', 445, NULL),
+(434, 'MARRAULD', 'Florian', 'La Gaillardine', '', '', '', '', 138, '', 446, NULL),
+(435, 'CAZABAT', 'Séverine', 'Lagune de Brana, route de Massé', '', '06 40 33 49 09', '', 'severine.cazabat@wanadoo.fr', 383, '', 447, NULL),
+(436, 'BARBE', 'Jean-Christophe', 'Chateau Laville SCEA', '', '05 56 63 59 45', '', 'chateaulaville@hotmail.com', 384, '', 448, NULL),
+(437, 'Ferme de Camdelan', '', '3792 Route de Contis', '', '07 68 67 72 66', '', 'contact@camdelan.com', 223, '', 449, NULL),
+(438, 'MARTY', 'Pascal', 'EARL des Saumagnes', '', '', '', '', 385, '', 450, NULL),
+(439, 'Lenormand', 'Serge', '', '', '', '', '', 386, '', NULL, NULL),
+(440, 'Chaperon', 'Marcel', '66 impasse des landes', '', '', '', 'marcel.chaperon@organe.fr', 387, '', 453, NULL),
+(441, 'Domaine de Certes', '', '', '', '', '', '', 222, '', 455, NULL),
+(442, 'ROUX', 'Barbara', 'Le Mandot', '', '', '', '', 388, '', 456, NULL),
+(443, 'PERRET', 'Louis', 'La Colle', '', '06 67 83 79 14', '', '', 268, '', 457, NULL),
+(444, 'Cassen', 'Gael', 'Quartier Jean de Paul', '', '', '', '', 223, '', 458, NULL),
+(445, 'BARRE', 'Stéphanie', 'Chemin des Bois Jourdan', '', '', '', '', 389, '', 459, NULL),
+(446, 'Conservatoire des Races dAquitaine', '', 'Bordeaux Sciences Agro, 1 Cours du Général de Gaulle', 'CS 40201', '05 57 35 60 86', '', 'conservatoire.races.aquitaine@gmail.com', 392, '', 460, NULL),
+(447, 'DARRIBET', 'Rolande-Véronique', '65 Route du Vimport La Coda', '', '', '', '', 260, '', 461, NULL),
+(448, 'MARIEL', 'Françoise', 'La Bezanterie', '', '09 52 51 95 01', '', '', 393, '', 462, NULL),
+(449, 'LORMEAU', 'Vanessa', 'Las Barthes', '', '', '', '', 394, '', 463, NULL),
+(450, 'THEBAULT', 'Lydie', '16 Rue Anatole', '', '', '', '', 395, '', 464, NULL),
+(451, 'COHUAU', 'Laurence', 'Rue des Eturcies', '', '', '', '', 306, '', 465, NULL),
+(452, 'BOSSARD', 'Lionel', '9 Place de l Eglise', '', '', '', '', 396, '', 466, NULL),
+(453, 'CHAPELLE', 'Emilie', 'Les Bobins', '', '', '', '', 397, '', 467, NULL),
+(454, 'GUIRAUTON', 'Bernard', '', '', '05 58 98 12 61', '', '', 246, '', 468, NULL),
+(455, 'Doyhenard', 'Olivier', 'Maison Agerrea', 'Harrimexaharreko bidea', '0684204723', '', 'ogervais@infonie.fr', 398, '', 469, NULL),
+(456, 'Szpetkowski', 'Eric', '', '', '', '', '', 399, '', 470, NULL),
+(457, 'Cazenave', 'Sébastien', 'Chemin Laguangue', '', '', '', '', 400, '', 471, NULL),
+(458, 'Château de Commarque', '', '', '', '', '', '', 151, '', 472, NULL),
+(459, 'Gallard', 'Mael', 'Lieu-dit Cesserou', '', '0672232303', '', '', 401, '', 473, NULL),
+(460, 'Glaser', 'Iska', 'Les Bordes', '', '0610122190', '0683345369', 'ferme@iska-marina.fr', 203, '', 475, NULL),
+(461, 'Loiseau', 'Mickael', 'Frimardiere', '', '0674166811', '', '', 402, '', 476, NULL),
+(462, 'Nattes', 'Yoan', 'Le Breil', '', '', '', '', 403, '', 477, NULL),
+(463, 'Pacha', '', '527 route de Dax', '', '', '', '', 284, '', 478, NULL);
+INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `tel`, `tel2`, `mail`, `id_commune`, `notes`, `id_elevage`, `Consentement`) VALUES
+(464, 'Vincenzi', 'Pierre', 'Mirathon', '', '', '', '', 404, '', 479, NULL),
+(465, 'Caussieu', 'Francis', '14 route de l Arros', '', '', '', '', 406, '', 481, NULL),
+(466, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 407, '', NULL, NULL),
+(467, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 408, '', NULL, NULL),
+(468, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 409, '', NULL, NULL),
+(469, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 410, '', NULL, NULL),
+(470, 'BURIDAN', 'Mathieu', '', '', '', '', '', 411, '', NULL, NULL),
+(471, 'Z', 'Marine', '', '', '', '', '', 412, '', NULL, NULL),
+(472, 'zzzz', 'zzz', 'zzz', 'zzzzzzzzzzzzzzz', '', '', '', 413, '', NULL, NULL),
+(473, 'zzzz', 'zzz', 'zzzzz', 'zzz', '', '', '', 414, '', NULL, NULL),
+(474, 'zzzz', 'zzz', 'zzzzz', 'zzz', '0303030303', '0303030303', 'toto@gmail.com', 415, 'aaaaaaaaa', NULL, NULL),
+(475, 'zzzzz', 'zzz', 'zzzz', 'zz', '', '', '', 415, '', NULL, NULL),
+(476, 'yyy', 'yyyyyy', 'yyy', '', '', '', '', 416, '', NULL, NULL),
+(477, 'zzz', 'zzz', 'zzz', 'zzz', '', '', '', 418, '', NULL, 'Non');
 
 -- --------------------------------------------------------
 
@@ -10644,14 +10759,17 @@ INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `te
 -- Structure de la table `departement`
 --
 
-CREATE TABLE `departement` (
-  `no_dpt` int(11) NOT NULL,
+DROP TABLE IF EXISTS `departement`;
+CREATE TABLE IF NOT EXISTS `departement` (
+  `no_dpt` int(11) NOT NULL AUTO_INCREMENT,
   `lib_dpt` char(255) NOT NULL,
-  `no_region` int(2) NOT NULL DEFAULT '25'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `no_region` int(2) NOT NULL DEFAULT '25',
+  PRIMARY KEY (`no_dpt`),
+  KEY `departement_ibfk_2` (`no_region`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `departement`
+-- Déchargement des données de la table `departement`
 --
 
 INSERT INTO `departement` (`no_dpt`, `lib_dpt`, `no_region`) VALUES
@@ -10758,14 +10876,17 @@ INSERT INTO `departement` (`no_dpt`, `lib_dpt`, `no_region`) VALUES
 -- Structure de la table `elevage`
 --
 
-CREATE TABLE `elevage` (
-  `id_elevage` int(11) NOT NULL,
+DROP TABLE IF EXISTS `elevage`;
+CREATE TABLE IF NOT EXISTS `elevage` (
+  `id_elevage` int(11) NOT NULL AUTO_INCREMENT,
   `nom_elevage` char(100) NOT NULL,
-  `no_elevage` char(15) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `no_elevage` char(15) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_elevage`),
+  KEY `id_elevage` (`id_elevage`)
+) ENGINE=InnoDB AUTO_INCREMENT=482 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `elevage`
+-- Déchargement des données de la table `elevage`
 --
 
 INSERT INTO `elevage` (`id_elevage`, `nom_elevage`, `no_elevage`) VALUES
@@ -11242,13 +11363,15 @@ INSERT INTO `elevage` (`id_elevage`, `nom_elevage`, `no_elevage`) VALUES
 -- Structure de la table `espece`
 --
 
-CREATE TABLE `espece` (
-  `id_espece` int(11) NOT NULL,
-  `lib_espece` char(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `espece`;
+CREATE TABLE IF NOT EXISTS `espece` (
+  `id_espece` int(11) NOT NULL AUTO_INCREMENT,
+  `lib_espece` char(50) NOT NULL,
+  PRIMARY KEY (`id_espece`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `espece`
+-- Déchargement des données de la table `espece`
 --
 
 INSERT INTO `espece` (`id_espece`, `lib_espece`) VALUES
@@ -11271,9 +11394,12 @@ INSERT INTO `espece` (`id_espece`, `lib_espece`) VALUES
 -- Structure de la table `ligne_caractere`
 --
 
-CREATE TABLE `ligne_caractere` (
+DROP TABLE IF EXISTS `ligne_caractere`;
+CREATE TABLE IF NOT EXISTS `ligne_caractere` (
   `id_animal` int(11) NOT NULL,
-  `id_caractere` int(11) NOT NULL
+  `id_caractere` int(11) NOT NULL,
+  KEY `ligne_caractere_ibfk_2` (`id_caractere`),
+  KEY `ligne_caractere_ibfk_3` (`id_animal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -11282,13 +11408,16 @@ CREATE TABLE `ligne_caractere` (
 -- Structure de la table `link_race_elevage`
 --
 
-CREATE TABLE `link_race_elevage` (
+DROP TABLE IF EXISTS `link_race_elevage`;
+CREATE TABLE IF NOT EXISTS `link_race_elevage` (
   `id_elevage` int(11) NOT NULL,
-  `code_race` int(10) NOT NULL
+  `code_race` int(10) NOT NULL,
+  KEY `fk_elevage_1` (`id_elevage`),
+  KEY `fk_race` (`code_race`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `link_race_elevage`
+-- Déchargement des données de la table `link_race_elevage`
 --
 
 INSERT INTO `link_race_elevage` (`id_elevage`, `code_race`) VALUES
@@ -11825,13 +11954,15 @@ INSERT INTO `link_race_elevage` (`id_elevage`, `code_race`) VALUES
 -- Structure de la table `livre_genealogique`
 --
 
-CREATE TABLE `livre_genealogique` (
+DROP TABLE IF EXISTS `livre_genealogique`;
+CREATE TABLE IF NOT EXISTS `livre_genealogique` (
   `id_livre` int(1) NOT NULL,
-  `lib_livre` char(15) NOT NULL
+  `lib_livre` char(15) NOT NULL,
+  UNIQUE KEY `id_livre` (`id_livre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `livre_genealogique`
+-- Déchargement des données de la table `livre_genealogique`
 --
 
 INSERT INTO `livre_genealogique` (`id_livre`, `lib_livre`) VALUES
@@ -11845,18 +11976,23 @@ INSERT INTO `livre_genealogique` (`id_livre`, `lib_livre`) VALUES
 -- Structure de la table `periode`
 --
 
-CREATE TABLE `periode` (
-  `id_periode` int(11) NOT NULL,
+DROP TABLE IF EXISTS `periode`;
+CREATE TABLE IF NOT EXISTS `periode` (
+  `id_periode` int(11) NOT NULL AUTO_INCREMENT,
   `date_entree` date DEFAULT NULL,
   `date_sortie` date DEFAULT NULL,
   `valide_periode` int(1) NOT NULL,
   `id_animal` int(11) NOT NULL,
   `id_elevage` int(11) DEFAULT NULL,
-  `id_type` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_type` int(11) NOT NULL,
+  PRIMARY KEY (`id_periode`),
+  KEY `periode_ibfk_1` (`id_type`),
+  KEY `periode_ibfk_2` (`id_animal`),
+  KEY `periode_ibfk_3` (`id_elevage`)
+) ENGINE=InnoDB AUTO_INCREMENT=35363 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `periode`
+-- Déchargement des données de la table `periode`
 --
 
 INSERT INTO `periode` (`id_periode`, `date_entree`, `date_sortie`, `valide_periode`, `id_animal`, `id_elevage`, `id_type`) VALUES
@@ -39842,16 +39978,18 @@ INSERT INTO `periode` (`id_periode`, `date_entree`, `date_sortie`, `valide_perio
 -- Structure de la table `phinxlog`
 --
 
-CREATE TABLE `phinxlog` (
+DROP TABLE IF EXISTS `phinxlog`;
+CREATE TABLE IF NOT EXISTS `phinxlog` (
   `version` bigint(20) NOT NULL,
   `migration_name` varchar(100) DEFAULT NULL,
   `start_time` timestamp NULL DEFAULT NULL,
   `end_time` timestamp NULL DEFAULT NULL,
-  `breakpoint` tinyint(1) NOT NULL DEFAULT '0'
+  `breakpoint` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `phinxlog`
+-- Déchargement des données de la table `phinxlog`
 --
 
 INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES
@@ -39865,13 +40003,15 @@ INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `
 -- Structure de la table `privilege`
 --
 
-CREATE TABLE `privilege` (
-  `id_privilege` int(2) UNSIGNED NOT NULL,
-  `lib_privilege` char(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `privilege`;
+CREATE TABLE IF NOT EXISTS `privilege` (
+  `id_privilege` int(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `lib_privilege` char(20) NOT NULL,
+  PRIMARY KEY (`id_privilege`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `privilege`
+-- Déchargement des données de la table `privilege`
 --
 
 INSERT INTO `privilege` (`id_privilege`, `lib_privilege`) VALUES
@@ -39885,15 +40025,18 @@ INSERT INTO `privilege` (`id_privilege`, `lib_privilege`) VALUES
 -- Structure de la table `race`
 --
 
-CREATE TABLE `race` (
-  `code_race` int(10) NOT NULL,
+DROP TABLE IF EXISTS `race`;
+CREATE TABLE IF NOT EXISTS `race` (
+  `code_race` int(10) NOT NULL AUTO_INCREMENT,
   `lib_race` char(30) NOT NULL,
   `abbrev` char(255) NOT NULL,
-  `id_espece` int(11) NOT NULL DEFAULT '11'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_espece` int(11) NOT NULL DEFAULT '11',
+  PRIMARY KEY (`code_race`),
+  KEY `fk_espece` (`id_espece`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `race`
+-- Déchargement des données de la table `race`
 --
 
 INSERT INTO `race` (`code_race`, `lib_race`, `abbrev`, `id_espece`) VALUES
@@ -39938,13 +40081,15 @@ INSERT INTO `race` (`code_race`, `lib_race`, `abbrev`, `id_espece`) VALUES
 -- Structure de la table `region`
 --
 
-CREATE TABLE `region` (
-  `no_region` int(2) NOT NULL,
-  `lib_region` char(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `region`;
+CREATE TABLE IF NOT EXISTS `region` (
+  `no_region` int(2) NOT NULL AUTO_INCREMENT,
+  `lib_region` char(255) NOT NULL,
+  PRIMARY KEY (`no_region`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `region`
+-- Déchargement des données de la table `region`
 --
 
 INSERT INTO `region` (`no_region`, `lib_region`) VALUES
@@ -39977,13 +40122,15 @@ INSERT INTO `region` (`no_region`, `lib_region`) VALUES
 -- Structure de la table `type_periode`
 --
 
-CREATE TABLE `type_periode` (
-  `id_type` int(11) NOT NULL,
-  `lib_type` char(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `type_periode`;
+CREATE TABLE IF NOT EXISTS `type_periode` (
+  `id_type` int(11) NOT NULL AUTO_INCREMENT,
+  `lib_type` char(15) NOT NULL,
+  PRIMARY KEY (`id_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `type_periode`
+-- Déchargement des données de la table `type_periode`
 --
 
 INSERT INTO `type_periode` (`id_type`, `lib_type`) VALUES
@@ -39998,229 +40145,58 @@ INSERT INTO `type_periode` (`id_type`, `lib_type`) VALUES
 -- Structure de la table `valeur_attribut`
 --
 
-CREATE TABLE `valeur_attribut` (
-  `id_valeur_attribut` int(11) NOT NULL,
+DROP TABLE IF EXISTS `valeur_attribut`;
+CREATE TABLE IF NOT EXISTS `valeur_attribut` (
+  `id_valeur_attribut` int(11) NOT NULL AUTO_INCREMENT,
   `valeur` char(10) NOT NULL,
   `id_animal` int(11) NOT NULL,
-  `id_attribut` int(11) NOT NULL
+  `id_attribut` int(11) NOT NULL,
+  PRIMARY KEY (`id_valeur_attribut`),
+  KEY `valeur_attribut_ibfk2` (`id_attribut`),
+  KEY `valeur_attribut_ibfk3` (`id_animal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Index pour les tables exportées
---
+-- --------------------------------------------------------
 
 --
--- Index pour la table `animal`
+-- Doublure de structure pour la vue `v_ani_mort`
+-- (Voir ci-dessous la vue réelle)
 --
-ALTER TABLE `animal`
-  ADD PRIMARY KEY (`id_animal`),
-  ADD KEY `code_race` (`code_race`,`id_photo`),
-  ADD KEY `fk_pere` (`id_pere`),
-  ADD KEY `fk_mere` (`id_mere`),
-  ADD KEY `id_livre` (`id_livre`);
+DROP VIEW IF EXISTS `v_ani_mort`;
+CREATE TABLE IF NOT EXISTS `v_ani_mort` (
+`id_animal` int(11)
+,`nom_animal` char(50)
+,`sexe` int(1)
+,`no_identification` char(13)
+,`date_naiss` date
+,`id_livre` int(1)
+,`reproducteur` int(1)
+,`fecondation` int(1)
+,`coeff_consang` decimal(5,5)
+,`conservatoire` int(1)
+,`valide_animal` int(1)
+,`code_race` int(10)
+,`id_pere` int(11)
+,`id_mere` int(11)
+,`id_photo` int(11)
+,`id_ani` int(11)
+,`id_periode` int(11)
+,`date_entree` date
+,`date_sortie` date
+,`id_elevage` int(11)
+,`id_type` int(11)
+);
+
+-- --------------------------------------------------------
 
 --
--- Index pour la table `attribut`
+-- Structure de la vue `v_ani_mort`
 --
-ALTER TABLE `attribut`
-  ADD PRIMARY KEY (`id_attribut`),
-  ADD KEY `fk_index` (`id_espece`);
+DROP TABLE IF EXISTS `v_ani_mort`;
 
---
--- Index pour la table `caractere_genetique`
---
-ALTER TABLE `caractere_genetique`
-  ADD PRIMARY KEY (`id_caractere`);
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_ani_mort`  AS  select `a`.`id_animal` AS `id_animal`,`a`.`nom_animal` AS `nom_animal`,`a`.`sexe` AS `sexe`,`a`.`no_identification` AS `no_identification`,`a`.`date_naiss` AS `date_naiss`,`a`.`id_livre` AS `id_livre`,`a`.`reproducteur` AS `reproducteur`,`a`.`fecondation` AS `fecondation`,`a`.`coeff_consang` AS `coeff_consang`,`a`.`conservatoire` AS `conservatoire`,`a`.`valide_animal` AS `valide_animal`,`a`.`code_race` AS `code_race`,`a`.`id_pere` AS `id_pere`,`a`.`id_mere` AS `id_mere`,`a`.`id_photo` AS `id_photo`,`vmort`.`id_ani` AS `id_ani`,`vmort`.`id_periode` AS `id_periode`,`vmort`.`date_entree` AS `date_entree`,`vmort`.`date_sortie` AS `date_sortie`,`vmort`.`id_elevage` AS `id_elevage`,`vmort`.`id_type` AS `id_type` from (`animal` `a` left join (select `periode`.`id_animal` AS `id_ani`,`periode`.`id_periode` AS `id_periode`,`periode`.`date_entree` AS `date_entree`,`periode`.`date_sortie` AS `date_sortie`,`periode`.`id_elevage` AS `id_elevage`,`periode`.`id_type` AS `id_type` from `periode` where (`periode`.`id_type` = 1)) `vmort` on((`a`.`id_animal` = `vmort`.`id_ani`))) ;
+COMMIT;
 
---
--- Index pour la table `commune`
---
-ALTER TABLE `commune`
-  ADD PRIMARY KEY (`id_commune`),
-  ADD KEY `fk_departement` (`no_dpt`);
-
---
--- Index pour la table `compte`
---
-ALTER TABLE `compte`
-  ADD PRIMARY KEY (`id_compte`),
-  ADD KEY `fk_privilege` (`id_privilege`);
-
---
--- Index pour la table `contact`
---
-ALTER TABLE `contact`
-  ADD PRIMARY KEY (`id_contact`),
-  ADD KEY `fk_commune` (`id_commune`),
-  ADD KEY `fk_elevage2` (`id_elevage`);
-
---
--- Index pour la table `departement`
---
-ALTER TABLE `departement`
-  ADD PRIMARY KEY (`no_dpt`),
-  ADD KEY `departement_ibfk_2` (`no_region`);
-
---
--- Index pour la table `elevage`
---
-ALTER TABLE `elevage`
-  ADD PRIMARY KEY (`id_elevage`),
-  ADD KEY `id_elevage` (`id_elevage`);
-
---
--- Index pour la table `espece`
---
-ALTER TABLE `espece`
-  ADD PRIMARY KEY (`id_espece`);
-
---
--- Index pour la table `ligne_caractere`
---
-ALTER TABLE `ligne_caractere`
-  ADD KEY `ligne_caractere_ibfk_2` (`id_caractere`),
-  ADD KEY `ligne_caractere_ibfk_3` (`id_animal`);
-
---
--- Index pour la table `link_race_elevage`
---
-ALTER TABLE `link_race_elevage`
-  ADD KEY `fk_elevage_1` (`id_elevage`),
-  ADD KEY `fk_race` (`code_race`);
-
---
--- Index pour la table `livre_genealogique`
---
-ALTER TABLE `livre_genealogique`
-  ADD UNIQUE KEY `id_livre` (`id_livre`);
-
---
--- Index pour la table `periode`
---
-ALTER TABLE `periode`
-  ADD PRIMARY KEY (`id_periode`),
-  ADD KEY `periode_ibfk_1` (`id_type`),
-  ADD KEY `periode_ibfk_2` (`id_animal`),
-  ADD KEY `periode_ibfk_3` (`id_elevage`);
-
---
--- Index pour la table `phinxlog`
---
-ALTER TABLE `phinxlog`
-  ADD PRIMARY KEY (`version`);
-
---
--- Index pour la table `privilege`
---
-ALTER TABLE `privilege`
-  ADD PRIMARY KEY (`id_privilege`);
-
---
--- Index pour la table `race`
---
-ALTER TABLE `race`
-  ADD PRIMARY KEY (`code_race`),
-  ADD KEY `fk_espece` (`id_espece`);
-
---
--- Index pour la table `region`
---
-ALTER TABLE `region`
-  ADD PRIMARY KEY (`no_region`);
-
---
--- Index pour la table `type_periode`
---
-ALTER TABLE `type_periode`
-  ADD PRIMARY KEY (`id_type`);
-
---
--- Index pour la table `valeur_attribut`
---
-ALTER TABLE `valeur_attribut`
-  ADD PRIMARY KEY (`id_valeur_attribut`),
-  ADD KEY `valeur_attribut_ibfk2` (`id_attribut`),
-  ADD KEY `valeur_attribut_ibfk3` (`id_animal`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `animal`
---
-ALTER TABLE `animal`
-  MODIFY `id_animal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12170;
---
--- AUTO_INCREMENT pour la table `attribut`
---
-ALTER TABLE `attribut`
-  MODIFY `id_attribut` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `caractere_genetique`
---
-ALTER TABLE `caractere_genetique`
-  MODIFY `id_caractere` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `commune`
---
-ALTER TABLE `commune`
-  MODIFY `id_commune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=407;
---
--- AUTO_INCREMENT pour la table `compte`
---
-ALTER TABLE `compte`
-  MODIFY `id_compte` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `contact`
---
-ALTER TABLE `contact`
-  MODIFY `id_contact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=466;
---
--- AUTO_INCREMENT pour la table `departement`
---
-ALTER TABLE `departement`
-  MODIFY `no_dpt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
---
--- AUTO_INCREMENT pour la table `elevage`
---
-ALTER TABLE `elevage`
-  MODIFY `id_elevage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=482;
---
--- AUTO_INCREMENT pour la table `espece`
---
-ALTER TABLE `espece`
-  MODIFY `id_espece` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT pour la table `periode`
---
-ALTER TABLE `periode`
-  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35363;
---
--- AUTO_INCREMENT pour la table `privilege`
---
-ALTER TABLE `privilege`
-  MODIFY `id_privilege` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `race`
---
-ALTER TABLE `race`
-  MODIFY `code_race` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
---
--- AUTO_INCREMENT pour la table `region`
---
-ALTER TABLE `region`
-  MODIFY `no_region` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
---
--- AUTO_INCREMENT pour la table `type_periode`
---
-ALTER TABLE `type_periode`
-  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT pour la table `valeur_attribut`
---
-ALTER TABLE `valeur_attribut`
-  MODIFY `id_valeur_attribut` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
