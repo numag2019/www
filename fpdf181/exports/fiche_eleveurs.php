@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -94,6 +97,6 @@ for($i=1;$i<=count($departement);$i++)
         $pdf->Ln(5);
     }
     $pdf->Ln();
-}    
+}  
 $pdf->Output();
 ?>

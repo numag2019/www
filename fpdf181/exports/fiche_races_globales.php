@@ -2,6 +2,8 @@
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
 //élève référent : Amaury Branthomme
 
+session_start();
+
 require('../fpdf.php');
 
 class PDF extends FPDF
