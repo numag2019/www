@@ -1,6 +1,7 @@
 <?php
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
 //élève référent : Amaury Branthomme
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -358,16 +359,28 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 //écriture des pages PDF
 $pdf = new PDF();
 
-// Titres des colonnes
+// Titres des colonnes des tableaux
+//$header_inv_nais = array_splice($annee,0,0,NULL);    //ajout d'un champ NULL en début des années pour laisser place à la légende
 $header_inv_nais = array(NULL,2013,2014,2015,2016,2017);
 $header_pre = array('Nom','N° id','Elevage','Sexe','Date naissance','Nom du père','N° id père','Nom de la mère','N° id mère','Naisseur');
+
+// $header_nais2 = array(NULL,NULL);
+// for($i=0;$i<max($header_inv_nais)-$header_inv_nais[1];$i++) //création de l'entete Nb et %
+    // $header_nais2 = array_push($header_nais2,'NB','%');
 $header_nais2 = array(NULL,'Nb','%','Nb','%','Nb','%','Nb','%','Nb','%');
 
 // Données des requetes SQL
+
 $effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
-$presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
+//$effectif = array($nb_femmelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $detenteur);
+
 $naissance1 = array(array('nombre de veaux nés',118,130,141,159,164));
+//$naissance1 = array($_veau);
 $naissance2 = array(array('Veaux mâles','55','46','73','56','70','50','81','51','84','51'),array('Veaux femelles','63','54','57','44','71','50','78','49','80','49'));
+//naissance2 = array($nb_veau_m,$nb_veau_f);
+
+$presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
+
 
 //Page des tableaux
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
