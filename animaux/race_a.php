@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.css"/>
+	 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
 
   <title>GenIS</title>
 
@@ -16,6 +19,11 @@
 </head>
 
 <body>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 
 <?php
 session_start();
@@ -35,15 +43,15 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 <div class="col-md-12">
 
     <div class="widget">
-      <div class="widget-head">
-        <div class="pull-left">Informations sur la race</div>
-        <div class="widget-icons pull-right">
-          <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-          <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+		<div class="widget-head">
+			<div class="pull-left">Informations sur la race</div>
+			<div class="widget-icons pull-right">
+				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+				<a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
         </div>
         <div class="clearfix"></div>
-      </div>
-      <div class="widget-content">
+		</div>
+	<div class="widget-content">
         <div class="padd">
           <?php
 //Récupération de la race et de la période choisies
@@ -75,16 +83,16 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						}
 		?>
 					
-		<div class="widget">
-			  <div class="widget-head">
-				<div class="pull-left">Evolution des effectifs inventoriés</div>
-				<div class="widget-icons pull-right">
+	<div class="widget">
+		<div class="widget-head">
+			<div class="pull-left">Evolution des effectifs inventoriés</div>
+			<div class="widget-icons pull-right">
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-				</div>
-				<div class="clearfix"></div>
-			  </div>
-			  <div class="widget-content">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="widget-content">
 			  
 		<?php
 					//Création du tableau
@@ -146,7 +154,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					$nb_femelle_nee[0]="Femelles nées dans l'année";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
-						//Requête pour récupérer les effectifs de femelles
+						//Requête pour récupérer les effectifs de femelles nées
 						$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";
 						$result = mysqli_query ($link, $query);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
@@ -166,7 +174,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					$nb_taureau[0]="Taureaux";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
-						//Requête pour récupérer les effectifs de femelles
+						//Requête pour récupérer les effectifs de taureaux
 						$query= "SELECT nb_taureau(".$i.",".$code_race.")";
 						$result = mysqli_query ($link, $query);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
@@ -178,24 +186,44 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+					echo "</tr>";
+					
+					//Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
+					echo "<tr><td> Détenteurs </td>";
+					$j=1;
+					$nb_femelle_nee[0]="Détenteurs";
+					for($i=$annee1;$i<=$annee2;$i++)
+					{
+						//Requête pour récupérer les effectifs de détenteurs
+						$query= "SELECT nb_detenteur(".$i.",".$code_race.")";
+						$result = mysqli_query ($link, $query);
+						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							{
+									echo "<td><center>";
+									$nb_détenteur[$j]=$row[0];
+									echo $nb_détenteur[$j]." ";
+									echo"</center></td>";
+							}
+						$j=$j+1;
+					}
 					echo "</tr></tbody>";
 					
 					echo "</table>";
 	
           ?>
-</div>
-</div>
+		</div>
+	</div>
 
-<div class="widget">
-			  <div class="widget-head">
-				<div class="pull-left">Evolution du nombre de naissance</div>
-				<div class="widget-icons pull-right">
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-				</div>
-				<div class="clearfix"></div>
-			  </div>
-			  <div class="widget-content">
+	<div class="widget">
+		<div class="widget-head">
+			<div class="pull-left">Evolution du nombre de naissance</div>
+			<div class="widget-icons pull-right">
+				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+				<a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="widget-content">
 			  
 		<?php
 					//Création du tableau
@@ -286,7 +314,109 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	
           ?>
         </div>
-      </div>
+    </div>
+	
+		<div class="widget">
+		<div class="widget-head">
+			<div class="pull-left">Présence dans la race</div>
+			<div class="widget-icons pull-right">
+				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="widget-content">
+			  
+		<?php
+					//Création du tableau
+					echo "<table id='example' class='display'>";;
+					
+					//Affichage des titres dans la 1ère ligne du tableau
+						echo "<thead><tr><td></td>";
+						for($i=$annee1;$i<=$annee2;$i++)
+						{
+							echo "<td>";
+							echo "<b><center>".$i." </center></b>";
+							echo"</td>";
+						}
+						echo "</tr></thead>";
+					
+					// Affichage des effectifs de veaux dans chaque case du tableau
+					echo "<tbody><tr><td> Nombre de veaux nés </td>";
+					$j=1;
+					$nb_veau[0]="Nombre de veaux nés";
+					for($i=$annee1;$i<=$annee2;$i++)
+					{
+						//Requête pour récupérer les effectifs de veaux
+						$query= "SELECT nb_veau_tot(".$i.",".$code_race.")";
+						$result = mysqli_query ($link, $query);
+						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							{
+									echo "<td><center>";
+									$nb_veau[$j]=$row[0];
+									echo $nb_veau[$j]." ";
+									echo"</center></td>";
+							}
+						$j=$j+1;
+					}
+					echo "</tr></tbody>";
+					
+					//Affichage des sous-titre nb et %
+					echo "<thead><tr><td></td>";
+						for($i=$annee1;$i<=$annee2;$i++)
+						{
+							echo "<td>";
+							echo "<b><center> Nombre (%) </center></b>";
+							echo"</td>";
+						}
+						echo "</tr></thead>";
+						
+						
+					// Affichage des effectifs de veaux mâles dans chaque case du tableau
+					echo "<tbody><tr><td> Veaux mâles </td>";
+					$j=1;
+					$nb_veau_m[0]="Veaux mâles";
+					for($i=$annee1;$i<=$annee2;$i++)
+					{
+						//Requête pour récupérer les effectifs de veaux
+						$query= "SELECT nb_veau_m(".$i.",".$code_race.")";
+						$result = mysqli_query ($link, $query);
+						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							{
+									echo "<td><center>";
+									$nb_veau_m[$j]=$row[0];
+									echo $nb_veau_m[$j]." (".intval(($nb_veau_m[$j]/$nb_veau[$j])*100).")";
+									echo"</center></td>";
+							}
+						$j=$j+1;
+					}
+					echo "</tr>";
+					
+					// Affichage des effectifs de veaux dans chaque case du tableau
+					echo "<tbody><tr><td> Veaux femelles </td>";
+					$j=1;
+					$nb_veau_f[0]="Veaux femelles";
+					for($i=$annee1;$i<=$annee2;$i++)
+					{
+						//Requête pour récupérer les effectifs de veaux
+						$query= "SELECT nb_veau_f(".$i.",".$code_race.")";
+						$result = mysqli_query ($link, $query);
+						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							{
+									echo "<td><center>";
+									$nb_veau_f[$j]=$row[0];
+									echo $nb_veau_f[$j]." (".intval(($nb_veau_f[$j]/$nb_veau[$j])*100).")";
+									echo"</center></td>";
+							}
+						$j=$j+1;
+					}
+					echo "</tr></tbody>";
+					
+					echo "</table>";
+	
+          ?>
+		</div>
+    </div>
 
 </div>
 </div>
