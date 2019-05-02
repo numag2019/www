@@ -328,91 +328,20 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget-content">
 			  
 		<?php
-					//Création du tableau
-					echo "<table id='example' class='display'>";;
-					
-					//Affichage des titres dans la 1ère ligne du tableau
-						echo "<thead><tr><td></td>";
-						for($i=$annee1;$i<=$annee2;$i++)
-						{
-							echo "<td>";
-							echo "<b><center>".$i." </center></b>";
-							echo"</td>";
-						}
-						echo "</tr></thead>";
-					
-					// Affichage des effectifs de veaux dans chaque case du tableau
-					echo "<tbody><tr><td> Nombre de veaux nés </td>";
-					$j=1;
-					$nb_veau[0]="Nombre de veaux nés";
-					for($i=$annee1;$i<=$annee2;$i++)
-					{
-						//Requête pour récupérer les effectifs de veaux
-						$query= "SELECT nb_veau_tot(".$i.",".$code_race.")";
-						$result = mysqli_query ($link, $query);
-						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-							{
-									echo "<td><center>";
-									$nb_veau[$j]=$row[0];
-									echo $nb_veau[$j]." ";
-									echo"</center></td>";
-							}
-						$j=$j+1;
-					}
-					echo "</tr></tbody>";
-					
-					//Affichage des sous-titre nb et %
-					echo "<thead><tr><td></td>";
-						for($i=$annee1;$i<=$annee2;$i++)
-						{
-							echo "<td>";
-							echo "<b><center> Nombre (%) </center></b>";
-							echo"</td>";
-						}
-						echo "</tr></thead>";
-						
-						
-					// Affichage des effectifs de veaux mâles dans chaque case du tableau
-					echo "<tbody><tr><td> Veaux mâles </td>";
-					$j=1;
-					$nb_veau_m[0]="Veaux mâles";
-					for($i=$annee1;$i<=$annee2;$i++)
-					{
-						//Requête pour récupérer les effectifs de veaux
-						$query= "SELECT nb_veau_m(".$i.",".$code_race.")";
-						$result = mysqli_query ($link, $query);
-						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-							{
-									echo "<td><center>";
-									$nb_veau_m[$j]=$row[0];
-									echo $nb_veau_m[$j]." (".intval(($nb_veau_m[$j]/$nb_veau[$j])*100).")";
-									echo"</center></td>";
-							}
-						$j=$j+1;
-					}
-					echo "</tr>";
-					
-					// Affichage des effectifs de veaux dans chaque case du tableau
-					echo "<tbody><tr><td> Veaux femelles </td>";
-					$j=1;
-					$nb_veau_f[0]="Veaux femelles";
-					for($i=$annee1;$i<=$annee2;$i++)
-					{
-						//Requête pour récupérer les effectifs de veaux
-						$query= "SELECT nb_veau_f(".$i.",".$code_race.")";
-						$result = mysqli_query ($link, $query);
-						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-							{
-									echo "<td><center>";
-									$nb_veau_f[$j]=$row[0];
-									echo $nb_veau_f[$j]." (".intval(($nb_veau_f[$j]/$nb_veau[$j])*100).")";
-									echo"</center></td>";
-							}
-						$j=$j+1;
-					}
-					echo "</tr></tbody>";
-					
-					echo "</table>";
+			
+			//Requête pour récupérer les observations par espèce d'oiseaux
+			$query = "	SELECT 	nom_animal, no_identification, sexe, date_naiss
+						FROM v_ani_mort 
+						WHERE code_race=".$code_race." and year(date_naiss)<".$annee2." and (id_type=NULL or year(date_sortie)>".$annee2.")";
+			$result = mysqli_query ($link, $query);
+			
+		
+			//Affichage du tableau des présences dans la race
+			include "fonctions_php.php";
+			echo "<center>";
+			creer_tab_HTML ($result);
+			echo "</center><br><br>";
+			
 	
           ?>
 		</div>
