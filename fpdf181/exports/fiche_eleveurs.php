@@ -75,7 +75,7 @@ function WriteHTML($html)
 }
 
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$nb_eleveurs = array(3,5,1);
+$nb_eleveurs = array(3,5,1,4,2,1,3);
 
 $pdf = new PDF();
 
