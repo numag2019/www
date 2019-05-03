@@ -128,7 +128,6 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					}
 					echo "</tr>";
                     
-                    $_SESSION['nb_femelle']=$nb_femelle;
 					
 					//Affichage des effectifs de femelles de plus de 2 ans dans chaque case du tableau
 					echo "<tr><td> Femelles de plus de 2 ans  </td>";
