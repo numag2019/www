@@ -28,6 +28,7 @@ $(document).ready(function() {
 <?php
 session_start();
 $_SESSION['current_page']='visu_elevage';
+$_SESSION['nb_femelle']=$nb_femelle;
 
 require BODY_START;
 
