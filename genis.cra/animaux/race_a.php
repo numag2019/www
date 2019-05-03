@@ -4,7 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.css"/>
 	 
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
-
+	<!-- Page crée par les NumAg 2019
+		Réprésentant de la page : Marine Gautier
+		Cette page contient l'export fiche race avec les tableaux et graphique des effectis, des naisances et des présences dan sla race ---->
   <title>GenIS</title>
 
   <?php
@@ -321,15 +323,16 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	
 		<div class="widget">
 		<div class="widget-head">
-			<div class="pull-left">Présence dans la race</div>
+		<?php
+			echo "<div class='pull-left'>Présence dans la race en".$annee2." </div>"
+		?>
 			<div class="widget-icons pull-right">
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="widget-content">
-			  
+		<div class="widget-content">  
 		<?php
 			
 			//Requête pour récupérer les observations par espèce d'oiseaux
