@@ -1,8 +1,7 @@
 <?php
-
 session_start();
 
-$nb_femelle = $_SESSION['nb_femelle'];
+//$nb_femelle = $_SESSION['nb_femelle'];
 
 require('../fpdf.php');
 

@@ -310,8 +310,5 @@ $pdf->AddPage();
 //Espace entre les différents éléments de la page
 $pdf->Ln();
 
-//Graphique d'évolution des naissances
-$pdf->Image('../../graph/Graphique.png',20,50);
-
 $pdf->Output();
 ?>

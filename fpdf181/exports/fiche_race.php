@@ -359,27 +359,27 @@ $pdf->SetFont('');
 //Tableau d'évolution des effectifs inventories dans la race
 $pdf->Tableau_inv($header_inv_nais,$effectif,30,40);
 
-//Espace entre les différents éléments de la page
-$pdf->Ln(10);
 
+//Graphique d'évolution des effectifs
+$pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
+
+//Page des naissances
+$pdf->AddPage();
 //Tableau d'évolution des naissances
 $pdf->Tableau_nais($header_inv_nais,$naissance1,30,40);
 $pdf->Tableau_nais_2($header_nais2,$naissance2,15,40);
 
-//Espace entre les différents éléments de la page
-$pdf->Ln(10);
+//Graphique d'évolution des naissances
+$pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
 
+
+// Page d'évolution des présences dans la race
+$pdf->AddPage();
 //Tableau d'évolution de la présence dans la race
 $pdf->Tableau_presence($header_pre,$presence,19);
 
-// Page des graphiques
-$pdf->AddPage();
 
-//Graphique d'évolution des effectifs
-$pdf->Cell(70,120,'Graphique',1,0,'C');
 
-//Graphique d'évolution des naissances
-$pdf->Cell(70,120,'Graphique',1,0,'C');
 
 $pdf->Output();
 ?>
