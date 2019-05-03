@@ -8,16 +8,36 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
+
 $datay1=array(30,25,20);
 $datay2=array(10,20,30);
 $datay3=array(80,70,60);
-$années=array("2014","2015","2016");
+$annees=array("2014","2015","2016");
+// $effectif = $_SESSION["effectif"];
+// $annees = $_SESSION["annee"];
+
+// unset($annees[0]); //pour retirer la première valeur du tableau
+// $annees = array_values($annees);
+
+// $datay2 = $effectif[4];//nb d'eleveurs détenteurs
+// unset($datay2[0]);
+// $datay2 = array_values($datay2);
+
+// $datay1 = $effectif[2];//femelles nées et conservées
+// unset($datay1[0]);
+// $datay1 = array_values($datay1);
+
+// $datay3 = $effectif[0];//femelles totales
+// unset($datay3[0]);
+// $datay3 = array_values($datay3);
+
+
 
 /*
 $datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
 $datay2=$_GET["-_Insérer les éleveurs issu des requêtes_-"];
 $datay3=$_GET["-_Insérer le nombre total de vache en ordonnée issu des requêtes_-"];
-$années=$_GET["-_Insérer les années_-"];
+$annees=$_GET["-_Insérer les annees_-"];
 */
 
 // *********************
@@ -47,7 +67,7 @@ $graph->ygrid->SetColor('gray');
 $graph->xgrid->Show();
 $graph->xgrid->SetLineStyle('dashed');
 $graph->xgrid->SetColor('gray');
-$graph->xaxis->setTickLabels($années);
+$graph->xaxis->setTickLabels($annees);
 $graph->xaxis->setLabelAngle(50);
 
 // *******************************
@@ -93,7 +113,7 @@ $graph->xaxis->setLabelAngle(50);
 	// Echelle des Y que si je met pas ça ne fonctionne pas
 	$graph->SetYScale(0,'lin', 0,0);
 
-	// $graph->xaxis->title->Set("Années");
+	// $graph->xaxis->title->Set("annees");
 	$graph->yaxis->title->Set("Nombre de femelle");
 
 	// Ajouter un axe Y supplémentaire

@@ -4,7 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.css"/>
 	 
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
-
+	<!-- Page crée par les NumAg 2019
+		Réprésentant de la page : Marine Gautier
+		Cette page contient l'export fiche race avec les tableaux et graphique des effectis, des naisances et des présences dan sla race ---->
   <title>GenIS</title>
 
   <?php
@@ -47,7 +49,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 			<div class="pull-left">Informations sur la race</div>
 			<div class="widget-icons pull-right">
 				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				<a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+                <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a> 
         </div>
         <div class="clearfix"></div>
 		</div>
@@ -128,7 +130,6 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					}
 					echo "</tr>";
                     
-                    $_SESSION['nb_femelle']=$nb_femelle;
 					
 					//Affichage des effectifs de femelles de plus de 2 ans dans chaque case du tableau
 					echo "<tr><td> Femelles de plus de 2 ans  </td>";
@@ -322,26 +323,27 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	
 		<div class="widget">
 		<div class="widget-head">
-			<div class="pull-left">Présence dans la race</div>
+		<?php
+			echo "<div class='pull-left'>Présence dans la race en".$annee2." </div>"
+		?>
 			<div class="widget-icons pull-right">
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="widget-content">
-			  
+		<div class="widget-content">  
 		<?php
 			
 			//Requête pour récupérer les observations par espèce d'oiseaux
-			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
+			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, elevage_actuel(v_ani_mort.id_animal,".$annee2.") as Elevage, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
 						FROM v_ani_mort left join animal as pere on v_ani_mort.id_pere=pere.id_animal 
 										left join animal as mere on v_ani_mort.id_mere=mere.id_animal
                                         left join animal as ani on v_ani_mort.id_animal=ani.id_animal
-                                        left join periode on ani.id_animal=periode.id_animal
-                                        left join elevage on periode.id_elevage=elevage.id_elevage
-                                        left join contact on elevage.id_elevage=contact.id_elevage
-						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and periode.id_type =3";
+                                        left join periode as naissance on ani.id_animal=naissance.id_animal
+                                        left join elevage as lieu_naiss on naissance.id_elevage=lieu_naiss.id_elevage
+                                        left join contact on lieu_naiss.id_elevage=contact.id_elevage
+						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3";
 			$result = mysqli_query ($link, $query);
 			
 		

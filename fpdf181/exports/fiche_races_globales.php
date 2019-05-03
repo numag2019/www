@@ -258,8 +258,8 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(8);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
+                $this->SetFontSize(9);
+                $this->Cell($largeur_lgd,6,$col,'LR',0,'L'); 
             }
         }
 		$this->Ln();
@@ -281,17 +281,20 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
-//$header_inv_nais = array_splice($annee,0,0,NULL);    //ajout d'un champ NULL en début des années pour laisser place à la légende
+//array_push($header,NULL);    //ajout d'un champ NULL en début des années pour laisser place à la légende
 $header = array(NULL,2013,2014,2015,2016,2017);
 
 
 // Données des requetes SQL
 
-$effectif = array(array('Bovins',252,286,318,352,375),array(' -Béarnaise',193,209,234,253,264),array(' -Bordelaise',54,69,74,87,103),
-array(' -Marine',5,8,10,12,8),array('Equins',65,75,75,82,92),array(' -Landais',65,75,75,82,92),array('Ovins',1356,1452,1632,1689,2213),
-array(' -Landais',738,796,945,935,1379),array(' -Sasi Ardia',618,656,687,754,834));
+$effectif = array(array('Bovins',252,286,318,352,375),array(' - Béarnaise',193,209,234,253,264),array(' - Bordelaise',54,69,74,87,103),
+array(' - Marine',5,8,10,12,8),array('Equins',65,75,75,82,92),array(' - Landais',65,75,75,82,92),array('Ovins',1356,1452,1632,1689,2213),
+array(' - Landais',738,796,945,935,1379),array(' - Sasi Ardia',618,656,687,754,834));
 //$effectif = array($nb_femmelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $detenteur);
 
+//Taille des colonnes
+$largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
+$largeur_lgd = 40;
 
 //Page des tableaux
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
@@ -299,19 +302,17 @@ $pdf->AddPage();
 $pdf->SetFont('');
 
 //Tableau d'évolution des effectifs inventories dans la race
-$pdf->Tableau($header,$effectif,30,40);
+$pdf->Tableau($header,$effectif,$largeur_col,$largeur_lgd);
 
 //Espace entre les différents éléments de la page
 $pdf->Ln(10);
 
 // Page des graphiques
 $pdf->AddPage();
+$pdf->Cell(50,50,'graphique.png',1);
 
 //Espace entre les différents éléments de la page
 $pdf->Ln();
-
-//Graphique d'évolution des naissances
-$pdf->Image('../../graph/Graphique.png',20,50);
 
 $pdf->Output();
 ?>
