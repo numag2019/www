@@ -15,7 +15,7 @@ unset($annees[0]); //pour retirer la première valeur du tableau
 $annees = array_values($annees);
 
 $datay2 = $effectif[4];//nb d'eleveurs détenteurs
-unset($datay2[0]); //pour retirer la première valeur du tableau
+unset($datay2[0]);
 $datay2 = array_values($datay2);
 
 $datay1 = $effectif[2];//femelles nées et conservées
@@ -26,7 +26,6 @@ $datay3 = $effectif[0];//femelles totales
 unset($datay3[0]);
 $datay3 = array_values($datay3);
 
-//$annees=array("2014","2015","2016","2017","2018","2019"); //années
 
 /*
 $datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
