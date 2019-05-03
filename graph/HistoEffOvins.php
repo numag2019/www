@@ -42,7 +42,7 @@ $graph->SetFrame(false);
 $graph->SetShadow(5);
 
 // Ajouter un onglet
-$graph->tabtitle->Set("Effectif des Bovins");
+$graph->tabtitle->Set("Effectif des ovins");
 $graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
 $graph->tabtitle->SetColor("black");
 $graph->tabtitle->SetFillColor("#E9EBF3");
@@ -64,7 +64,7 @@ $graph->xaxis->setLabelAngle(50);
 	
 	$histo_femTot = new barPlot($datay3);
 	$histo_femTot->value->SetFormat('%d');
-	$histo_femTot->SetLegend("Blonde d'Aquitaine");
+	$histo_femTot->SetLegend("Mouton lapin");
 	// Changer la taille//  $histo_femTot->SetWidth(valeur);
 	$histo_femTot->SetWeight(0);
 	
@@ -82,14 +82,14 @@ $graph->xaxis->setLabelAngle(50);
 	$graph->SetYScale(0,'lin', 0, $stock);
 
 	// $graph->xaxis->title->Set("Années");
-	$graph->yaxis->title->Set("Nombre d'individus bovins");
+	$graph->yaxis->title->Set("Nombre d'individus ovins");
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
 
 	// Couleur de l'axe Y supplémentaire
 	$graph->ynaxis[0]->SetColor('lightgreen');
-	$graph->ynaxis[0]->title->Set("Nombre total des bovins");
+	$graph->ynaxis[0]->title->Set("Nombre total des ovins");
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
@@ -109,6 +109,6 @@ $graph->xaxis->setLabelAngle(50);
 $graph->SetShadow(5);
 $graph->legend->Pos(0.10,0.05);
 $graph->Stroke();
-$graph->Stroke("EvoEffBovins.jpg");
+$graph->Stroke("EvoEffovins.jpg");
 
 ?>

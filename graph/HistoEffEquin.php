@@ -9,7 +9,7 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
 
-$datay3=array(260,255,301,230,250,222);
+$datay3=array(60,70,60,50,40,30);
 $i=0;
 $années=array("2014","2015","2016","2017","2018","2019");
 
@@ -42,7 +42,7 @@ $graph->SetFrame(false);
 $graph->SetShadow(5);
 
 // Ajouter un onglet
-$graph->tabtitle->Set("Effectif des Bovins");
+$graph->tabtitle->Set("Effectif des équins");
 $graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
 $graph->tabtitle->SetColor("black");
 $graph->tabtitle->SetFillColor("#E9EBF3");
@@ -64,7 +64,7 @@ $graph->xaxis->setLabelAngle(50);
 	
 	$histo_femTot = new barPlot($datay3);
 	$histo_femTot->value->SetFormat('%d');
-	$histo_femTot->SetLegend("Blonde d'Aquitaine");
+	$histo_femTot->SetLegend('Poney Landais');
 	// Changer la taille//  $histo_femTot->SetWidth(valeur);
 	$histo_femTot->SetWeight(0);
 	
@@ -82,14 +82,14 @@ $graph->xaxis->setLabelAngle(50);
 	$graph->SetYScale(0,'lin', 0, $stock);
 
 	// $graph->xaxis->title->Set("Années");
-	$graph->yaxis->title->Set("Nombre d'individus bovins");
+	$graph->yaxis->title->Set("Nombre d'individus équins");
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
 
 	// Couleur de l'axe Y supplémentaire
 	$graph->ynaxis[0]->SetColor('lightgreen');
-	$graph->ynaxis[0]->title->Set("Nombre total des bovins");
+	$graph->ynaxis[0]->title->Set("Nombre total des équins");
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
@@ -109,6 +109,6 @@ $graph->xaxis->setLabelAngle(50);
 $graph->SetShadow(5);
 $graph->legend->Pos(0.10,0.05);
 $graph->Stroke();
-$graph->Stroke("EvoEffBovins.jpg");
+$graph->Stroke("EvoEffEquin.jpg");
 
 ?>
