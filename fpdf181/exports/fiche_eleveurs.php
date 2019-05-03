@@ -98,6 +98,6 @@ for($i=1;$i<=count($departement);$i++)
     }
     $pdf->Ln();
 }
-$pdf->Cell($nb_femelle);
+$pdf->Cell($_SESSION['nb_femelle']);
 $pdf->Output();
 ?>
