@@ -313,5 +313,14 @@ $pdf->Ln();
 //Graphique d'évolution des naissances
 $pdf->Image('../../graph/Graphique.png',20,50);
 
+//Graphique d'évolution des naissances
+$pdf->Cell(70,120,'EvoNaissances.png',1,0,'C');
+
+//Graphique d'évolution des naissances
+$pdf->Cell(70,120,'EvoNaissances.png',1,0,'C');
+
+//Graphique d'évolution des naissances
+$pdf->Cell(70,120,'EvoNaissances.png',1,0,'C');
+
 $pdf->Output();
 ?>

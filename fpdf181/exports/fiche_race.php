@@ -376,10 +376,10 @@ $pdf->Tableau_presence($header_pre,$presence,19);
 $pdf->AddPage();
 
 //Graphique d'évolution des effectifs
-$pdf->Cell(70,120,'Graphique',1,0,'C');
+$pdf->Cell(70,120,'EvoNbFem.png',1,0,'C');
 
 //Graphique d'évolution des naissances
-$pdf->Cell(70,120,'Graphique',1,0,'C');
+$pdf->Cell(70,120,'EvoNaissances.png',1,0,'C');
 
 $pdf->Output();
 ?>
