@@ -1,10 +1,6 @@
 <?php
 
 session_start();
-//
-// Problème de couleur de légende sa mère la pute
-//
-
 
 //Exemple
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
@@ -12,14 +8,16 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
-$NbEleveurs=array(10,20,30,40,50,60);
-$femDead=array(30,25,20,15,10,5);
-$femViv=array(80,70,60,50,40,30);
+$datay2=array(10,20,30,40,50,60);
+$datay1=array(30,25,20,15,10,5);
+$datay3=array(80,70,60,50,40,30);
 $années=array("2014","2015","2016","2017","2018","2019");
 
 /*
-$datax=$_GET("-_Insérer le nom de vos données en abscisse_-");
-$datay=$_GET("-_Insérer le nom de vos données en ordonnée_-");
+$datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
+$datay2=$_GET["-_Insérer les éleveurs issu des requêtes_-"];
+$datay3=$_GET["-_Insérer le nombre total de vache en ordonnée issu des requêtes_-"];
+$années=$_GET["-_Insérer les années_-"];
 */
 
 // *********************
@@ -29,17 +27,20 @@ $datay=$_GET("-_Insérer le nom de vos données en ordonnée_-");
 $graph = new Graph(640,480);    
 $graph->SetScale("textlin");
 
-$graph->SetMargin(500,65,20,40);
+$graph->SetMargin(50,65,50,40);
 
 // Désactiver le cadre autour du graphique
 $graph->SetFrame(false);
+$graph->SetShadow(5);
 
 // Ajouter un onglet
 $graph->tabtitle->Set("Effectif des femelles");
-$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,10);
+$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
+$graph->tabtitle->SetColor("black");
+$graph->tabtitle->SetFillColor("#E9EBF3");
 
 // Apparence des grilles
-$graph->ygrid->SetFill(true,'#DDDDDD@0.5','#BBBBBB@0.5');
+$graph->ygrid->SetFill(true,'black','black');
 $graph->ygrid->SetLineStyle('dashed');
 $graph->ygrid->SetColor('gray');
 $graph->xgrid->Show();
@@ -47,33 +48,30 @@ $graph->xgrid->SetLineStyle('dashed');
 $graph->xgrid->SetColor('gray');
 $graph->xaxis->setTickLabels($années);
 $graph->xaxis->setLabelAngle(50);
-$graph->legend->Pos(0.12,0.12,"right","top");
 
 // *******************************
 // Créer un histogramme
 // *******************************
 	////Premier histo////
 	
-	$histo_femViv = new barPlot($femViv);
-	$histo_femViv->value->SetFormat('%d');
-	$histo_femViv->SetFillGradient('#AFE0EC', '#AFE0EC', GRAD_LEFT_REFLECTION);
-	$histo_femViv->SetLegend('Femelles vivantes');
-	// Changer la taille//  $histo_femViv->SetWidth(valeur);
-	$histo_femViv->SetWeight(0);
+	$histo_femTot = new barPlot($datay3);
+	$histo_femTot->value->SetFormat('%d');
+	$histo_femTot->SetLegend('Femelles totales');
+	// Changer la taille//  $histo_femTot->SetWidth(valeur);
+	$histo_femTot->SetWeight(0);
 	
 	
 	////Second histo////
 	
-	$histo_femDead = new BarPlot($femDead);
-	$histo_femDead->SetLegend('Femelles mortes');
-	$histo_femDead->value->Show();
-	$histo_femDead->SetFillGradient('#3F67DC', '#3F67DC', GRAD_LEFT_REFLECTION);
-	$histo_femDead->value->SetFormat('%d');
-	$histo_femDead->SetWeight(0);
+	$histo_femBornCons = new BarPlot($datay1);
+	$histo_femBornCons->SetLegend('Femelles nées et conservées');
+	$histo_femBornCons->value->Show();
+	$histo_femBornCons->value->SetFormat('%d');
+	$histo_femBornCons->SetWeight(0);
 
 	
 	// Créer l'ensemble d'histogrammes accumulés
-	$gbplot = new AccBarPlot(array( $histo_femDead, $histo_femViv));
+	$gbplot = new AccBarPlot(array( $histo_femBornCons, $histo_femTot));
 	
 	// Afficher les valeurs de chaque histogramme groupé
 	$gbplot->value->Show();
@@ -85,13 +83,14 @@ $graph->legend->Pos(0.12,0.12,"right","top");
 	
 	// Ajouter l'ensemble accumulé
 	$graph->Add($gbplot);
-	
 
+	$histo_femBornCons->SetFillColor('#6078E5');
+	$histo_femTot->SetFillColor('#A5E4F2');
 // ***********************
 // Graphique courbe
 // ***********************
 	
-	$courbe = new LinePlot($NbEleveurs);
+	$courbe = new LinePlot($datay2);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
 	$graph->SetYScale(0,'lin', 0,0);
@@ -104,7 +103,7 @@ $graph->legend->Pos(0.12,0.12,"right","top");
 
 	// Couleur de l'axe Y supplémentaire
 	$graph->ynaxis[0]->SetColor('lightgreen');
-	$graph->ynaxis[0]->title->Set("Nombre d'éleveurs");
+	$graph->ynaxis[0]->title->Set("Nombre de détenteurs");
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
@@ -119,7 +118,10 @@ $graph->legend->Pos(0.12,0.12,"right","top");
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
 	$courbe->value->SetFormat('%d');
-	// Envoyer au navigateur
-	$graph->Stroke();
-	$graph->Stroke("Graphique.png");
+	
+// Envoyer au navigateur
+$graph->SetShadow(5);
+$graph->legend->Pos(0.10,0.05);
+$graph->Stroke();
+$graph->Stroke("EvoNbFem.png");
 ?>
