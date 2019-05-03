@@ -61,17 +61,17 @@ mysqli_set_charset ($link, "utf8mb4");
 					//Mise en forme dans un tableau pour aligner les listes déroulantes du formulaire
 					echo "<table>";
 					
-					//Choix d'une race dans une liste déroulante
+					//Choix d'un observateur dans une liste déroulante
 					echo "<tr>
 						<td>";
 							echo "<label>Race</label> <br><br>";
 						echo"</td><td> </td>
 						<td>";
-							//Création d'un formulaire pour le choix de l'observateur et du département
-							echo "<FORM action = 'race_a.php' method = 'GET' name = 'forma'>";
+							//Création d'un formulaire
+							echo "<FORM action = 'eleveur_a.php' method = 'GET' name = 'forma'>";
 							//Définition du nom de la liste déroulante
 							echo "<select name = race>";
-							//Enregistrement des id et affichage des noms des observateurs dans la liste déroulante
+							//Enregistrement des id et affichage des noms des races dans la liste déroulante
 							while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
 								{
 									$id_nom = $row[0];
@@ -82,7 +82,7 @@ mysqli_set_charset ($link, "utf8mb4");
 						echo"</td>
 					</tr><tr><td></td><td></td></tr>";
 
-              // Select date
+              // Select race
 
 				//Récupération des dates
 					$firstyear = 2010;
@@ -91,32 +91,20 @@ mysqli_set_charset ($link, "utf8mb4");
 					//Choix d'une année dans une liste déroulante
 					echo "<tr>
 						<td>";
-							echo "<label>Année</label><br><br>";
+							echo "<label>Année</label><br>";
 						echo"</td><td> </td>
-						<td> De ";
+						<td>";
 							//Définition du tableau contenant les valeur de la liste déroulante et du nom de cette liste
 							$j=0;
-							$tab_annee1=array();
-							for ($i=$firstyear;$i<$currentyear;$i++){
-								$tab_annee1[$j]= $i;
+							$tab_annee=array();
+							for ($i=$firstyear;$i<=$currentyear;$i++){
+								$tab_annee[$j]= $i;
 								$j=$j+1;
 							}
-							$annee1 = "annee1";
+							$annee = "annee";
 							//Création de la liste déroulante
 							include "fonctions_php.php";
-							creer_liste_HTML ($annee1,$tab_annee1);
-							
-						echo " à ";
-							//Définition du tableau contenant les valeur de la liste déroulante et du nom de cette liste
-							$j=0;
-							$tab_annee2=array();
-							for ($i=($firstyear+1);$i<($currentyear+1);$i++){
-								$tab_annee2[$j]= $i;
-								$j=$j+1;
-							}
-							$annee2 = "annee2";
-							//Création de la liste déroulante
-							creer_liste_HTML ($annee2,$tab_annee2);
+							creer_liste_HTML ($annee,$tab_annee);
 						
 						echo"
 						</tr><tr><td></td><td></td></tr>
