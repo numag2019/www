@@ -307,17 +307,11 @@ $pdf->Ln(10);
 // Page des graphiques
 $pdf->AddPage();
 
-//Graphique d'évolution des effectifs
-$pdf->Cell(70,120,'Graphique',1,0,'C');
-
 //Espace entre les différents éléments de la page
 $pdf->Ln();
 
 //Graphique d'évolution des naissances
-$pdf->Image('C:\wamp64\www\graph\Graphique.jpg',70,120);
-
-//Graphique d'évolution des naissances
-$pdf->Cell(50,120,'Graphique',1,0,'C');
+$pdf->Image('C:\wamp64\www\graph\Graphique.png',20,50);
 
 $pdf->Output();
 ?>
