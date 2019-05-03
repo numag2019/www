@@ -29,7 +29,7 @@ $datay=$_GET("-_Insérer le nom de vos données en ordonnée_-");
 $graph = new Graph(640,480);    
 $graph->SetScale("textlin");
 
-$graph->SetMargin(50,65,20,40);
+$graph->SetMargin(500,65,20,40);
 
 // Désactiver le cadre autour du graphique
 $graph->SetFrame(false);
