@@ -2,16 +2,16 @@
 
 session_start();
 
-//Exemple
+// On va chercher les biblios de jpgraph pour construire les graphiques
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
-$datay2=array(10,20,30,40,50,60);
-$datay1=array(30,25,20,15,10,5);
-$datay3=array(80,70,60,50,40,30);
-$années=array("2014","2015","2016","2017","2018","2019");
+$datay1=array(30,25,20);
+$datay2=array(10,20,30);
+$datay3=array(80,70,60);
+$années=array("2014","2015","2016");
 
 /*
 $datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
@@ -27,9 +27,10 @@ $années=$_GET["-_Insérer les années_-"];
 $graph = new Graph(640,480);    
 $graph->SetScale("textlin");
 
+//Taille du graphique
 $graph->SetMargin(50,65,50,40);
 
-// Désactiver le cadre autour du graphique
+// Désactiver le cadre autour du graphique (assez inutile)
 $graph->SetFrame(false);
 $graph->SetShadow(5);
 
@@ -78,9 +79,6 @@ $graph->xaxis->setLabelAngle(50);
 	$gbplot->value->SetFont(FF_COMIC,FS_NORMAL,8);
 	$gbplot->value->SetFormat('%d');
 
-	// Position de la légende
-	$graph->legend->Pos(0.20,0.12,"left","top");
-	
 	// Ajouter l'ensemble accumulé
 	$graph->Add($gbplot);
 
