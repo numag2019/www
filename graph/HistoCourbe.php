@@ -7,9 +7,9 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
-$NbEleveurs=array(1,2,3,3,2,1);
+$NbEleveurs=array(10,20,30,40,50,60);
 $femDead=array(30,25,20,15,10,5);
-$femViv=array(1,2,3,4,5,6);
+$femViv=array(80,70,60,50,40,30);
 $années=array("2014","2015","2016","2017","2018","2019");
 
 /*
@@ -52,22 +52,24 @@ $graph->legend->Pos(0.12,0.12,"right","top");
 	$histo_femViv->SetLegend('Femelles vivantes');
 	$histo_femViv->value->SetFormat('%d');
 	$histo_femViv->value->SetColor('blue');
-	
+	$histo_femViv->SetWidth(0.20);
 	// Bordure autour de chaque histogramme
 	$histo_femViv->SetWeight(0);
 	
+	
 	//Second histo
-	$histo_femDead = new BarPlot($NbEleveurs);
+	$histo_femDead = new BarPlot($femDead);
 	$histo_femDead->SetLegend('Femelles mortes');
 	$histo_femDead->value->Show();
 	//$histo_femDead->value->SetFont(FF_ARIAL, FS_NORMAL,7);
 	$histo_femDead->value->SetColor('blue');
 	$histo_femDead->value->SetFormat('%d');
 	
+	$histo_femDead->SetWeight(0);
 
 	// Pour chaque barre
-	$histo_femViv->SetFillGradient('#440000', '#FF0000', GRAD_LEFT_REFLECTION);
-	$histo_femDead->SetFillGradient('#440000', '#FF0000', GRAD_LEFT_REFLECTION);
+	$histo_femViv->SetFillGradient('#1D8FEF', '#1D84EF', GRAD_LEFT_REFLECTION);
+	$histo_femDead->SetFillGradient('#20D7DA', '#1DD3EF', GRAD_LEFT_REFLECTION);
 	
 	// Créer l'ensemble d'histogrammes accumulés
 	$gbplot = new AccBarPlot(array($histo_femViv, $histo_femDead));
@@ -83,41 +85,40 @@ $graph->legend->Pos(0.12,0.12,"right","top");
 	// Ajouter l'ensemble accumulé
 	$graph->Add($gbplot);
 	
-	// Ajouter au graphique
-	$graph->Add($histo_femViv);
 
 // ***********************
 // Graphique courbe
 // ***********************
+	
+	$courbe = new LinePlot($NbEleveurs);
+	
+	// Echelle des Y que si je met pas ça ne fonctionne pas
+	$graph->SetYScale(0,'lin', 0,0);
 
-	$oCourbe = new LinePlot($NbEleveurs);
-	$oCourbe->value->Show();
-	$oCourbe->SetBarCenter();
+	// $graph->xaxis->title->Set("Années");
+	$graph->yaxis->title->Set("Nombre de femelle");
 
+	// Ajouter un axe Y supplémentaire
+	$graph->AddY(0,$courbe);
+
+	// Couleur de l'axe Y supplémentaire
+	$graph->ynaxis[0]->SetColor('lightgreen');
+	$graph->ynaxis[0]->title->Set("Nombre d'éleveurs");
+	
 	// Apparence des points
-	$oCourbe->mark->SetType(MARK_FILLEDCIRCLE);
-	$oCourbe->mark->SetFillColor("blue");
-	$oCourbe->mark->SetWidth(5);
-	$oCourbe->SetColor("blue");
-	$oCourbe->SetCenter();
-	$oCourbe->SetWeight(0);
-	
+	$courbe->mark->SetType(MARK_SQUARE);
+	$courbe->mark->SetColor('green');
+	$courbe->mark->SetSize(6);
+	$courbe->mark->SetFillColor("green");
+	$courbe->mark->SetWidth(6);
+	$courbe->SetColor("blue");
+	$courbe->SetCenter();
+	$courbe->SetWeight(6);
+
 	// Affichage des valeurs
-	
-	$oCourbe->value->SetFormat('%d');
-
-// Echelle des Y que si je met pas ça ne fonctionne pas
-$graph->SetYScale(0,'lin', 0,0);
-
-$graph->xaxis->title->Set("Années");
-$graph->yaxis->title->Set("Nombre de femelle");
-
-// Ajouter un axe Y supplémentaire
-$graph->AddY(0,$oCourbe);
-// Couleur de l'axe Y supplémentaire
-$graph->ynaxis[0]->SetColor('blue');
-$graph->ynaxis[0]->title->Set("Nombre d'éleveurs");
-
-// Envoyer au navigateur
-$graph->Stroke();
+	$courbe->SetBarCenter();
+	$courbe->value->SetFormat('%d');
+	// Envoyer au navigateur
+	$graph->Stroke();
+	$graph->Stroke("Graphique.jpg");
 ?>
