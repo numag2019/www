@@ -44,7 +44,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 
     <div class="widget">
 		<div class="widget-head">
-			<div class="pull-left">Informations sur la race</div>
+			<div class="pull-left">Informations sur les races</div>
 			<div class="widget-icons pull-right">
 				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 				<a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
@@ -74,7 +74,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					
 	<div class="widget">
 		<div class="widget-head">
-			<div class="pull-left">Evolution des effectifs inventoriés</div>
+			<div class="pull-left">Evolution des effectifs des races</div>
 			<div class="widget-icons pull-right">
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>

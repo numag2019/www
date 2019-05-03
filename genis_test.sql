@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 03 mai 2019 à 13:10
+-- Généré le :  ven. 03 mai 2019 à 13:15
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -26,13 +26,6 @@ DELIMITER $$
 --
 -- Fonctions
 --
-DROP FUNCTION IF EXISTS `an_naissance`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `an_naissance` (`idani` INT) RETURNS INT(11) begin
-declare ret int(4);
-SELECT year(date_naiss) into ret from animal where id_animal = idani;
-RETURN ret;
-end$$
-
 DROP FUNCTION IF EXISTS `elevage_actuel`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `elevage_actuel` (`idani` INT, `annee` INT) RETURNS VARCHAR(100) CHARSET utf8 begin
 declare elevage char(100);
