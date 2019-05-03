@@ -28,7 +28,6 @@ $(document).ready(function() {
 <?php
 session_start();
 $_SESSION['current_page']='visu_elevage';
-$_SESSION['nb_femelle']=$nb_femelle;
 
 require BODY_START;
 
@@ -128,6 +127,8 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						$j=$j+1;
 					}
 					echo "</tr>";
+                    
+                    $_SESSION['nb_femelle']=$nb_femelle;
 					
 					//Affichage des effectifs de femelles de plus de 2 ans dans chaque case du tableau
 					echo "<tr><td> Femelles de plus de 2 ans  </td>";
@@ -148,7 +149,9 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						$j=$j+1;
 					}
 					echo "</tr>";
+                    
 					
+
 					//Affichage des effectifs de femelles née dans l'année dans chaque case du tableau
 					echo "<tr><td> Femelles nées dans l'année </td>";
 					$j=1;

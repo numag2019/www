@@ -2,6 +2,8 @@
 
 session_start();
 
+$nb_femelle = $_SESSION['nb_femelle'];
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -98,6 +100,5 @@ for($i=1;$i<=count($departement);$i++)
     }
     $pdf->Ln();
 }
-$pdf->Cell($_SESSION['nb_femelle']);
 $pdf->Output();
 ?>
