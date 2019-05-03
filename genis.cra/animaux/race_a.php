@@ -28,6 +28,7 @@ $(document).ready(function() {
 <?php
 session_start();
 $_SESSION['current_page']='visu_elevage';
+$_SESSION['nb_femelle']=$nb_femelle;
 
 require BODY_START;
 
@@ -191,7 +192,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					//Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
 					echo "<tr><td> Détenteurs </td>";
 					$j=1;
-					$nb_femelle_nee[0]="Détenteurs";
+					$nb_detenteur[0]="Détenteurs";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
 						//Requête pour récupérer les effectifs de détenteurs
@@ -200,8 +201,8 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 							{
 									echo "<td><center>";
-									$nb_détenteur[$j]=$row[0];
-									echo $nb_détenteur[$j]." ";
+									$nb_detenteur[$j]=$row[0];
+									echo $nb_detenteur[$j]." ";
 									echo"</center></td>";
 							}
 						$j=$j+1;
@@ -330,9 +331,14 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<?php
 			
 			//Requête pour récupérer les observations par espèce d'oiseaux
-			$query = "	SELECT 	nom_animal, no_identification, sexe, date_naiss
-						FROM v_ani_mort 
-						WHERE code_race=".$code_race." and year(date_naiss)<".$annee2." and (id_type=NULL or year(date_sortie)>".$annee2.")";
+			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
+						FROM v_ani_mort left join animal as pere on v_ani_mort.id_pere=pere.id_animal 
+										left join animal as mere on v_ani_mort.id_mere=mere.id_animal
+                                        left join animal as ani on v_ani_mort.id_animal=ani.id_animal
+                                        left join periode on ani.id_animal=periode.id_animal
+                                        left join elevage on periode.id_elevage=elevage.id_elevage
+                                        left join contact on elevage.id_elevage=contact.id_elevage
+						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and periode.id_type =3";
 			$result = mysqli_query ($link, $query);
 			
 		
