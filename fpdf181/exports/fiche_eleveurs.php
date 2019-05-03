@@ -97,6 +97,7 @@ for($i=1;$i<=count($departement);$i++)
         $pdf->Ln(5);
     }
     $pdf->Ln();
-}  
+}
+$pdf->Cell($nb_femelle);
 $pdf->Output();
 ?>

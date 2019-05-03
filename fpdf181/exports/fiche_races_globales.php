@@ -311,7 +311,7 @@ $pdf->AddPage();
 $pdf->Ln();
 
 //Graphique d'évolution des naissances
-$pdf->Image('C:\wamp64\www\graph\Graphique.png',20,50);
+$pdf->Image('../../graph/Graphique.png',20,50);
 
 $pdf->Output();
 ?>
