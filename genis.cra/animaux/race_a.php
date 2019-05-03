@@ -333,14 +333,14 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<?php
 			
 			//Requête pour récupérer les observations par espèce d'oiseaux
-			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
+			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, elevage_actuel(v_ani_mort.id_animal,".$annee2.") as Elevage, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
 						FROM v_ani_mort left join animal as pere on v_ani_mort.id_pere=pere.id_animal 
 										left join animal as mere on v_ani_mort.id_mere=mere.id_animal
                                         left join animal as ani on v_ani_mort.id_animal=ani.id_animal
-                                        left join periode on ani.id_animal=periode.id_animal
-                                        left join elevage on periode.id_elevage=elevage.id_elevage
-                                        left join contact on elevage.id_elevage=contact.id_elevage
-						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and periode.id_type =3";
+                                        left join periode as naissance on ani.id_animal=naissance.id_animal
+                                        left join elevage as lieu_naiss on naissance.id_elevage=lieu_naiss.id_elevage
+                                        left join contact on lieu_naiss.id_elevage=contact.id_elevage
+						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3";
 			$result = mysqli_query ($link, $query);
 			
 		
