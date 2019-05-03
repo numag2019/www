@@ -54,7 +54,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	<div class="widget-content">
         <div class="padd">
           <?php
-//Récupération de la race choisie
+//Récupération de la periode choisie
 					$annee1 = $_GET["annee1"];
 					$annee2 = $_GET["annee2"];
 					
@@ -84,6 +84,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget-content">
 			  
 		<?php
+					
 					//Création du tableau
 					echo "<table border ='1', class = 'table table-striped table-bordered table-hover'>";
 					
@@ -97,107 +98,188 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						}
 						echo "</tr></thead>";
 					
-					// Affichage des effectif de femelles dans chaque case du tableau
-					echo "<tbody><tr><td> Totale femelles inventoriées </td>";
+					// Affichage des effectifs de bovins chaque case du tableau
+					echo "<thead><tr><td>Bovins</td>";
 					$j=1;
-					$nb_femelle[0]="Totale femelles inventoriées";
+					$bovin[0]="Bovins";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
-						//Requête pour récupérer les effectifs de femelles
-						$query= "SELECT nb_femelle(".$i.",".$code_race.")";
+						//Requête pour récupérer les effectifs de bovins
+						$query= "SELECT nb_espece(3,".$i.")";
 						$result = mysqli_query ($link, $query);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 							{
-									echo "<td><center>";
-									$nb_femelle[$j]=$row[0];
-									echo $nb_femelle[$j]." ";
-									echo"</center></td>";
+								echo "<td><center>";
+								$bovin[$j]=$row[0];
+								echo $bovin[$j]." ";
+								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr>";
+					echo "</tr></thead>";
 					
-					//Affichage des effectifs de femelles de plus de 2 ans dans chaque case du tableau
-					echo "<tr><td> Femelles de plus de 2 ans  </td>";
+							// Affichage des effectifs de béarnaises chaque case du tableau
+							echo "<tbody><tr><td>Béarnaises</td>";
+							$j=1;
+							$bearnaise[0]="Béarnaises";
+							for($i=$annee1;$i<=$annee2;$i++)
+							{
+								//Requête pour récupérer les effectifs de béarnaises
+								$query= "SELECT nb_race(19,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$bearnaise[$j]=$row[0];
+										echo $bearnaise[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
+							}
+							echo "</tr>";
+							
+							// Affichage des effectifs de bordelaises chaque case du tableau
+							echo "<tr><td>Bordelaises</td>";
+							$j=1;
+							$bordelaise[0]="Bordelaises";
+							for($i=$annee1;$i<=$annee2;$i++)
+							{
+								//Requête pour récupérer les effectifs de bordelaises
+								$query= "SELECT nb_race(5,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$bordelaise[$j]=$row[0];
+										echo $bordelaise[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
+							}
+							echo "</tr>";
+							
+							// Affichage des effectifs de marines chaque case du tableau
+							echo "<tr><td>Marines</td>";
+							$j=1;
+							$marine[0]="Marines";
+							for($i=$annee1;$i<=$annee2;$i++)
+							{
+								//Requête pour récupérer les effectifs de marines
+								$query= "SELECT nb_race(6,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$marine[$j]=$row[0];
+										echo $marine[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
+							}
+							echo "</tr></tbody>";
+					
+						
+					// Affichage des effectifs d'equins chaque case du tableau
+					echo "<thead><tr><td>Equins</td>";
 					$j=1;
-					$nb_femelle_2[0]="Femelles de plus de 2 ans";
+					$equin[0]="Equins";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
-						//Requête pour récupérer les effectifs de femelles de plus de 2ans 
-						$query= "SELECT nb_femelle_2(".$i.",".$code_race.")";
+						//Requête pour récupérer les effectifs d'equins
+						$query= "SELECT nb_espece(2,".$i.")";
 						$result = mysqli_query ($link, $query);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 							{
-									echo "<td><center>";
-									$nb_femelle_2[$j]=$row[0];
-									echo $nb_femelle_2[$j]." ";
-									echo"</center></td>";
+								echo "<td><center>";
+								$equin[$j]=$row[0];
+								echo $equin[$j]." ";
+								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr>";
+					echo "</tr></thead>";
 					
-					//Affichage des effectifs de femelles née dans l'année dans chaque case du tableau
-					echo "<tr><td> Femelles nées dans l'année </td>";
+							// Affichage des effectifs de poneys landais chaque case du tableau
+							echo "<tbody><tr><td>Poneys Landais</td>";
+							$j=1;
+							$plandais[0]="Poneys Landais";
+							for($i=$annee1;$i<=$annee2;$i++)
+							{
+								//Requête pour récupérer les effectifs de poneys landais
+								$query= "SELECT nb_race(2,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$plandais[$j]=$row[0];
+										echo $plandais[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
+							}
+							echo "</tr></tbody>";
+					
+					// Affichage des effectifs d'ovins chaque case du tableau
+					echo "<thead><tr><td>Ovins</td>";
 					$j=1;
-					$nb_femelle_nee[0]="Femelles nées dans l'année";
+					$ovin[0]="Ovins";
 					for($i=$annee1;$i<=$annee2;$i++)
 					{
-						//Requête pour récupérer les effectifs de femelles nées
-						$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";
+						//Requête pour récupérer les effectifs d'ovins
+						$query= "SELECT nb_espece(4,".$i.")";
 						$result = mysqli_query ($link, $query);
 						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 							{
-									echo "<td><center>";
-									$nb_femelle_nee[$j]=$row[0];
-									echo $nb_femelle_nee[$j]." ";
-									echo"</center></td>";
+								echo "<td><center>";
+								$ovin[$j]=$row[0];
+								echo $ovin[$j]." ";
+								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr>";
+					echo "</tr></thead>";
 					
-					//Affichage des effectifs de taureaux dans chaque case du tableau
-					echo "<tr><td> Taureaux </td>";
-					$j=1;
-					$nb_taureau[0]="Taureaux";
-					for($i=$annee1;$i<=$annee2;$i++)
-					{
-						//Requête pour récupérer les effectifs de taureaux
-						$query= "SELECT nb_taureau(".$i.",".$code_race.")";
-						$result = mysqli_query ($link, $query);
-						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							// Affichage des effectifs de moutons landais chaque case du tableau
+							echo "<tbody><tr><td>Moutons Landais</td>";
+							$j=1;
+							$mlandais[0]="Moutons Landais";
+							for($i=$annee1;$i<=$annee2;$i++)
 							{
-									echo "<td><center>";
-									$nb_taureau[$j]=$row[0];
-									echo $nb_taureau[$j]." ";
-									echo"</center></td>";
+								//Requête pour récupérer les effectifs de moutons landais
+								$query= "SELECT nb_race(9,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$mlandais[$j]=$row[0];
+										echo $mlandais[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
 							}
-						$j=$j+1;
-					}
-					echo "</tr>";
-					
-					//Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
-					echo "<tr><td> Détenteurs </td>";
-					$j=1;
-					$nb_femelle_nee[0]="Détenteurs";
-					for($i=$annee1;$i<=$annee2;$i++)
-					{
-						//Requête pour récupérer les effectifs de détenteurs
-						$query= "SELECT nb_detenteur(".$i.",".$code_race.")";
-						$result = mysqli_query ($link, $query);
-						while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							echo "</tr>";
+							
+							// Affichage des effectifs de sasi ardia chaque case du tableau
+							echo "<tr><td>Sasi Ardia</td>";
+							$j=1;
+							$sasi[0]="Sasi Ardia";
+							for($i=$annee1;$i<=$annee2;$i++)
 							{
-									echo "<td><center>";
-									$nb_détenteur[$j]=$row[0];
-									echo $nb_détenteur[$j]." ";
-									echo"</center></td>";
+								//Requête pour récupérer les effectifs de marines
+								$query= "SELECT nb_race(10,".$i.")";
+								$result = mysqli_query ($link, $query);
+								while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+									{
+										echo "<td><center>";
+										$sasi[$j]=$row[0];
+										echo $sasi[$j]." ";
+										echo"</center></td>";
+									}
+								$j=$j+1;
 							}
-						$j=$j+1;
-					}
-					echo "</tr></tbody>";
-					
-					echo "</table>";
+							echo "</tr></tbody>";
+						
+						echo "</table>";
 	
           ?>
 		</div>
