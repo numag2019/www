@@ -88,14 +88,14 @@ $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
 for($i=1;$i<=count($departement);$i++)
 {
-    $pdf->SetFont('Arial','U',20); //police des départements
+    $pdf->SetFont('Arial','BU',20); //police des départements
     $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
     for($k=1;$k<=count($nb_eleveurs);$k++)
     {
         $pdf->SetFont('Times','',15); //police des eleveurs
         $pdf->Cell(0,10,'Eleveurs '.$nb_eleveurs[$k-1],0,1);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
     }
     $pdf->Ln();
 }
