@@ -314,7 +314,7 @@ $pdf->Cell(70,120,'Graphique',1,0,'C');
 $pdf->Ln();
 
 //Graphique d'évolution des naissances
-$pdf->Image('Graphique.jpg',70,120);
+$pdf->Image('../../Graphique.jpg',70,120);
 
 //Graphique d'évolution des naissances
 $pdf->Cell(50,120,'Graphique',1,0,'C');
