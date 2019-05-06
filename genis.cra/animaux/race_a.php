@@ -343,7 +343,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget-content">  
 		<?php
 			
-			//Requête pour récupérer les observations par espèce d'oiseaux
+			//Requête pour récupérer la liste des animaux et leurs informations
 			$query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, elevage_actuel(v_ani_mort.id_animal,".$annee2.") as Elevage, v_ani_mort.sexe as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
 						FROM v_ani_mort left join animal as pere on v_ani_mort.id_pere=pere.id_animal 
 										left join animal as mere on v_ani_mort.id_mere=mere.id_animal
