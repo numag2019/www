@@ -4,12 +4,16 @@
 
 session_start();
 
+//récupération des variables de session
 $nb_femelle = $_SESSION['nb_femelle'];
 $nb_femelle_2 =$_SESSION['nb_femelle_2'];
 $nb_femelle_nee = $_SESSION['nb_femelle_nee'];
 $nb_taureau = $_SESSION['nb_taureau'];
 $nb_detenteur = $_SESSION['nb_detenteur'];
 $annee = $_SESSION['annee'];
+$nb_veau = $_SESSION['nb_veau'];
+$nb_veau_m = $_SESSION['nb_veau_m'];
+$nb_veau_f = $_SESSION['nb_veau_f'];
 
 require('../fpdf.php');
 
@@ -336,9 +340,9 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
+//création de l'entete des années
 $header_inv_nais = array();
 array_push($header_inv_nais,NULL);
-
 for($i=0;$i<count($annee);$i++) 
     array_push($header_inv_nais,$annee[$i]);
 
@@ -358,10 +362,37 @@ for($i=0;$i<count($header_inv_nais)-1;$i++)
 $effectif = array($nb_femelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $nb_detenteur);
 $_SESSION['effectif'] = $effectif;
 
-$naissance1 = array(array('nombre de veaux nés',118,130,141,159,164));
-//$naissance1 = array($nb_veau);
-$naissance2 = array(array('Veaux mâles','55','46','73','56','70','50','81','51','84','51'),array('Veaux femelles','63','54','57','44','71','50','78','49','80','49'));
-//naissance2 = array($nb_veau_m,$nb_veau_f);
+
+
+$naissance1 = array($nb_veau);
+//$naissance2 = array(array('Veaux mâles','55','46','73','56','70','50','81','51','84','51'),array('Veaux femelles','63','54','57','44','71','50','78','49','80','49'));
+
+//Modification de la variable nb_veau_m et nb_veau_f pour ajouter les pourcentages
+
+//création des variables contenant les pourcentages
+$pourcent_veaux_m = array();
+$pourcent_veaux_f = array();
+for($i=1;$i<count($nb_veau)-1;$i++)
+{
+    $pourcent_veaux_m[$i] = intval(($nb_veau_m[$i]/$nb_veau[$i])*100);
+    $pourcent_veaux_f[$i] = intval(($nb_veau_f[$i]/$nb_veau[$i])*100);
+}
+
+//création d'une variable contenant le nombre et le pourcentage des veaux
+$veaux_m = array();
+$veaux_f = array();
+
+for($i=1;$i<count($nb_veau)-1;$i++)
+{
+    $veaux_m[$i] = array($nb_veau_m[$i],$pourcent_veaux_m[$i]);
+    $veaux_f[$i] = array($nb_veau_m[$i],$pourcent_veaux_f[$i]);
+}
+
+
+
+
+$naissance2 = array($veaux_m,$veaux_f);
+
 
 $presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
 
