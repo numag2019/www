@@ -54,12 +54,14 @@ $annee = $_GET["annee"];
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 mysqli_set_charset ($link, "utf8mb4");
 
-$query = "	SELECT 	elevage.no_elevage, nom, prenom, adresse, adresse2, tel, tel2, mail, lib_dpt
+$query = "	SELECT 	elevage.no_elevage, nom, prenom, adresse, adresse2, tel, tel2, mail, lib_dpt, min(year(date_entree)) as deb, max(year(date_sortie)) as fin
 			FROM contact left join commune on contact.id_commune=commune.id_commune
 						 left join departement on commune.no_dpt=departement.no_dpt
 						 join elevage on contact.id_elevage=elevage.id_elevage
 						 join link_race_elevage on elevage.id_elevage=link_race_elevage.id_elevage
-			WHERE code_race=".$code_race."
+						 join periode on elevage.id_elevage=periode.id_elevage
+			WHERE code_race=".$code_race." and id_type=2 and deb<".$annee." and (year(date_sortie)=NULL or fin>".$annee.")
+			GROUP BY elevage.no_elevage
 			ORDER BY departement.no_dpt";
 $result = mysqli_query ($link, $query);
 $dep_prec='';
