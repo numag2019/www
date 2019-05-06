@@ -336,8 +336,13 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
-$header_inv_nais = $annee;
-array_push($header_inv_nais,'test','test2');
+$header_inv_nais = array();
+array_push($header_inv_nais,NULL);
+
+for($i=0;$i<count($annee);$i++) 
+    array_push($header_inv_nais,$annee[$i]);
+
+
 $header_pre = array('Nom','N° id','Elevage','Sexe','Date naissance','Nom du père','N° id père','Nom de la mère','N° id mère','Naisseur');
 
 //création de l'entete Nb et %
