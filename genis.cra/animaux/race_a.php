@@ -70,6 +70,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						$annee[$j]=$i;
 						$j=$j+1;
 					}
+                    $_SESSION['annee'] = $annee;
 					
 					//Connection au serveur
 					$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
@@ -130,6 +131,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle'] = $nb_femelle;
 					echo "</tr>";
                     
 					
@@ -151,6 +153,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle_2'] = $nb_femelle_2;
 					echo "</tr>";
                     
 					
@@ -173,6 +176,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle_nee'] = $nb_femelle_nee;
 					echo "</tr>";
 					
 					//Affichage des effectifs de taureaux dans chaque case du tableau
@@ -193,6 +197,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_taureau'] = $nb_taureau;
 					echo "</tr>";
 					
 					//Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
@@ -213,6 +218,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_detenteur'] = $nb_detenteur;
 					echo "</tr></tbody>";
 					
 					echo "</table>";
