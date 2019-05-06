@@ -48,8 +48,10 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget-head">
 			<div class="pull-left">Informations sur la race</div>
 			<div class="widget-icons pull-right">
+                <a href="http://genis.cra/fpdf181/exports/fiche_race.php"><i>PDF</i></a>
 				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-                <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a> 
+                <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+                 
         </div>
         <div class="clearfix"></div>
 		</div>
