@@ -9,6 +9,8 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Les datas pour l'exemple
 
+$datay1=array(30,25,20,250,230,245);
+$datay2=array(100,200,300,250,230,245);
 $datay3=array(260,255,301,230,250,222);
 $i=0;
 $années=array("2014","2015","2016","2017","2018","2019");

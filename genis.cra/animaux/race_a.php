@@ -48,8 +48,10 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget-head">
 			<div class="pull-left">Informations sur la race</div>
 			<div class="widget-icons pull-right">
+                <a href="http://genis.cra/fpdf181/exports/fiche_race.php"><i>PDF</i></a>
 				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-                <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a> 
+                <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
+                 
         </div>
         <div class="clearfix"></div>
 		</div>
@@ -68,6 +70,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						$annee[$j]=$i;
 						$j=$j+1;
 					}
+                    $_SESSION['annee'] = $annee;
 					
 					//Connection au serveur
 					$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
@@ -128,6 +131,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle'] = $nb_femelle;
 					echo "</tr>";
                     
 					
@@ -149,6 +153,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle_2'] = $nb_femelle_2;
 					echo "</tr>";
                     
 					
@@ -171,6 +176,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_femelle_nee'] = $nb_femelle_nee;
 					echo "</tr>";
 					
 					//Affichage des effectifs de taureaux dans chaque case du tableau
@@ -191,6 +197,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_taureau'] = $nb_taureau;
 					echo "</tr>";
 					
 					//Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
@@ -211,6 +218,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_detenteur'] = $nb_detenteur;
 					echo "</tr></tbody>";
 					
 					echo "</table>";

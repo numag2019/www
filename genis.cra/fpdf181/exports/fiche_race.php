@@ -4,6 +4,13 @@
 
 session_start();
 
+$nb_femelle = $_SESSION['nb_femelle'];
+$nb_femelle_2 =$_SESSION['nb_femelle_2'];
+$nb_femelle_nee = $_SESSION['nb_femelle_nee'];
+$nb_taureau = $_SESSION['nb_taureau'];
+$nb_detenteur = $_SESSION['nb_detenteur'];
+$annee = $_SESSION['annee'];
+
 require('../fpdf.php');
 
 class PDF extends FPDF
@@ -329,8 +336,13 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
-$header_inv_nais = array(NULL,2013,2014,2015,2016,2017);
-$_SESSION['annee'] = $header_inv_nais;
+$header_inv_nais = array();
+array_push($header_inv_nais,NULL);
+
+for($i=0;$i<count($annee);$i++) 
+    array_push($header_inv_nais,$annee[$i]);
+
+
 $header_pre = array('Nom','N° id','Elevage','Sexe','Date naissance','Nom du père','N° id père','Nom de la mère','N° id mère','Naisseur');
 
 //création de l'entete Nb et %
@@ -342,9 +354,9 @@ for($i=0;$i<count($header_inv_nais)-1;$i++)
 
 // Données des requetes SQL
 
-$effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
+//$effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
+$effectif = array($nb_femelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $nb_detenteur);
 $_SESSION['effectif'] = $effectif;
-//$effectif = array($nb_femmelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $nb_detenteur);
 
 $naissance1 = array(array('nombre de veaux nés',118,130,141,159,164));
 //$naissance1 = array($nb_veau);
@@ -368,7 +380,7 @@ $pdf->Tableau_inv($header_inv_nais,$effectif,$largeur_col,$largeur_lgd);
 
 
 //Graphique d'évolution des effectifs
-$pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
+//$pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
 
 //Page des naissances
 $pdf->AddPage();
@@ -378,7 +390,7 @@ $pdf->Tableau_nais($header_inv_nais,$naissance1,$largeur_col,$largeur_lgd);
 $pdf->Tableau_nais_2($header_nais2,$naissance2,$largeur_col/2,$largeur_lgd);
 
 //Graphique d'évolution des naissances
-$pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
+//$pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
 
 
 // Page d'évolution des présences dans la race
