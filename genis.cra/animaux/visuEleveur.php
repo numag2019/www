@@ -75,14 +75,14 @@ mysqli_set_charset ($link, "utf8mb4");
 							while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
 								{
 									$id_nom = $row[0];
-									$nom = $row ["lib_race"];	
+									$nom = $row ["lib_race"];
 									echo ("<option value =".$id_nom.">".$nom)."</option>";
 								}
 							echo "</select><br><br>";
 						echo"</td>
 					</tr><tr><td></td><td></td></tr>";
 
-              // Select race
+              // Select date
 
 				//Récupération des dates
 					$firstyear = 2010;

@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.css"/>
-	 
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
-
   <title>GenIS</title>
 
   <?php
@@ -19,11 +15,6 @@
 </head>
 
 <body>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
 
 <?php
 session_start();
@@ -99,7 +90,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						echo "</tr></thead>";
 					
 					// Affichage des effectifs de bovins chaque case du tableau
-					echo "<thead><tr><td>Bovins</td>";
+					echo "<tbody><tr><td><b>Bovins</b></td>";
 					$j=1;
 					$bovin[0]="Bovins";
 					for($i=$annee1;$i<=$annee2;$i++)
@@ -111,15 +102,15 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							{
 								echo "<td><center>";
 								$bovin[$j]=$row[0];
-								echo $bovin[$j]." ";
+								echo "<b>".$bovin[$j]."<b> ";
 								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr></thead>";
+					echo "</tr>";
 					
 							// Affichage des effectifs de béarnaises chaque case du tableau
-							echo "<tbody><tr><td>Béarnaises</td>";
+							echo "<tbody><tr><td><p style='text-indent:30px'>Béarnaises</td>";
 							$j=1;
 							$bearnaise[0]="Béarnaises";
 							for($i=$annee1;$i<=$annee2;$i++)
@@ -139,7 +130,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							echo "</tr>";
 							
 							// Affichage des effectifs de bordelaises chaque case du tableau
-							echo "<tr><td>Bordelaises</td>";
+							echo "<tr><td><p style='text-indent:30px'>Bordelaises</td>";
 							$j=1;
 							$bordelaise[0]="Bordelaises";
 							for($i=$annee1;$i<=$annee2;$i++)
@@ -159,7 +150,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							echo "</tr>";
 							
 							// Affichage des effectifs de marines chaque case du tableau
-							echo "<tr><td>Marines</td>";
+							echo "<tr><td><p style='text-indent:30px'>Marines</td>";
 							$j=1;
 							$marine[0]="Marines";
 							for($i=$annee1;$i<=$annee2;$i++)
@@ -176,11 +167,11 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
-							echo "</tr></tbody>";
+							echo "</tr>";
 					
 						
 					// Affichage des effectifs d'equins chaque case du tableau
-					echo "<thead><tr><td>Equins</td>";
+					echo "<b><tr><td><b>Equins</b></td>";
 					$j=1;
 					$equin[0]="Equins";
 					for($i=$annee1;$i<=$annee2;$i++)
@@ -192,15 +183,15 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							{
 								echo "<td><center>";
 								$equin[$j]=$row[0];
-								echo $equin[$j]." ";
+								echo "<b>".$equin[$j]."<b> ";
 								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr></thead>";
+					echo "</tr></b>";
 					
 							// Affichage des effectifs de poneys landais chaque case du tableau
-							echo "<tbody><tr><td>Poneys Landais</td>";
+							echo "<tr><td><p style='text-indent:30px'>Poneys Landais</td>";
 							$j=1;
 							$plandais[0]="Poneys Landais";
 							for($i=$annee1;$i<=$annee2;$i++)
@@ -217,10 +208,10 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
-							echo "</tr></tbody>";
+							echo "</tr>";
 					
 					// Affichage des effectifs d'ovins chaque case du tableau
-					echo "<thead><tr><td>Ovins</td>";
+					echo "<tr><td><b>Ovins</b></td>";
 					$j=1;
 					$ovin[0]="Ovins";
 					for($i=$annee1;$i<=$annee2;$i++)
@@ -232,15 +223,15 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							{
 								echo "<td><center>";
 								$ovin[$j]=$row[0];
-								echo $ovin[$j]." ";
+								echo "<b>".$ovin[$j]."<b> ";
 								echo"</center></td>";
 							}
 						$j=$j+1;
 					}
-					echo "</tr></thead>";
+					echo "</tr>";
 					
 							// Affichage des effectifs de moutons landais chaque case du tableau
-							echo "<tbody><tr><td>Moutons Landais</td>";
+							echo "<tr><td><p style='text-indent:30px'>Moutons Landais</td>";
 							$j=1;
 							$mlandais[0]="Moutons Landais";
 							for($i=$annee1;$i<=$annee2;$i++)
@@ -260,7 +251,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							echo "</tr>";
 							
 							// Affichage des effectifs de sasi ardia chaque case du tableau
-							echo "<tr><td>Sasi Ardia</td>";
+							echo "<tr><td><p style='text-indent:30px'>Sasi Ardia</td>";
 							$j=1;
 							$sasi[0]="Sasi Ardia";
 							for($i=$annee1;$i<=$annee2;$i++)
