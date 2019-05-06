@@ -324,7 +324,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		<div class="widget">
 		<div class="widget-head">
 		<?php
-			echo "<div class='pull-left'>Présence dans la race en".$annee2." </div>"
+			echo "<div class='pull-left'>Présence dans la race en ".$annee2." </div>"
 		?>
 			<div class="widget-icons pull-right">
 				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
