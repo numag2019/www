@@ -270,6 +270,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_veau'] = $nb_veau;
 					echo "</tr></tbody>";
 					
 					//Affichage des sous-titre nb et %
@@ -301,6 +302,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_veau_m'] = $nb_veau_m;
 					echo "</tr>";
 					
 					// Affichage des effectifs de veaux dans chaque case du tableau
@@ -321,6 +323,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+                    $_SESSION['nb_veau_f'] = $nb_veau_f;
 					echo "</tr></tbody>";
 					
 					echo "</table>";
