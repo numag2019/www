@@ -227,7 +227,7 @@ echo "</table>";
 	
 	<?php
 //Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
-echo "<center><img src='HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
+echo "<center><img src='../Graph/HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
 		?>
 	
 
