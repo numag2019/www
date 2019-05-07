@@ -384,8 +384,8 @@ $veaux_f = array();
 
 for($i=1;$i<count($nb_veau)-1;$i++)
 {
-    $veaux_m[$i] = array($nb_veau_m[$i],$pourcent_veaux_m[$i]);
-    $veaux_f[$i] = array($nb_veau_m[$i],$pourcent_veaux_f[$i]);
+    $veaux_m[$i] = [$nb_veau_m[$i];$pourcent_veaux_m[$i]];
+    $veaux_f[$i] = [$nb_veau_m[$i];$pourcent_veaux_f[$i]];
 }
 
 
