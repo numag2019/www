@@ -50,73 +50,71 @@ mysqli_set_charset ($link, "utf8mb4");
       </div>
       <div class="widget-content">
         <div class="padd">
-          <?php
+  <?php
 
-              // Select race
+	  // Select race
 
-              //Requête pour récupérer toutes les races
-					$query_race = "SELECT code_race, lib_race FROM race";
-					$result_race = mysqli_query ($link, $query_race);
-					
-					//Mise en forme dans un tableau pour aligner les listes déroulantes du formulaire
-					echo "<table>";
-					
-					//Choix d'un observateur dans une liste déroulante
-					echo "<tr>
-						<td>";
-							echo "<label>Race</label> <br><br>";
-						echo"</td><td> </td>
-						<td>";
-							//Création d'un formulaire
-							echo "<FORM action = 'eleveur_a.php' method = 'GET' name = 'forma'>";
-							//Définition du nom de la liste déroulante
-							echo "<select name = race>";
-							//Enregistrement des id et affichage des noms des races dans la liste déroulante
-							while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
-								{
-									$id_nom = $row[0];
-									$nom = $row ["lib_race"];
-									echo ("<option value =".$id_nom.">".$nom)."</option>";
-								}
-							echo "</select><br><br>";
-						echo"</td>
-					</tr><tr><td></td><td></td></tr>";
+	  //Requête pour récupérer toutes les races
+			$query_race = "SELECT code_race, lib_race FROM race";
+			$result_race = mysqli_query ($link, $query_race);
+			
+			//Mise en forme dans un tableau pour aligner les listes déroulantes du formulaire
+			echo "<table>";
+			
+			//Choix d'un observateur dans une liste déroulante
+			echo "<tr>
+				<td>";
+					echo "<label>Race</label> <br><br>";
+				echo"</td><td> </td>
+				<td>";
+					//Création d'un formulaire
+					echo "<FORM action = 'eleveur_a.php' method = 'GET' name = 'forma'>";
+					//Définition du nom de la liste déroulante
+					echo "<select name = race>";
+					//Enregistrement des id et affichage des noms des races dans la liste déroulante
+					while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
+						{
+							$id_nom = $row[0];
+							$nom = $row ["lib_race"];
+							echo ("<option value =".$id_nom.">".$nom)."</option>";
+						}
+					echo "</select><br><br>";
+				echo"</td>
+			</tr><tr><td></td><td></td></tr>";
 
-              // Select date
+	  // Select date
 
-				//Récupération des dates
-					$firstyear = 2010;
-					$currentyear = date('Y');
-					
-					//Choix d'une année dans une liste déroulante
-					echo "<tr>
-						<td>";
-							echo "<label>Année</label><br>";
-						echo"</td><td> </td>
-						<td>";
-							//Définition du tableau contenant les valeur de la liste déroulante et du nom de cette liste
-							$j=0;
-							$tab_annee=array();
-							for ($i=$firstyear;$i<=$currentyear;$i++){
-								$tab_annee[$j]= $i;
-								$j=$j+1;
-							}
-							$annee = "annee";
-							//Création de la liste déroulante
-							include "fonctions_php.php";
-							creer_liste_HTML ($annee,$tab_annee);
-						
-						echo"
-						</tr><tr><td></td><td></td></tr>
-						<tr><td>
-						<INPUT TYPE = 'SUBMIT' class='btn btn-sm btn-success' name = 'bt_submit' value = 'Rechercher' ><br><br>
-						</td><td></td><td></td></tr>
-						</FORM><br><br></td>
-						
-					</table>"
-					
-
-          ?>
+		//Récupération des dates
+			$firstyear = 2010;
+			$currentyear = date('Y');
+			
+			//Choix d'une année dans une liste déroulante
+			echo "<tr>
+				<td>";
+					echo "<label>Année</label><br>";
+				echo"</td><td> </td>
+				<td>";
+					//Définition du tableau contenant les valeur de la liste déroulante et du nom de cette liste
+					$j=0;
+					$tab_annee=array();
+					for ($i=$firstyear;$i<=$currentyear;$i++){
+						$tab_annee[$j]= $i;
+						$j=$j+1;
+					}
+					$annee = "annee";
+					//Création de la liste déroulante
+					include "fonctions_php.php";
+					creer_liste_HTML ($annee,$tab_annee);
+				
+				echo"
+				</tr><tr><td></td><td></td></tr>
+				<tr><td>
+				<INPUT TYPE = 'SUBMIT' class='btn btn-sm btn-success' name = 'bt_submit' value = 'Rechercher' ><br><br>
+				</td><td></td><td></td></tr>
+				</FORM><br><br></td>
+				
+			</table>"
+  ?>
 
         </div>
       </div>
