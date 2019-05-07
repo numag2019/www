@@ -363,7 +363,6 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                                         left join contact on lieu_naiss.id_elevage=contact.id_elevage
 						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3";
 			$result = mysqli_query ($link, $query);
-			
 		
 			//Affichage du tableau des présences dans la race
 			include "fonctions_php.php";
