@@ -71,6 +71,7 @@ foreach  ($result as $row)
 	$resultat_ele[] = $row;
 }
 $_SESSION['resultat_ele'] = $resultat_ele;
+$_SESSION['resultat2'] = $result;
 mysqli_data_seek($result,0);
 
             
