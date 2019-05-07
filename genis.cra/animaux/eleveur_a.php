@@ -63,6 +63,14 @@ $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, t
 			WHERE code_race=".$code_race." and Consentement='Oui'
 			ORDER BY departement.no_dpt";
 $result = mysqli_query ($link, $query);
+//récupération des données de la requete SQL dans une variable $resultat_ele
+            $resultat_ele = array();
+            foreach  ($result as $row) 
+            {
+                $resultat_ele[] = $row;
+            }
+            $_SESSION['resultat_ele'] = $resultat_ele;
+            
 $dep_prec='';
 while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 	{
