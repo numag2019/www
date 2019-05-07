@@ -205,7 +205,7 @@ function Tableau_presence($header,$effectif,$largeur_col)
     
 	// En-tête
 	foreach($header as $col)
-        $this->Cell($largeur_col,7,$col,1,0,'C',true);
+        $this->Cell($largeur_col,7,utf8_decode($col),1,0,'C',true);
 	$this->Ln();
     
     
@@ -219,7 +219,7 @@ function Tableau_presence($header,$effectif,$largeur_col)
             $this->SetTextColor(0);
             $this->SetFont('');
             $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,$col,'LR',0,'C');
+            $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
             
             
         }
@@ -271,7 +271,7 @@ function Tableau_nais($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(8);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
+                $this->Cell($largeur_lgd,6,utf8_decode($col),'LR',0,'C'); 
             }
         }
 		$this->Ln();
@@ -320,7 +320,7 @@ function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(8);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
+                $this->Cell($largeur_lgd,6,utf8_decode($col),'LR',0,'C'); 
             }
         }
 		$this->Ln();
@@ -359,14 +359,12 @@ for($i=0;$i<count($header_inv_nais)-1;$i++)
 
 // Données des requetes SQL
 
-//$effectif = array(array('Total des femelles inventoriées',252,286,318,352,375),array('Femelles de plus de 2ans',193,209,234,253,264),array('Femelles nées et conservées',38,38,42,59,56),array('Taureaux (MN)',5,8,10,12,8),array('Détenteurs',65,75,75,82,92));
 $effectif = array($nb_femelle, $nb_femelle_2, $nb_femelle_nee, $nb_taureau, $nb_detenteur);
 $_SESSION['effectif'] = $effectif;
 
 
 
 $naissance1 = array($nb_veau);
-//$naissance2 = array(array('Veaux mâles','55','46','73','56','70','50','81','51','84','51'),array('Veaux femelles','63','54','57','44','71','50','78','49','80','49'));
 
 //Modification de la variable nb_veau_m et nb_veau_f pour ajouter les pourcentages
 
@@ -382,25 +380,21 @@ for($i=1;$i<count($nb_veau);$i++)
 
 //création d'une variable contenant le nombre et le pourcentage des veaux
 
-$veaux_m =array($nb_veau_m[0]);
+$veaux_m =array($nb_veau_m[0]); //ajout des titres des lignes en premier element de la liste
 $veaux_f =array($nb_veau_f[0]);
 
 $j=1;
 
-for($i=1;$i<count($nb_veau);$i++)
+for($i=1;$i<count($nb_veau);$i++) //remplissage de la variable
 {
     $veaux_m[$j] = $nb_veau_m[$i];
     $veaux_f[$j] = $nb_veau_f[$i];
     $j++;
-    // $k = $j-2;
     $veaux_m[$j] = $pourcent_veaux_m[$i-1];
     $veaux_f[$j] = $pourcent_veaux_f[$i-1];
-    $j = $j+1;    
+    $j++;    
     
 }
-
-
-
 
 $naissance2 = array($veaux_m,$veaux_f);
 
