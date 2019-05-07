@@ -1,5 +1,6 @@
 <?php
 session_start();
+$resultat = $_SESSION['resultat_ele'] ;
 
 //$nb_femelle = $_SESSION['nb_femelle'];
 
@@ -78,8 +79,40 @@ function WriteHTML($html)
 
 }
 
+//Fonction réalisant le tableau
+function Tableau_ele($effectif,$largeur_col)
+{
+    // Couleurs, épaisseur du trait et police grasse pour l'entete
+	$this->SetFillColor(133,195,43);
+	$this->SetTextColor(0);
+	$this->SetDrawColor(0,0,0);
+	$this->SetLineWidth(.3);
+	$this->SetFont('','B');
+
+	// Données
+	foreach($effectif as $row)
+	{
+        foreach($row as $col)
+        {
+            
+            // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(8);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C'); 
+            
+        }
+		$this->Ln();
+	}
+    // Trait de terminaison
+	// $this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
+    
+
+}
+
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$nb_eleveurs = array(3,5,1,4,2,1,3);
+
 
 $pdf = new PDF();
 
@@ -91,13 +124,7 @@ for($i=1;$i<=count($departement);$i++)
     $pdf->SetFont('Arial','BU',20); //police des départements
     $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
-    for($k=1;$k<=count($nb_eleveurs);$k++)
-    {
-        $pdf->SetFont('Times','',15); //police des eleveurs
-        $pdf->Cell(0,10,'Eleveurs '.$nb_eleveurs[$k-1],0,1);
-        $pdf->Ln(2);
-    }
-    $pdf->Ln();
+    Tableau_ele($resultat,19);
 }
 $pdf->Output();
 ?>
