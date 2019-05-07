@@ -229,7 +229,6 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	
 	<?php
 		//Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
-		//Modification données récupérées
 		echo "<center><img src = 'HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
 		?>
 	

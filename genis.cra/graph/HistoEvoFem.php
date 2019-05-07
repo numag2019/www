@@ -32,10 +32,11 @@ function maximum($liste) //Pour liste unique
 
 
 //Récupération des données
-$nb_femelle=$_GET["nb_femelle"];
-$nb_detenteur=$_GET["nb_detenteur"];
-$nb_femelle_nee=$_GET["nb_femelle_nee"];
-$annee=$_GET["annee"];
+$code_race=$_GET["code_race"];
+$annee1=$_GET["annee1"];
+$annee2=$_GET["annee2"];
+
+
 
 // *********************
 // Création du graphique
