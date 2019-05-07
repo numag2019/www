@@ -15,6 +15,7 @@ $annee = $_SESSION['annee'];
 $nb_veau = $_SESSION['nb_veau'];
 $nb_veau_m = $_SESSION['nb_veau_m'];
 $nb_veau_f = $_SESSION['nb_veau_f'];
+$resultat = $_SESSION['resultat'];
 
 require('../fpdf.php');
 
@@ -397,6 +398,9 @@ for($i=1;$i<count($nb_veau);$i++) //remplissage de la variable
 }
 
 $naissance2 = array($veaux_m,$veaux_f);
+
+
+// Création des variables pour la présence des animaux
 
 
 $presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
