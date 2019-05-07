@@ -15,7 +15,6 @@ $annee = $_SESSION['annee'];
 $nb_veau = $_SESSION['nb_veau'];
 $nb_veau_m = $_SESSION['nb_veau_m'];
 $nb_veau_f = $_SESSION['nb_veau_f'];
-$resultat = $_SESSION['resultat'];
 
 require('../fpdf.php');
 
