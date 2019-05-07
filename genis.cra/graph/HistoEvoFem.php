@@ -36,7 +36,58 @@ $code_race=$_GET["code_race"];
 $annee1=$_GET["annee1"];
 $annee2=$_GET["annee2"];
 
+//Liste des années
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	$annee[$j]="'".$i."'";
+	$j=$j+1;
+}
 
+//Requête pour récupérer les nombre de femelles
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer les effectifs de femelles
+	$query= "SELECT nb_femelle(".$i.",".$code_race."),nb_femelle_nee(".$i.",".$code_race."), nb_detenteur((".$i.",".$code_race.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+		$nb_femelle[$j] = $tab[0][1];
+	$j=$j+1;
+}
+
+//Requête pour récupérer les nombre de femelles née
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer les effectifs de femelles
+	$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";//,nb_femelle_nee(".$i.",".$code_race."), nb_detenteur((".$i.",".$code_race.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+		$nb_femelle_nee[$j] = $tab[0][1];
+	$j=$j+1;
+}
+
+//Requête pour récupérer le nombre de détenteurs
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer les effectifs de femelles
+	$query= "SELECT nb_detenteur(".$i.",".$code_race.")";//,nb_femelle_nee(".$i.",".$code_race."), nb_detenteur((".$i.",".$code_race.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+		$nb_detenteur[$j] = $tab[0][1];
+	$j=$j+1;
+}
+
+//Récupération des données utilisées (nombre d'oiseaux observés) et des noms d'oiseau pour la légende 
+// 
+
+
+// for ($i=0;$i<$nbligne;$i++)
+// {
+	// $data[$i] = $tab[$i][1];
+// }
 
 // *********************
 // Création du graphique
