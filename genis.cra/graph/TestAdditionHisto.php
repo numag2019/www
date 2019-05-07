@@ -37,11 +37,11 @@ $listeVal=$_GET["-_Insérer la grosse liste contenant les listes_-"];
 */
 
 //Les datas pour l'exemple, a mettre en commentaire pour la mise en commun
-$datay1=array(20,25,20);
-$datay2=array(10,20,15);
-$datay3=array(200,70,60);
+$datay1=array(20,25,20,50,68,90,25);
+$datay2=array(10,20,15,25,69,86,58);
+$datay3=array(60,70,60,58,15,34,99);
  
-$années=array("2014","2015","2016");
+$années=array("2014","2015","2016","2017","2018","2019","2023");
 $listVal=array($datay1,$datay2,$datay3);
 
 

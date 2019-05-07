@@ -2,104 +2,132 @@
 
 session_start();
 
-//Exemple
+// On va chercher les biblios de jpgraph pour construire les graphiques
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
-//Les datas pour l'exemple
 
-$datay1=array(30,25,20,250,230,245);
-$datay2=array(100,200,300,250,230,245);
-$datay3=array(260,255,301,230,250,222);
-$i=0;
-$années=array("2014","2015","2016","2017","2018","2019");
+function maximum($liste) //Pour liste unique
+{
+	$stock=0;
+	$counter=3;
+	for($i=0;$i<$counter;$i++)
+	{
+		if (max($liste)>$stock)
+			$stock=max($liste);
+		
+	}
+	return $stock;
+}
 
-/*
+
+
+/* Cas où plusieurs listes sortent les effectifs de chaque race 
+pour un même groupe de bêtes (bovin, équin,ovins)
 $datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
 $datay2=$_GET["-_Insérer les éleveurs issu des requêtes_-"];
 $datay3=$_GET["-_Insérer le nombre total de vache en ordonnée issu des requêtes_-"];
 $années=$_GET["-_Insérer les années_-"];
 */
 
-$stock=0;
-while($i<6)
+/* Cas où la sortie est une liste contenant les listes des effectifs de chaque race
+d'un même groupe de bêtes (bovin, équin, ovins)
+$listeVal=$_GET["-_Insérer la grosse liste contenant les listes_-"];
+*/
+
+//Les datas pour l'exemple, a mettre en commentaire pour la mise en commun
+$datay1=array(20,25,20,50,68,90,25);
+$datay2=array(10,20,15,25,69,86,58);
+$datay3=array(60,70,60,58,15,34,99);
+ 
+$années=array("2014","2015","2016","2017","2018","2019","2023");
+$listVal=array($datay1,$datay2,$datay3);
+
+
+$counter=count($datay1);
+$somme=array(0,0,0);
+
+for($i=0;$i<$counter;$i++)
 {
-	if ($datay3[$i]>$stock)
-		$stock=$datay3[$i];
-	$i=$i+1;
+	$somme[$i]=$datay1[$i]+$datay2[$i]+$datay3[$i];
+	
 }
 
-// *********************
-// Création du graphique
-// *********************
 
-$graph = new Graph(640,480);    
-$graph->SetScale('textlin', 0, $stock);
+// **********************
+// Création du graphique 
+// **********************
 
-$graph->SetMargin(50,65,50,40);
+	// Création du graphique conteneur
+	$graph = new Graph(640,480,'auto');    
+	$graph->SetScale('textlin', 0,maximum($somme));
+	$graph->img->SetMargin(60,80,30,40);
+	$graph->legend->Pos(0.02,0.05);
 
-// Désactiver le cadre autour du graphique
-$graph->SetFrame(false);
-$graph->SetShadow(5);
+	// Couleur de l'ombre et du fond de la légende
+	$graph->legend->SetShadow('darkgray@0.5');
+	$graph->legend->SetFillColor('lightblue@0.3');
 
-// Ajouter un onglet
-$graph->tabtitle->Set("Effectif des Bovins");
-$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
-$graph->tabtitle->SetColor("black");
-$graph->tabtitle->SetFillColor("#E9EBF3");
+	// Pimper les axes
+	$graph->xaxis->setTickLabels($années);
+	$graph->xaxis->title->Set('Annees');
+	$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+	$graph->xaxis->title->SetColor('black');
+	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
+	$graph->xaxis->SetColor('black');
 
-// Apparence des grilles
-$graph->ygrid->SetFill(true,'black','black');
-$graph->ygrid->SetLineStyle('dashed');
-$graph->ygrid->SetColor('gray');
-$graph->xgrid->Show();
-$graph->xgrid->SetLineStyle('dashed');
-$graph->xgrid->SetColor('gray');
-$graph->xaxis->setTickLabels($années);
-$graph->xaxis->setLabelAngle(50);
+	$graph->yaxis->SetFont(FF_FONT1,FS_BOLD);
+	$graph->yaxis->SetColor('black');
+	$graph->ygrid->SetColor('black@0.5');
 
-// *******************************
-// Créer un histogramme
-// *******************************
-	////Premier histo////
-	
-	$histo_femTot = new barPlot($datay3);
-	$histo_femTot->value->SetFormat('%d');
-	$histo_femTot->SetLegend("Blonde d'Aquitaine");
-	// Changer la taille//  $histo_femTot->SetWidth(valeur);
-	$histo_femTot->SetWeight(0);
-	
-	// Ajouter l'ensemble accumulé
-	$graph->Add($histo_femTot);
 
-	$histo_femTot->SetFillColor('#A5E4F2');
+	$graph->title->Set("Effectif du nombre de bovins par race");
+	$graph->title->SetMargin(6);
+	$graph->title->SetFont(FF_ARIAL,FS_NORMAL,12);
+
+// Couleurs et transparence par histogramme A AUTOMATISER
+$aColors=array('pink','gray','blue', 'blue@0.3','green@0.8');
+$bNoms=array('Béarnaise','Bordelaise','Marine');
+
+$i=0;
+	// Chaque  histogramme est un élément du tableau:
+	$aGroupBarPlot = array();
+
+	foreach ($listVal as $key => $value) {
+		$bplot = new BarPlot($listVal[$key]);
+		$bplot->SetLegend($bNoms[$i++]);
+		$bplot->SetShadow('black@0.4');
+		$aGroupBarPlot[] = $bplot; 
+		
+	}
+
 // ***********************
 // Graphique courbe
 // ***********************
 	
-	$courbe = new LinePlot($datay3);
+	$courbe = new LinePlot($somme);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0, $stock);
+	$graph->SetYScale(0,'lin', 0,maximum($somme));
 
 	// $graph->xaxis->title->Set("Années");
-	$graph->yaxis->title->Set("Nombre d'individus bovins");
+	$graph->yaxis->title->Set("Nombre d'individus");
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
 
 	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('lightgreen');
-	$graph->ynaxis[0]->title->Set("Nombre total des bovins");
+	$graph->ynaxis[0]->SetColor('blue');
+	$graph->ynaxis[0]->title->Set("Nombre total de bovins");
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
 	$courbe->mark->SetColor('black');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("green");
+	$courbe->mark->SetFillColor("blue");
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("#23C336");
+	$courbe->SetColor("blue");
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
 
@@ -107,10 +135,13 @@ $graph->xaxis->setLabelAngle(50);
 	$courbe->SetBarCenter();
 	$courbe->value->SetFormat('%d');
 	
-// Envoyer au navigateur
-$graph->SetShadow(5);
-$graph->legend->Pos(0.10,0.05);
-$graph->Stroke();
-$graph->Stroke("EvoEffBovins.jpg");
+// Création de l'objet qui regroupe nos histogrammes
+$gbarplot = new GroupBarPlot($aGroupBarPlot);
+$gbarplot->SetWidth(0.8);
 
+// Ajouter au graphique
+$graph->Add($gbarplot);
+
+// Afficher
+$graph->Stroke();
 ?>
