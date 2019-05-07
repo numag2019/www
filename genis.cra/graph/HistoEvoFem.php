@@ -1,7 +1,4 @@
 <?php
-
-session_start();
-
 // On va chercher les biblios de jpgraph pour construire les graphiques
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
