@@ -119,7 +119,7 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$header = array(1,2,3,4,5,6,7,8,9);
+$header = array(1,'nom','prenom','adresse',5,'fixe','portable','adresse mail','département');
 
 
 $pdf = new PDF();
@@ -133,6 +133,7 @@ for($i=1;$i<=count($departement);$i++)
     $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
     $pdf->Tableau_ele($header,$resultat,19);
+    $pdf->Ln(10);
 }
 $pdf->Output();
 ?>
