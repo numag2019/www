@@ -229,7 +229,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	
 	<?php
 		//Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
-		echo "<center><img src = 'HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
+		echo "<center><img src='HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
 		?>
 	
 
@@ -363,15 +363,15 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3";
 			$result = mysqli_query ($link, $query);
             
-            $resultat = array(array());
-            while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-							{
-                                for($i=0;$i<count($row[0]);$i++)
-                                {
-                                    $resultat[$i] = [$row[0][$i],$row[1][$i],$row[2][$i],$row[3][$i],$row[4][$i],$row[5][$i],$row[6][$i],$row[7][$i],$row[8][$i],$row[9][$i]];                               
-                                    echo $resultat;
-                                }
-							}
+            // $resultat = array(array());
+            // while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+							// {
+                                // for($i=0;$i<count($row[0]);$i++)
+                                // {
+                                    // $resultat[$i] = [$row[0][$i],$row[1][$i],$row[2][$i],$row[3][$i],$row[4][$i],$row[5][$i],$row[6][$i],$row[7][$i],$row[8][$i],$row[9][$i]];                               
+                                    // echo $resultat;
+                                // }
+							// }
                         
 			//Affichage du tableau des présences dans la race
 			include "fonctions_php.php";
