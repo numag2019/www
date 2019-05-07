@@ -77,41 +77,49 @@ function WriteHTML($html)
 	}
 }
 
-}
+
 
 //Fonction réalisant le tableau
-function Tableau_ele($effectif,$largeur_col)
+function Tableau_ele($header,$effectif,$largeur_col)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
 	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
-	$this->SetDrawColor(0,0,0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
-
+    $this->SetFontSize(7);    
+    
+	// En-tête
+	foreach($header as $col)
+        $this->Cell($largeur_col,7,utf8_decode($col),1,0,'C',true);
+	$this->Ln();
+    
+    
 	// Données
 	foreach($effectif as $row)
 	{
         foreach($row as $col)
         {
-            
             // Restauration des couleurs et de la police pour les données du tableau
-                $this->SetFillColor(224,235,255);
-                $this->SetTextColor(0);
-                $this->SetFont('');
-                $this->SetFontSize(8);
-                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C'); 
+            $this->SetFillColor(224,235,255);
+            $this->SetTextColor(0);
+            $this->SetFont('');
+            $this->SetFontSize(7);
+            $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
+            
             
         }
 		$this->Ln();
 	}
     // Trait de terminaison
-	// $this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
-    
+	$this->Cell(count($header)*$largeur_col,0,'','T'); //trait pour fermer le tableau
 
+}
 }
 
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
+$header = array(1,2,3,4,5,6,7,8,9);
 
 
 $pdf = new PDF();
@@ -124,7 +132,7 @@ for($i=1;$i<=count($departement);$i++)
     $pdf->SetFont('Arial','BU',20); //police des départements
     $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
-    Tableau_ele($resultat,19);
+    $pdf->Tableau_ele($header,$resultat,19);
 }
 $pdf->Output();
 ?>
