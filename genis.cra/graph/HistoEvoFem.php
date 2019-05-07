@@ -31,13 +31,11 @@ function maximum($liste) //Pour liste unique
 // $annees=array("2014","2015","2016");
 
 
-
-
-$nb_femelle=$_GET['nb_femelle'];
-$nb_detenteur=$_GET["&nb_detenteur"];
-$&nb_femelle_nee=$_GET["&nb_femelle_nee"];
-$annee=$_GET["$annee"];
-
+//Récupération des données
+$nb_femelle=$_GET["nb_femelle"];
+$nb_detenteur=$_GET["nb_detenteur"];
+$nb_femelle_nee=$_GET["nb_femelle_nee"];
+$annee=$_GET["annee"];
 
 // *********************
 // Création du graphique
@@ -74,7 +72,7 @@ $graph->xaxis->setLabelAngle(50);
 // *******************************
 	////Premier histo////
 	
-	$histo_femTot = new barPlot($datay3);
+	$histo_femTot = new barPlot($nb_femelle);
 	$histo_femTot->value->SetFormat('%d');
 	$histo_femTot->SetLegend('Femelles totales');
 	// Changer la taille//  $histo_femTot->SetWidth(valeur);
@@ -83,7 +81,7 @@ $graph->xaxis->setLabelAngle(50);
 	
 	////Second histo////
 	
-	$histo_femBornCons = new BarPlot($datay1);
+	$histo_femBornCons = new BarPlot($nb_femelle_nee);
 	$histo_femBornCons->SetLegend('Femelles nées et conservées');
 	$histo_femBornCons->value->Show();
 	$histo_femBornCons->value->SetFormat('%d');
@@ -108,7 +106,7 @@ $graph->xaxis->setLabelAngle(50);
 // Graphique courbe
 // ***********************
 	
-	$courbe = new LinePlot($datay2);
+	$courbe = new LinePlot($nb_detenteur);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
 	$graph->SetYScale(0,'lin', 0,maximum($datay2));

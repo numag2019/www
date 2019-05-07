@@ -223,15 +223,16 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					
 					echo "</table>";
 					
-									//Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
-										echo "<center><img src = 'HistoEvoFem.php?nb_femelle=".$nb_femelle.
-										"&nb_detenteur=".$nb_detenteur."&nb_femelle_nee=".$nb_femelle_nee.
-										"&annee=".$annee."'></center>";
-					
-	
           ?>
 		</div>
 	</div>
+	
+	<?php
+		//Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
+		//Modification données récupérées
+		echo "<center><img src = 'HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
+		?>
+	
 
 	<div class="widget">
 		<div class="widget-head">
@@ -337,7 +338,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
           ?>
         </div>
     </div>
-	
+		
 		<div class="widget">
 		<div class="widget-head">
 		<?php
