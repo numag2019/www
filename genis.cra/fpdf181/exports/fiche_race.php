@@ -15,6 +15,7 @@ $annee = $_SESSION['annee'];
 $nb_veau = $_SESSION['nb_veau'];
 $nb_veau_m = $_SESSION['nb_veau_m'];
 $nb_veau_f = $_SESSION['nb_veau_f'];
+$resultat = $_SESSION['resultat'] ;
 
 require('../fpdf.php');
 
@@ -399,12 +400,6 @@ for($i=1;$i<count($nb_veau);$i++) //remplissage de la variable
 $naissance2 = array($veaux_m,$veaux_f);
 
 
-// Création des variables pour la présence des animaux
-
-
-$presence = array(array('Idole',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Julie',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Justine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hilda',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'),array('Hermine',1234567890,'Pierre','F','2013-0-22','Arcachon',1234567890,'Cascaille',1234567890,'Pierre'));
-
-
 //Page des tableaux
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
@@ -435,7 +430,7 @@ $pdf->Tableau_nais_2($header_nais2,$naissance2,$largeur_col/2,$largeur_lgd);
 // Page d'évolution des présences dans la race
 $pdf->AddPage();
 //Tableau d'évolution de la présence dans la race
-$pdf->Tableau_presence($header_pre,$presence,19);
+$pdf->Tableau_presence($header_pre,$resultat,19);
 
 
 
