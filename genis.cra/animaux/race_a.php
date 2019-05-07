@@ -222,6 +222,12 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 					echo "</tr></tbody>";
 					
 					echo "</table>";
+					
+									//Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
+										echo "<center><img src = 'HistoEvoFem.php?nb_femelle=".$nb_femelle.
+										"&nb_detenteur=".$nb_detenteur."&nb_femelle_nee=".$nb_femelle_nee.
+										"&annee=".$annee."'></center>";
+					
 	
           ?>
 		</div>
