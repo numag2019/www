@@ -1,8 +1,7 @@
 <?php
 session_start();
 $resultat = $_SESSION['resultat_ele'] ;
-
-//$nb_femelle = $_SESSION['nb_femelle'];
+$resultat2 = $_SESSION['resultat2'] ;
 
 require('../fpdf.php');
 
@@ -13,14 +12,14 @@ protected $I = 0;
 protected $U = 0;
 protected $HREF = '';
 
-// En-tête
+// En-tÃªte
 function Header()
 {
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
 	$this->SetFont('Arial','B',15);
-	//Décalage à droite
+	//DÃ©calage Ã  droite
 	$this->Cell(80);
 	//Titre
 	$this->Cell(70,10,'Voici le titre de mon entete',1,0,'C');
@@ -32,11 +31,11 @@ function Header()
 function Footer()
 {
 
-	// Positionnement à 1,5 cm du bas
+	// Positionnement Ã  1,5 cm du bas
 	$this->SetY(-15);
 	// Police Arial italique 8
 	$this->SetFont('Arial','I',8);
-	// Numéro de page
+	// NumÃ©ro de page
 	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
 
@@ -79,10 +78,10 @@ function WriteHTML($html)
 
 
 
-//Fonction réalisant le tableau
+//Fonction rÃ©alisant le tableau
 function Tableau_ele($header,$effectif,$largeur_col)
 {
-    // Couleurs, épaisseur du trait et police grasse pour l'entete
+    // Couleurs, Ã©paisseur du trait et police grasse pour l'entete
 	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
 	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
@@ -90,18 +89,18 @@ function Tableau_ele($header,$effectif,$largeur_col)
 	$this->SetFont('','B');
     $this->SetFontSize(7);    
     
-	// En-tête
+	// En-tÃªte
 	foreach($header as $col)
         $this->Cell($largeur_col,7,utf8_decode($col),1,0,'C',true);
 	$this->Ln();
     
     
-	// Données
+	// DonnÃ©es
 	foreach($effectif as $row)
 	{
         foreach($row as $col)
         {
-            // Restauration des couleurs et de la police pour les données du tableau
+            // Restauration des couleurs et de la police pour les donnÃ©es du tableau
             $this->SetFillColor(224,235,255);
             $this->SetTextColor(0);
             $this->SetFont('');
@@ -118,21 +117,44 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 }
 
-$departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$header = array(1,'nom','prenom','adresse',5,'fixe','portable','adresse mail','département');
+$departement = array('AriÃ¨ge','Aveyron','Charente-Maritime','CÃ´tes-Armor','Haute-Garonne','Gers','Gironde');
+$header = array(1,'Nom','PrÃ©nom','Adresse',5,'NÂ° fixe','NÂ° portable','Adresse mail','DÃ©partement');
 
+
+            
+// $dep_prec='';
+// while ($row = mysqli_fetch_array($resultat2, MYSQLI_BOTH))
+	// {
+		// $id = $row[0];
+		// $nom = $row["nom"];
+		// $prenom = $row["prenom"];
+		// $adresse = $row["adresse"];
+		// $adresse2 = $row["adresse2"];
+		// $tel = $row["tel"];
+		// $tel2 = $row["tel2"];
+		// $mail = $row["mail"];
+		// $dep = $row["lib_dpt"];
+		// if ($dep_prec!=$dep)
+		// {	
+            // $pdf->SetFont('Arial','BU',20); //police des dÃ©partements
+            // $pdf->Cell(0,10,$dep,0,1);
+            // $pdf->Ln(10);
+		// }
+		// $dep_prec=$dep;
+		// $pdf ->Cell(0,10,'toto',0,1);
+	// }			
 
 $pdf = new PDF();
 
-//création des pages pdf
-$pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
+//crÃ©ation des pages pdf
+$pdf->AliasNbPages(); //nÃ©cessaire pour afficher le nombre de pages
 $pdf->AddPage();
 for($i=1;$i<=count($departement);$i++)
 {
-    $pdf->SetFont('Arial','BU',20); //police des départements
+    $pdf->SetFont('Arial','BU',20); //police des dÃ©partements
     $pdf->Cell(0,10,$departement[$i-1],0,1);
     $pdf->Ln(10);
-    $pdf->Tableau_ele($header,$resultat,19);
+    $pdf->Tableau_ele($header,$resultat,22);
     $pdf->Ln(10);
 }
 $pdf->Output();
