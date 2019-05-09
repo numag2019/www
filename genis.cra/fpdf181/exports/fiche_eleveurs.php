@@ -38,13 +38,14 @@ function Header()
 // Pied de page
 function Footer()
 {
-
 	// Positionnement à 1,5 cm du bas
 	$this->SetY(-15);
 	// Police Arial italique 8
 	$this->SetFont('Arial','I',8);
 	// Numéro de page
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+	$this->Cell(110,10,'Page '.$this->PageNo().'/{nb}',0,0,'R');
+    //date de création du pdf
+    $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
 function WriteHTML($html)
@@ -168,7 +169,7 @@ $pdf->AddPage();
     // $pdf->SetFont('Arial','BU',20); //police des départements
     // $pdf->Cell(0,10,$departement[$i-1],0,1);
     // $pdf->Ln(10);
-    $pdf->Tableau_ele($header,$test,25);
+    $pdf->Tableau_ele($header,$test,24);
     // $pdf->Ln(10);
 // }
 $pdf->Output();

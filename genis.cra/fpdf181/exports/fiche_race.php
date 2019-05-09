@@ -49,7 +49,9 @@ function Footer()
 	// Police Arial italique 8
 	$this->SetFont('Arial','I',8);
 	// Numéro de page
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+	$this->Cell(110,10,'Page '.$this->PageNo().'/{nb}',0,0,'R');
+    //date de création du pdf
+    $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
 // Chargement des données
@@ -98,49 +100,6 @@ function WriteHTML($html)
 			}
 		}
 	}
-}
-
-function OpenTag($tag, $attr)
-{
-	// Balise ouvrante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,true);
-	if($tag=='A')
-		$this->HREF = $attr['HREF'];
-	if($tag=='BR')
-		$this->Ln(5);
-}
-
-function CloseTag($tag)
-{
-	// Balise fermante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,false);
-	if($tag=='A')
-		$this->HREF = '';
-}
-
-function SetStyle($tag, $enable)
-{
-	// Modifie le style et sélectionne la police correspondante
-	$this->$tag += ($enable ? 1 : -1);
-	$style = '';
-	foreach(array('B', 'I', 'U') as $s)
-	{
-		if($this->$s>0)
-			$style .= $s;
-	}
-	$this->SetFont('',$style);
-}
-
-function PutLink($URL, $txt)
-{
-	// Place un hyperlien
-	$this->SetTextColor(0,0,255);
-	$this->SetStyle('U',true);
-	$this->Write(5,$txt,$URL);
-	$this->SetStyle('U',false);
-	$this->SetTextColor(0);
 }
 
 
