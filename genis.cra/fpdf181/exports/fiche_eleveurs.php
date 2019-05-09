@@ -125,24 +125,25 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 }
 
-$header = array($race,'Nom','Prénom','Adresse',5,'N° fixe','N° portable','Adresse mail','Département');
-
+$header = array('N°','Nom','Prénom','Adresse','N° fixe','N° portable','Adresse mail','Département');
 // suppression de la colonne contenant la 2e adresse
 $test = array();
 
 for($i=0;$i<count($resultat);$i++) 
 {
+    $k = 0;
     for($j=0;$j<count($resultat[0]);$j++)
     {
         if($j!=4)
-            $test[$i][$j] = $resultat[$i][$j];
+        {
+            $test[$i][$k] = $resultat[$i][$j];
+            $k++;
+        }
     
     }   
    
 }
-echo $resultat[0][0];
 
-print_r($test);
 
 // foreach($resultat as $row)
 // {
@@ -167,7 +168,7 @@ $pdf->AddPage();
     // $pdf->SetFont('Arial','BU',20); //police des départements
     // $pdf->Cell(0,10,$departement[$i-1],0,1);
     // $pdf->Ln(10);
-    $pdf->Tableau_ele($header,$resultat,22);
+    $pdf->Tableau_ele($header,$test,25);
     // $pdf->Ln(10);
 // }
 $pdf->Output();

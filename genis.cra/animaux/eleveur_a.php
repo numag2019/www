@@ -81,10 +81,12 @@ $result = mysqli_query ($link, $query);
 
 //Récupération des données de la requete SQL dans une variable $resultat_ele
 $resultat_ele = array();
-foreach  ($result as $row) 
-{
-	$resultat_ele[] = $row;
-}
+
+
+while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+	{
+		$resultat_ele[] = $row;
+	}
 
 mysqli_data_seek($result,0);
 $_SESSION['resultat_ele'] = $resultat_ele;
@@ -94,7 +96,7 @@ $dep_prec='';
 while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 	{
 		$id = $row[0];
-		$nom = $row["nom"];
+		$nom = $row[1];
 		$prenom = $row["prenom"];
 		$adresse = $row["adresse"];
 		$adresse2 = $row["adresse2"];

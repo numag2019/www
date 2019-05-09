@@ -30,6 +30,7 @@ protected $HREF = '';
 // En-tête
 function Header()
 {
+    $annee = $_SESSION['annee_glo'];
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
@@ -37,7 +38,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(70,10,'Voici le titre de mon entete',1,0,'C');
+	$this->Cell(110,10,utf8_decode('Effectif des populations entre ').$annee[0].' et '.end($annee) ,0,0,'C');
 	//Saut de ligne
 	$this->Ln(40);
 }
