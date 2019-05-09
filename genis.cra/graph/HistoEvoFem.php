@@ -5,9 +5,9 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Récupération des données
-$code_race=$_GET["code_race"];
-$annee1=$_GET["annee1"];
-$annee2=$_GET["annee2"];
+$code_race=5;
+$annee1=2010;
+$annee2=2015;
 
 
 function maximum($liste) //Pour liste unique
@@ -33,8 +33,6 @@ function maximum($liste) //Pour liste unique
 //$annees=array("2014","2015","2016");
 
 
-
-
 //Liste des années
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
@@ -54,10 +52,13 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		{
-			$nb_femelle[$j]=$row[0];
-		}
+	$tab = mysqli_fetch_all ($result);
+	$nb_femelle[$j] = $tab[0][1];
+
+	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+		// {
+			// $nb_femelle[$j]=$row[0];
+		// }
 	$j=$j+1;
 }
 
@@ -68,10 +69,13 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		{
-				$nb_femelle_nee[$j]=$row[0];
-		}
+	$tab = mysqli_fetch_all ($result);
+	$nb_femelle_nee[$j] = $tab[0][1];
+
+	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+		// {
+				// $nb_femelle_nee[$j]=$row[0];
+		// }
 	$j=$j+1;
 }
 
@@ -82,10 +86,13 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_detenteur(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		{
-				$nb_detenteur[$j]=$row[0];
-		}
+	$tab = mysqli_fetch_all ($result);
+	$detenteurs[$j] = $tab[0][1];
+	
+	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+		// {
+				// $nb_detenteur[$j]=$row[0];
+		// }
 	$j=$j+1;
 }
 
