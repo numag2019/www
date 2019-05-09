@@ -133,13 +133,13 @@ $pdf = new PDF();
 //création des pages pdf
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
-for($i=1;$i<=count($departement);$i++)
-{
-    $pdf->SetFont('Arial','BU',20); //police des départements
-    $pdf->Cell(0,10,$departement[$i-1],0,1);
-    $pdf->Ln(10);
+// for($i=1;$i<=count($departement);$i++)
+// {
+    // $pdf->SetFont('Arial','BU',20); //police des départements
+    // $pdf->Cell(0,10,$departement[$i-1],0,1);
+    // $pdf->Ln(10);
     $pdf->Tableau_ele($header,$resultat,22);
-    $pdf->Ln(10);
-}
+    // $pdf->Ln(10);
+// }
 $pdf->Output();
 ?>
