@@ -48,6 +48,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 //Récupération de la periode choisie
 $code_race = $_GET["race"];
 $annee = $_GET["annee"];
+$_SESSION['annee_ele'] = $annee;
 
 
 //Connection au serveur
@@ -63,6 +64,8 @@ while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
 	{
 		$race = $row[0];
 	}
+    
+$_SESSION['race_ele'] = $race;
 
 //Récupération des informations sur l'eleveur
 $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, tel, tel2, mail, lib_dpt 
