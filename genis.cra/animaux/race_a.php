@@ -360,7 +360,8 @@ $query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as
 							left join periode as naissance on ani.id_animal=naissance.id_animal
 							left join elevage as lieu_naiss on naissance.id_elevage=lieu_naiss.id_elevage
 							left join contact on lieu_naiss.id_elevage=contact.id_elevage
-			WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3";
+			WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3
+			ORDER BY Elevage";
 $result = mysqli_query ($link, $query);
 
 //Récupération des données de la requete SQL dans une variable $resultat

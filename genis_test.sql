@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 03 mai 2019 à 13:15
+-- Généré le :  jeu. 09 mai 2019 à 07:51
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -40,6 +40,13 @@ SELECT count(distinct id_elevage) into nb from v_ani_mort where year(date_naiss)
 RETURN nb;
 end$$
 
+DROP FUNCTION IF EXISTS `nb_espece`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_espece` (`espece` INT, `annee` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort join race on v_ani_mort.code_race=race.code_race where year(date_naiss)<annee and (id_type=NULL or year(date_sortie)>annee) and race.id_espece=espece;
+RETURN nb;
+end$$
+
 DROP FUNCTION IF EXISTS `nb_femelle`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `nb_femelle` (`annee` INT, `race` INT) RETURNS INT(11) begin
 declare nb int(4);
@@ -58,6 +65,13 @@ DROP FUNCTION IF EXISTS `nb_femelle_nee`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `nb_femelle_nee` (`annee` INT, `race` INT) RETURNS INT(11) begin
 declare nb int(4);
 SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)=annee and sexe=2 and code_race=race;
+RETURN nb;
+end$$
+
+DROP FUNCTION IF EXISTS `nb_race`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `nb_race` (`race` INT, `annee` INT) RETURNS INT(11) begin
+declare nb int(4);
+SELECT count(id_animal) into nb from v_ani_mort where year(date_naiss)<annee and (id_type=NULL or year(date_sortie)>annee) and code_race=race;
 RETURN nb;
 end$$
 
@@ -10267,14 +10281,13 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id_contact`),
   KEY `fk_commune` (`id_commune`),
   KEY `fk_elevage2` (`id_elevage`)
-) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=477 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `contact`
 --
 
 INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `tel`, `tel2`, `mail`, `id_commune`, `notes`, `id_elevage`, `Consentement`) VALUES
-(1, 'XXX', 'XXX', 'XXX', 'XXX', '0303030303', '0404040404', 'aaa@gmail.com', 1, 'aa', 1, 'Oui'),
 (2, 'AUGEAU', 'Francis', '16 Baren de la Matte', '', '05 56 41 73 58', '', '', 2, '', 2, NULL),
 (3, 'BIOLATO', 'Jean-Paul', 'Lacouche', '', '05 53 95 11 68', '06 23 15 24 80', '', 56, '', 3, NULL),
 (4, 'BOCHE', 'Philippe', 'Belloc', '', '05 53 41 11 93', '06 73 68 43 29', '', 4, '', 4, NULL),
@@ -10338,7 +10351,7 @@ INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `te
 (62, 'AIME', 'Sylvain', 'Urriola', 'Quartier Egiptoa \r\n(Auriolle pour exploitation)', '06 20 22 76 34', '', '', 84, '', 74, NULL),
 (63, 'ARRIEULA', 'Jean-Bernard', '71 route d Angos', '', '05 59 33 82 33', '', '', 85, '', 75, NULL),
 (64, 'ARRIUBERGE', 'Jean-Pierre', '3 Impasse Joge', 'Quartier Fontaines', '05 59 34 92 06', '06 79 53 86 97', '', 86, '', 76, NULL),
-(65, 'BLANCEY', 'Maxime', 'Chemin Salie', '', '05 59 81 17 82', '06 29 15 68 55', '', 87, '', 77, NULL),
+(65, 'BLANCEY', 'Maxime', 'Chemin Salie', '', '05 59 81 17 82', '06 29 15 68 55', '', 87, '', 77, 'Non'),
 (66, 'BARAILLE', 'Andre', '160 Cami Deu Gua', '', '05 59 33 24 33', '', '', 88, '', 78, NULL),
 (67, 'BAYLAUCQ', 'Bruno', 'Rue d Ayguebere', '', '', '', '', 89, '', 79, NULL),
 (68, 'BERNATAS', 'Jean-Bernard', '13 avenue du Pic du Midi', '', '', '', '', 90, '', 80, NULL),
@@ -10713,7 +10726,7 @@ INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `te
 (437, 'Ferme de Camdelan', '', '3792 Route de Contis', '', '07 68 67 72 66', '', 'contact@camdelan.com', 223, '', 449, NULL),
 (438, 'MARTY', 'Pascal', 'EARL des Saumagnes', '', '', '', '', 385, '', 450, NULL),
 (439, 'Lenormand', 'Serge', '', '', '', '', '', 386, '', NULL, NULL),
-(440, 'Chaperon', 'Marcel', '66 impasse des landes', '', '', '', 'marcel.chaperon@organe.fr', 387, '', 453, NULL),
+(440, 'Chaperon', 'Marcel', '66 impasse des landes', '', '', '', 'marcel.chaperon@organe.fr', 387, '', 453, 'Non'),
 (441, 'Domaine de Certes', '', '', '', '', '', '', 222, '', 455, NULL),
 (442, 'ROUX', 'Barbara', 'Le Mandot', '', '', '', '', 388, '', 456, NULL),
 (443, 'PERRET', 'Louis', 'La Colle', '', '06 67 83 79 14', '', '', 268, '', 457, NULL),
@@ -10736,22 +10749,16 @@ INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `te
 (460, 'Glaser', 'Iska', 'Les Bordes', '', '0610122190', '0683345369', 'ferme@iska-marina.fr', 203, '', 475, NULL),
 (461, 'Loiseau', 'Mickael', 'Frimardiere', '', '0674166811', '', '', 402, '', 476, NULL),
 (462, 'Nattes', 'Yoan', 'Le Breil', '', '', '', '', 403, '', 477, NULL),
-(463, 'Pacha', '', '527 route de Dax', '', '', '', '', 284, '', 478, NULL);
+(463, 'Pacha', '', '527 route de Dax', '', '', '', '', 284, '', 478, NULL),
+(464, 'Vincenzi', 'Pierre', 'Mirathon', '', '', '', '', 404, '', 479, NULL);
 INSERT INTO `contact` (`id_contact`, `nom`, `prenom`, `adresse`, `adresse2`, `tel`, `tel2`, `mail`, `id_commune`, `notes`, `id_elevage`, `Consentement`) VALUES
-(464, 'Vincenzi', 'Pierre', 'Mirathon', '', '', '', '', 404, '', 479, NULL),
 (465, 'Caussieu', 'Francis', '14 route de l Arros', '', '', '', '', 406, '', 481, NULL),
-(466, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 407, '', NULL, NULL),
-(467, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 408, '', NULL, NULL),
-(468, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 409, '', NULL, NULL),
-(469, 'BURIDAN', 'Mathieu', '1 cours du général de Gaulle', '', '', '', '', 410, '', NULL, NULL),
-(470, 'BURIDAN', 'Mathieu', '', '', '', '', '', 411, '', NULL, NULL),
 (471, 'Z', 'Marine', '', '', '', '', '', 412, '', NULL, NULL),
 (472, 'zzzz', 'zzz', 'zzz', 'zzzzzzzzzzzzzzz', '', '', '', 413, '', NULL, NULL),
 (473, 'zzzz', 'zzz', 'zzzzz', 'zzz', '', '', '', 414, '', NULL, NULL),
 (474, 'zzzz', 'zzz', 'zzzzz', 'zzz', '0303030303', '0303030303', 'toto@gmail.com', 415, 'aaaaaaaaa', NULL, NULL),
 (475, 'zzzzz', 'zzz', 'zzzz', 'zz', '', '', '', 415, '', NULL, NULL),
-(476, 'yyy', 'yyyyyy', 'yyy', '', '', '', '', 416, '', NULL, NULL),
-(477, 'zzz', 'zzz', 'zzz', 'zzz', '', '', '', 418, '', NULL, 'Non');
+(476, 'yyy', 'yyyyyy', 'yyy', '', '', '', '', 416, '', NULL, NULL);
 
 -- --------------------------------------------------------
 

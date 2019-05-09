@@ -52,8 +52,16 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$tab = mysqli_fetch_all ($result);
-	$nb_femelle[$j] = $tab[0][1];
+	$nb_femelle_a = array();
+	foreach  ($result as $row) 
+	{
+		$nb_femelle_a = $row;
+	}
+	$nb_femelle_b=array_shift($nb_femelle_a);
+	$nb_femelle[$j]=$nb_femelle_b;
+	
+	// $tab = mysqli_fetch_all ($result);
+	// $nb_femelle[$j] = $tab[0][1];
 
 	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 		// {
@@ -69,8 +77,16 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$tab = mysqli_fetch_all ($result);
-	$nb_femelle_nee[$j] = $tab[0][1];
+	$nb_nee_a = array();
+	foreach  ($result as $row) 
+	{
+		$nb_nee_a = $row;
+	}
+	$nb_nee_b=array_shift($nb_nee_a);
+	$nb_femelle_nee[$j]=$nb_nee_b;
+	
+	// $tab = mysqli_fetch_all ($result);
+	// $nb_femelle_nee[$j] = $tab[0][1];
 
 	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 		// {
@@ -86,8 +102,16 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_detenteur(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$tab = mysqli_fetch_all ($result);
-	$detenteurs[$j] = $tab[0][1];
+	$nb_detenteur_a = array();
+	foreach  ($result as $row) 
+	{
+		$nb_detenteur_a = $row;
+	}
+	$nb_detenteur_b=array_shift($nb_detenteur_a);
+	$nb_detenteur[$j]=$nb_detenteur_b;
+	
+	// $tab = mysqli_fetch_all ($result);
+	// $detenteurs[$j] = $tab[0][1];
 	
 	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 		// {
