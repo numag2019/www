@@ -54,6 +54,17 @@ $annee = $_GET["annee"];
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 mysqli_set_charset ($link, "utf8mb4");
 
+//Récupération du nom de la race
+$query_race = "	SELECT lib_race
+			FROM race
+			WHERE code_race=".$code_race;
+$result_race = mysqli_query ($link, $query_race);
+while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
+	{
+		$race = $row[0];
+	}
+
+//Récupération des informations sur l'eleveur
 $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, tel, tel2, mail, lib_dpt 
 			FROM contact left join commune on contact.id_commune=commune.id_commune 
 						left join departement on commune.no_dpt=departement.no_dpt 
