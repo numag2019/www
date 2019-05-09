@@ -6,16 +6,49 @@ session_start();
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 
-//Les datas pour l'exemple
-$datax1=array(45,60,55,75,60,40);
-$datax2=array(65,70,60,50,40,30);
-$années=array("2014","2015","2016","2017","2018","2019");
 
-/*
-$datax1=$_GET["-_Insérer les naissances de mâles en ordonnée issu des requêtes_-"];
-$datax2=$_GET["-_Insérer les naissances de femelles en ordonnée issu des requêtes_-"];
-$années=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
-*/
+//Récupération des données
+$code_race=$_GET["code_race"];
+$annee1=$_GET["annee1"];
+$annee2=$_GET["annee2"];
+
+//Liste des années
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	$années[$j]=$i;
+	$j=$j+1;
+}
+
+//Connection au serveur
+$link = mysqli_connect('127.0.0.1','root','','genis_test');
+mysqli_set_charset ($link, "utf8mb4");
+
+//Requête pour récupérer les nombre de femelles
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer les effectifs de femelles
+	$query= "SELECT nb_veau_m(".$i.",".$code_race.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+	$datax1[$j] = $tab[0][0];
+
+	$j=$j+1;
+}
+
+//Requête pour récupérer les nombre de femelles nees
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer les effectifs de femelles
+	$query= "SELECT nb_veau_f(".$i.",".$code_race.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+	$datax2[$j] = $tab[0][0];
+
+	$j=$j+1;
+}
 
 // *********************
 // Création du graphique
@@ -24,7 +57,7 @@ $années=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des
 $graph = new Graph(640,480);    
 $graph->SetScale("textlin");
 
-$graph->SetMargin(50,65,50,40);
+$graph->SetMargin(50,65,50,80);
 
 // Désactiver le cadre autour du graphique
 $graph->SetFrame(false);
@@ -36,12 +69,6 @@ $graph->tabtitle->SetColor("black");
 $graph->tabtitle->SetFillColor("#E9EBF3");
 
 // Apparence des grilles
-$graph->ygrid->SetFill(true,'#DDDDDD@0.5','#BBBBBB@0.5');
-$graph->ygrid->SetLineStyle('dashed');
-$graph->ygrid->SetColor('gray');
-$graph->xgrid->Show();
-$graph->xgrid->SetLineStyle('dashed');
-$graph->xgrid->SetColor('gray');
 $graph->xaxis->setTickLabels($années);
 $graph->xaxis->setLabelAngle(50);
 
@@ -80,10 +107,11 @@ $graph->xaxis->setLabelAngle(50);
 
 //Nom des axes
 $graph->yaxis->title->Set("Nombre de naissances");
-$graph->xaxis->title->Set("Années");
+$graph->yaxis->title->SetMargin(13);
+$graph->yaxis->scale->SetGrace(8);
 
 // Position de la légende
-$graph->legend->Pos(0.10,0.05);
+$graph->legend->Pos(0.35,0.94);
 
 // Ajouter l'ensemble accumulé
 $graph->Add($gbplot);

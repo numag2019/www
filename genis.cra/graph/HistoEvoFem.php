@@ -1,14 +1,12 @@
 <?php
+
+session_start();
+
 // On va chercher les biblios de jpgraph pour construire les graphiques
 require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
-
-//Récupération des données
-$code_race=5;
-$annee1=2010;
-$annee2=2015;
-
+require_once '../libraries/constants.php';
 
 function maximum($liste) //Pour liste unique
 {
@@ -23,26 +21,22 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
-
-
-//Les datas pour l'exemple
-
-// $datay1=array(30,25,20);
-// $datay2=array(10,20,30);
-// $datay3=array(80,70,60);
-//$annees=array("2014","2015","2016");
+//Récupération des données
+$annee1=$_GET["annee1"];
+$annee2=$_GET["annee2"];
+$code_race=$_GET["code_race"];
 
 
 //Liste des années
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
-	$annees[$j]="'".$i."'";
+	$annees[$j]=$i;
 	$j=$j+1;
 }
 
 //Connection au serveur
-$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
+$link = mysqli_connect('127.0.0.1','root','','genis_test');
 mysqli_set_charset ($link, "utf8mb4");
 
 //Requête pour récupérer les nombre de femelles
@@ -52,71 +46,35 @@ for($i=$annee1;$i<=$annee2;$i++)
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$nb_femelle_a = array();
-	foreach  ($result as $row) 
-	{
-		$nb_femelle_a = $row;
-	}
-	$nb_femelle_b=array_shift($nb_femelle_a);
-	$nb_femelle[$j]=$nb_femelle_b;
-	
-	// $tab = mysqli_fetch_all ($result);
-	// $nb_femelle[$j] = $tab[0][1];
+	$tab = mysqli_fetch_all ($result);
+	$datay3[$j] = $tab[0][0];
 
-	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		// {
-			// $nb_femelle[$j]=$row[0];
-		// }
 	$j=$j+1;
 }
 
-//Requête pour récupérer les nombre de femelles née
+//Requête pour récupérer les nombre de femelles nees
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
 	//Requête pour récupérer les effectifs de femelles
 	$query= "SELECT nb_femelle_nee(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$nb_nee_a = array();
-	foreach  ($result as $row) 
-	{
-		$nb_nee_a = $row;
-	}
-	$nb_nee_b=array_shift($nb_nee_a);
-	$nb_femelle_nee[$j]=$nb_nee_b;
-	
-	// $tab = mysqli_fetch_all ($result);
-	// $nb_femelle_nee[$j] = $tab[0][1];
+	$tab = mysqli_fetch_all ($result);
+	$datay1[$j] = $tab[0][0];
 
-	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		// {
-				// $nb_femelle_nee[$j]=$row[0];
-		// }
 	$j=$j+1;
 }
 
-//Requête pour récupérer le nombre de détenteurs
+//Requête pour récupérer les nombre de detenteurs
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
-	//Requête pour récupérer les effectifs de femelles
+	//Requête pour récupérer les effectifs de detenteurs
 	$query= "SELECT nb_detenteur(".$i.",".$code_race.")";
 	$result = mysqli_query ($link, $query);
-	$nb_detenteur_a = array();
-	foreach  ($result as $row) 
-	{
-		$nb_detenteur_a = $row;
-	}
-	$nb_detenteur_b=array_shift($nb_detenteur_a);
-	$nb_detenteur[$j]=$nb_detenteur_b;
-	
-	// $tab = mysqli_fetch_all ($result);
-	// $detenteurs[$j] = $tab[0][1];
-	
-	// while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-		// {
-				// $nb_detenteur[$j]=$row[0];
-		// }
+	$tab = mysqli_fetch_all ($result);
+	$datay2[$j] = $tab[0][0];
+
 	$j=$j+1;
 }
 
@@ -128,7 +86,7 @@ $graph = new Graph(640,480);
 $graph->SetScale("textlin");
 
 //Taille du graphique
-$graph->SetMargin(50,65,50,40);
+$graph->SetMargin(65,65,50,80);
 
 // Désactiver le cadre autour du graphique (assez inutile)
 $graph->SetFrame(false);
@@ -141,12 +99,6 @@ $graph->tabtitle->SetColor("black");
 $graph->tabtitle->SetFillColor("#E9EBF3");
 
 // Apparence des grilles
-$graph->ygrid->SetFill(true,'black','black');
-$graph->ygrid->SetLineStyle('dashed');
-$graph->ygrid->SetColor('gray');
-$graph->xgrid->Show();
-$graph->xgrid->SetLineStyle('dashed');
-$graph->xgrid->SetColor('gray');
 $graph->xaxis->setTickLabels($annees);
 $graph->xaxis->setLabelAngle(50);
 
@@ -155,7 +107,7 @@ $graph->xaxis->setLabelAngle(50);
 // *******************************
 	////Premier histo////
 	
-	$histo_femTot = new barPlot($nb_femelle);
+	$histo_femTot = new barPlot($datay3);
 	$histo_femTot->value->SetFormat('%d');
 	$histo_femTot->SetLegend('Femelles totales');
 	// Changer la taille//  $histo_femTot->SetWidth(valeur);
@@ -164,7 +116,7 @@ $graph->xaxis->setLabelAngle(50);
 	
 	////Second histo////
 	
-	$histo_femBornCons = new BarPlot($nb_femelle_nee);
+	$histo_femBornCons = new BarPlot($datay1);
 	$histo_femBornCons->SetLegend('Femelles nées et conservées');
 	$histo_femBornCons->value->Show();
 	$histo_femBornCons->value->SetFormat('%d');
@@ -189,28 +141,31 @@ $graph->xaxis->setLabelAngle(50);
 // Graphique courbe
 // ***********************
 	
-	$courbe = new LinePlot($detenteur);
+	$courbe = new LinePlot($datay2);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,maximum($detenteur));
+	$graph->SetYScale(0,'lin', 0,maximum($datay2));
 
 	// $graph->xaxis->title->Set("annees");
 	$graph->yaxis->title->Set("Nombre de femelle");
-
+	$graph->yaxis->title->SetMargin(13);
+	$graph->yaxis->scale->SetGrace(8);
+	
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
-
+	
 	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('lightgreen');
+	$graph->ynaxis[0]->SetColor('#1FA055');
 	$graph->ynaxis[0]->title->Set("Nombre de détenteurs");
+	$graph->ynaxis[0]->title->SetMargin(13);
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
 	$courbe->mark->SetColor('black');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("green");
+	$courbe->mark->SetFillColor("#1FA055");
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("#23C336");
+	$courbe->SetColor("#1FA055");
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
 
@@ -220,7 +175,7 @@ $graph->xaxis->setLabelAngle(50);
 	
 // Envoyer au navigateur
 $graph->SetShadow(5);
-$graph->legend->Pos(0.10,0.05);
+$graph->legend->Pos(0.25,0.94);
 $graph->Stroke();
 $graph->Stroke("EvoNbFem.png");
 ?>

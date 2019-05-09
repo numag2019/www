@@ -335,6 +335,11 @@ echo "</table>";
           ?>
         </div>
     </div>
+	
+	<?php
+//Transmission des valeurs à la page HistoEvoBorn pour afficher le graphique
+echo "<center><img src='../graph/HistoEvoBorn.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
+		?>
 		
 		<div class="widget">
 		<div class="widget-head">
