@@ -2,6 +2,8 @@
 session_start();
 $resultat = $_SESSION['resultat_ele'] ;
 $resultat_req = $_SESSION['resultat2'] ;
+$race = $_SESSION['race'];
+$annee_ele = $_SESSION['annee_ele'];
 
 require('../fpdf.php');
 
@@ -22,7 +24,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('Liste des éleveurs de race "$race" en "$annee" '),1,0,'C');
+	$this->Cell(120,10,utf8_decode('Liste des éleveurs de race '.$race.' en '.$annee_ele),1,0,'C');
 	//Saut de ligne
 	$this->Ln(40);
 }
