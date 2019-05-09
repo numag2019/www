@@ -3,6 +3,16 @@
 //élève référent : Amaury Branthomme
 
 session_start();
+$bovin = $_SESSION['bovin'];
+$bearnaise = $_SESSION['bearnaise'];
+$bordelaise = $_SESSION['bordelaise'];
+$marine = $_SESSION['marine'];
+$equin = $_SESSION['equin'];
+$plandais = $_SESSION['plandais'];
+$ovin = $_SESSION['ovin'];
+$mlandais = $_SESSION['mlandais'];
+$sasi = $_SESSION['sasi'];
+$annee = $_SESSION['annee_glo'];
 
 require('../fpdf.php');
 
@@ -250,7 +260,7 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(13);
-                $this->Cell($largeur_col,6,$col,'LR',0,'C');
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
             }
             else//Si la case est la légende, on applique un style particulier
             {
@@ -259,7 +269,7 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(9);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'L'); 
+                $this->Cell($largeur_lgd,6,utf8_decode($col),'LR',0,'L'); 
             }
         }
 		$this->Ln();
@@ -281,12 +291,16 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
-//array_push($header,NULL);    //ajout d'un champ NULL en début des années pour laisser place à la légende
-$header = array(NULL,2013,2014,2015,2016,2017);
+//création de l'entete des années
+$header = array();
+array_push($header,NULL);
+for($i=0;$i<count($annee);$i++) 
+    array_push($header,$annee[$i]);   //ajout d'un champ NULL en début des années pour laisser place à la légende
+
 
 
 // Données des requetes SQL
-$effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovins,$mlandais,$sasi);
+$effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovin,$mlandais,$sasi);
 
 // $effectif = array(array('Bovins',252,286,318,352,375),array(' - Béarnaise',193,209,234,253,264),array(' - Bordelaise',54,69,74,87,103),
 // array(' - Marine',5,8,10,12,8),array('Equins',65,75,75,82,92),array(' - Landais',65,75,75,82,92),array('Ovins',1356,1452,1632,1689,2213),

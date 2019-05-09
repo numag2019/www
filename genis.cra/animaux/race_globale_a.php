@@ -56,6 +56,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 						$annee[$j]=$i;
 						$j=$j+1;
 					}
+                    $_SESSION['annee_glo'] = $annee;
 					
 					//Connection au serveur
 					$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
