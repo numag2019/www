@@ -1,11 +1,25 @@
 <?php
-//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
+//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race globales. Cet export est composé d'un tableau et de 3 graphiques
 //élève référent : Amaury Branthomme
 
 session_start();
 
+// Récupération des variables de session
+$bovin = $_SESSION['bovin'];
+$bearnaise = $_SESSION['bearnaise'];
+$bordelaise = $_SESSION['bordelaise'];
+$marine = $_SESSION['marine'];
+$equin = $_SESSION['equin'];
+$plandais = $_SESSION['plandais'];
+$ovin = $_SESSION['ovin'];
+$mlandais = $_SESSION['mlandais'];
+$sasi = $_SESSION['sasi'];
+$annee = $_SESSION['annee_glo'];
+
+// Appel du fichier traitant la création de pdf
 require('../fpdf.php');
 
+// Ajout de fonctions à la classe pdf déjà existante en php
 class PDF extends FPDF
 {
 protected $B = 0;
@@ -36,18 +50,9 @@ function Footer()
 	// Police Arial italique 8
 	$this->SetFont('Arial','I',8);
 	// Numéro de page
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-
-// Chargement des données
-function LoadData($file)
-{
-	// Lecture des lignes du fichier
-	$lines = file($file);
-	$data = array();
-	foreach($lines as $line)
-		$data[] = explode(';',trim($line));
-	return $data;
+	$this->Cell(110,10,'Page '.$this->PageNo().'/{nb}',0,0,'R');
+    //date de création du pdf
+    $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
 function WriteHTML($html)
@@ -87,136 +92,6 @@ function WriteHTML($html)
 	}
 }
 
-function OpenTag($tag, $attr)
-{
-	// Balise ouvrante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,true);
-	if($tag=='A')
-		$this->HREF = $attr['HREF'];
-	if($tag=='BR')
-		$this->Ln(5);
-}
-
-function CloseTag($tag)
-{
-	// Balise fermante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,false);
-	if($tag=='A')
-		$this->HREF = '';
-}
-
-function SetStyle($tag, $enable)
-{
-	// Modifie le style et sélectionne la police correspondante
-	$this->$tag += ($enable ? 1 : -1);
-	$style = '';
-	foreach(array('B', 'I', 'U') as $s)
-	{
-		if($this->$s>0)
-			$style .= $s;
-	}
-	$this->SetFont('',$style);
-}
-
-function PutLink($URL, $txt)
-{
-	// Place un hyperlien
-	$this->SetTextColor(0,0,255);
-	$this->SetStyle('U',true);
-	$this->Write(5,$txt,$URL);
-	$this->SetStyle('U',false);
-	$this->SetTextColor(0);
-}
-
-
-//Fonction réalisant le tableau
-function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
-{
-    // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(133,195,43);
-	$this->SetTextColor(0);
-	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
-	$this->SetLineWidth(.3);
-	$this->SetFont('','B');
-    
-	// En-tête
-	foreach($header as $col)
-        if (is_numeric($col))
-            $this->Cell($largeur_col,7,$col,1,0,'C',true);
-        else
-            $this->Cell($largeur_lgd,7,$col,1,0,'C',true); //Si la case est la légende, on applique un style particulier
-	$this->Ln();
-    
-    
-	// Données
-	foreach($effectif as $row)
-	{
-        foreach($row as $col)
-        {
-            if (is_numeric($col))
-            {
-                // Restauration des couleurs et de la police pour les données du tableau
-                $this->SetFillColor(224,235,255);
-                $this->SetTextColor(0);
-                $this->SetFont('');
-                $this->SetFontSize(13);
-                $this->Cell($largeur_col,6,$col,'LR',0,'C');
-            }
-            else//Si la case est la légende, on applique un style particulier
-            {
-                // Restauration des couleurs et de la police pour les données du tableau
-                $this->SetFillColor(224,235,255);
-                $this->SetTextColor(0);
-                $this->SetFont('');
-                $this->SetFontSize(8);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
-            }
-        }
-		$this->Ln();
-	}
-    // Trait de terminaison
-	$this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
-
-}
-
-function Tableau_presence($header,$effectif,$largeur_col)
-{
-    // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(133,195,43);
-	$this->SetTextColor(0);
-	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
-	$this->SetLineWidth(.3);
-	$this->SetFont('','B');
-    $this->SetFontSize(7);    
-    
-	// En-tête
-	foreach($header as $col)
-        $this->Cell($largeur_col,7,$col,1,0,'C',true);
-	$this->Ln();
-    
-    
-	// Données
-	foreach($effectif as $row)
-	{
-        foreach($row as $col)
-        {
-            // Restauration des couleurs et de la police pour les données du tableau
-            $this->SetFillColor(224,235,255);
-            $this->SetTextColor(0);
-            $this->SetFont('');
-            $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,$col,'LR',0,'C');
-            
-            
-        }
-		$this->Ln();
-	}
-    // Trait de terminaison
-	$this->Cell(count($header)*$largeur_col,0,'','T'); //trait pour fermer le tableau
-
-}
 
 
 //Fonction réalisant le tableau
@@ -249,8 +124,8 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(13);
-                $this->Cell($largeur_col,6,$col,'LR',0,'C');
+                $this->SetFontSize(11);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
             }
             else//Si la case est la légende, on applique un style particulier
             {
@@ -258,8 +133,8 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(9);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'L'); 
+                $this->SetFontSize(12);
+                $this->Cell($largeur_lgd,6,utf8_decode($col),'LR',0,'L'); 
             }
         }
 		$this->Ln();
@@ -281,16 +156,17 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 $pdf = new PDF();
 
 // Titres des colonnes des tableaux
-//array_push($header,NULL);    //ajout d'un champ NULL en début des années pour laisser place à la légende
-$header = array(NULL,2013,2014,2015,2016,2017);
+//création de l'entete des années
+$header = array();
+array_push($header,NULL);       //ajout d'un champ NULL en début des années pour laisser place à la légende
+for($i=0;$i<count($annee);$i++) 
+    array_push($header,$annee[$i]);   
 
 
-// Données des requetes SQL
-$effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovins,$mlandais,$sasi);
 
-// $effectif = array(array('Bovins',252,286,318,352,375),array(' - Béarnaise',193,209,234,253,264),array(' - Bordelaise',54,69,74,87,103),
-// array(' - Marine',5,8,10,12,8),array('Equins',65,75,75,82,92),array(' - Landais',65,75,75,82,92),array('Ovins',1356,1452,1632,1689,2213),
-// array(' - Landais',738,796,945,935,1379),array(' - Sasi Ardia',618,656,687,754,834));
+// Récupération des données des requetes SQL par les variables de session et création d'une unique variable pour la création du tableau
+$effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovin,$mlandais,$sasi);
+
 
 //Taille des colonnes
 $largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
@@ -309,7 +185,10 @@ $pdf->Ln(10);
 
 // Page des graphiques
 $pdf->AddPage();
-$pdf->Cell(50,50,'graphique.png',1);
+//Graphique d'évolution des effectifs des races
+//$pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
+//$pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
+//$pdf->Image('../../graph/EvoEffovins.png',7,100,-80);
 
 //Espace entre les différents éléments de la page
 $pdf->Ln();
