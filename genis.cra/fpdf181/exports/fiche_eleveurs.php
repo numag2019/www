@@ -22,7 +22,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(70,10,'Voici le titre de mon entete',1,0,'C');
+	$this->Cell(120,10,utf8_decode('Liste des éleveurs de race "$race" en "$annee" '),1,0,'C');
 	//Saut de ligne
 	$this->Ln(40);
 }
