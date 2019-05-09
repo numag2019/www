@@ -1,7 +1,7 @@
 <?php
 session_start();
 $resultat = $_SESSION['resultat_ele'] ;
-$resultat2 = $_SESSION['resultat2'] ;
+$resultat_req = $_SESSION['resultat2'] ;
 
 require('../fpdf.php');
 
@@ -120,31 +120,15 @@ function Tableau_ele($header,$effectif,$largeur_col)
 $departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
 $header = array(1,'Nom','Prénom','Adresse',5,'N° fixe','N° portable','Adresse mail','Département');
 
-
-            
-// $dep_prec='';
-// while ($row = mysqli_fetch_array($resultat2, MYSQLI_BOTH))
-	// {
-		// $id = $row[0];
-		// $nom = $row["nom"];
-		// $prenom = $row["prenom"];
-		// $adresse = $row["adresse"];
-		// $adresse2 = $row["adresse2"];
-		// $tel = $row["tel"];
-		// $tel2 = $row["tel2"];
-		// $mail = $row["mail"];
-		// $dep = $row["lib_dpt"];
-		// if ($dep_prec!=$dep)
-		// {	
-            // $pdf->SetFont('Arial','BU',20); //police des départements
-            // $pdf->Cell(0,10,$dep,0,1);
-            // $pdf->Ln(10);
-		// }
-		// $dep_prec=$dep;
-		// $pdf ->Cell(0,10,'toto',0,1);
-	// }			
-
 $pdf = new PDF();
+            
+// for($i=1;$i<=count($resultat);$i++)
+// {
+    // $resultat[$i][0] = array_splice($resultat,4,1);
+    
+// }
+
+// print_r($resultat);
 
 //création des pages pdf
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
