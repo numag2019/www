@@ -50,18 +50,9 @@ function Footer()
 	// Police Arial italique 8
 	$this->SetFont('Arial','I',8);
 	// Numéro de page
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-
-// Chargement des données
-function LoadData($file)
-{
-	// Lecture des lignes du fichier
-	$lines = file($file);
-	$data = array();
-	foreach($lines as $line)
-		$data[] = explode(';',trim($line));
-	return $data;
+	$this->Cell(110,10,'Page '.$this->PageNo().'/{nb}',0,0,'R');
+    //date de création du pdf
+    $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
 function WriteHTML($html)
@@ -101,136 +92,6 @@ function WriteHTML($html)
 	}
 }
 
-function OpenTag($tag, $attr)
-{
-	// Balise ouvrante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,true);
-	if($tag=='A')
-		$this->HREF = $attr['HREF'];
-	if($tag=='BR')
-		$this->Ln(5);
-}
-
-function CloseTag($tag)
-{
-	// Balise fermante
-	if($tag=='B' || $tag=='I' || $tag=='U')
-		$this->SetStyle($tag,false);
-	if($tag=='A')
-		$this->HREF = '';
-}
-
-function SetStyle($tag, $enable)
-{
-	// Modifie le style et sélectionne la police correspondante
-	$this->$tag += ($enable ? 1 : -1);
-	$style = '';
-	foreach(array('B', 'I', 'U') as $s)
-	{
-		if($this->$s>0)
-			$style .= $s;
-	}
-	$this->SetFont('',$style);
-}
-
-function PutLink($URL, $txt)
-{
-	// Place un hyperlien
-	$this->SetTextColor(0,0,255);
-	$this->SetStyle('U',true);
-	$this->Write(5,$txt,$URL);
-	$this->SetStyle('U',false);
-	$this->SetTextColor(0);
-}
-
-
-//Fonction réalisant le tableau
-function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
-{
-    // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(133,195,43);
-	$this->SetTextColor(0);
-	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
-	$this->SetLineWidth(.3);
-	$this->SetFont('','B');
-    
-	// En-tête
-	foreach($header as $col)
-        if (is_numeric($col))
-            $this->Cell($largeur_col,7,$col,1,0,'C',true);
-        else
-            $this->Cell($largeur_lgd,7,$col,1,0,'C',true); //Si la case est la légende, on applique un style particulier
-	$this->Ln();
-    
-    
-	// Données
-	foreach($effectif as $row)
-	{
-        foreach($row as $col)
-        {
-            if (is_numeric($col))
-            {
-                // Restauration des couleurs et de la police pour les données du tableau
-                $this->SetFillColor(224,235,255);
-                $this->SetTextColor(0);
-                $this->SetFont('');
-                $this->SetFontSize(13);
-                $this->Cell($largeur_col,6,$col,'LR',0,'C');
-            }
-            else//Si la case est la légende, on applique un style particulier
-            {
-                // Restauration des couleurs et de la police pour les données du tableau
-                $this->SetFillColor(224,235,255);
-                $this->SetTextColor(0);
-                $this->SetFont('');
-                $this->SetFontSize(8);
-                $this->Cell($largeur_lgd,6,$col,'LR',0,'C'); 
-            }
-        }
-		$this->Ln();
-	}
-    // Trait de terminaison
-	$this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
-
-}
-
-function Tableau_presence($header,$effectif,$largeur_col)
-{
-    // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(133,195,43);
-	$this->SetTextColor(0);
-	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
-	$this->SetLineWidth(.3);
-	$this->SetFont('','B');
-    $this->SetFontSize(7);    
-    
-	// En-tête
-	foreach($header as $col)
-        $this->Cell($largeur_col,7,$col,1,0,'C',true);
-	$this->Ln();
-    
-    
-	// Données
-	foreach($effectif as $row)
-	{
-        foreach($row as $col)
-        {
-            // Restauration des couleurs et de la police pour les données du tableau
-            $this->SetFillColor(224,235,255);
-            $this->SetTextColor(0);
-            $this->SetFont('');
-            $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,$col,'LR',0,'C');
-            
-            
-        }
-		$this->Ln();
-	}
-    // Trait de terminaison
-	$this->Cell(count($header)*$largeur_col,0,'','T'); //trait pour fermer le tableau
-
-}
 
 
 //Fonction réalisant le tableau
@@ -263,7 +124,7 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(13);
+                $this->SetFontSize(11);
                 $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
             }
             else//Si la case est la légende, on applique un style particulier
@@ -272,7 +133,7 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(9);
+                $this->SetFontSize(12);
                 $this->Cell($largeur_lgd,6,utf8_decode($col),'LR',0,'L'); 
             }
         }
@@ -303,7 +164,7 @@ for($i=0;$i<count($annee);$i++)
 
 
 
-// Données des requetes SQL
+// Récupération des données des requetes SQL par les variables de session et création d'une unique variable pour la création du tableau
 $effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovin,$mlandais,$sasi);
 
 

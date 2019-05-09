@@ -7,9 +7,7 @@ session_start();
 $resultat = $_SESSION['resultat_ele'] ;
 $resultat_req = $_SESSION['resultat2'] ;
 $race = $_SESSION['race_ele'];
-echo $race;
 $annee_ele = $_SESSION['annee_ele'];
-echo $annee_ele;
 
 require('../fpdf.php');
 
@@ -23,6 +21,8 @@ protected $HREF = '';
 // En-tête
 function Header()
 {
+    $race = $_SESSION['race_ele'];
+    $annee_ele = $_SESSION['annee_ele'];
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
@@ -30,7 +30,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('Liste des éleveurs de race '. $race .' en '.$annee_ele),1,0,'C');
+	$this->Cell(120,10,utf8_decode('Liste des éleveurs de ').$race.' en '.$annee_ele,0,0,'L');
 	//Saut de ligne
 	$this->Ln(40);
 }
@@ -125,18 +125,18 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 }
 
-$departement = array('Ariège','Aveyron','Charente-Maritime','Côtes-Armor','Haute-Garonne','Gers','Gironde');
-$header = array(1,'Nom','Prénom','Adresse',5,'N° fixe','N° portable','Adresse mail','Département');
+$header = array($race,'Nom','Prénom','Adresse',5,'N° fixe','N° portable','Adresse mail','Département');
+$test = array();
+for($i=0;$i<count($resultat);$i++)
+{
+    $resultat[$i][0] = array_splice($resultat,4,1);
+    
+}
 
 $pdf = new PDF();
             
-// for($i=1;$i<=count($resultat);$i++)
-// {
-    // $resultat[$i][0] = array_splice($resultat,4,1);
-    
-// }
 
-// print_r($resultat);
+
 
 //création des pages pdf
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
