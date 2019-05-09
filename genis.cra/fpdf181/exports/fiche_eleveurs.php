@@ -126,12 +126,33 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 
 $header = array($race,'Nom','Prénom','Adresse',5,'N° fixe','N° portable','Adresse mail','Département');
+
+// suppression de la colonne contenant la 2e adresse
 $test = array();
-for($i=0;$i<count($resultat);$i++)
+
+for($i=0;$i<count($resultat);$i++) 
 {
-    $resultat[$i][0] = array_splice($resultat,4,1);
+    for($j=0;$j<count($resultat[0]);$j++)
+    {
+        if($j!=4)
+            $test[$i][$j] = $resultat[$i][$j];
     
+    }   
+   
 }
+echo $resultat[0][0];
+
+print_r($test);
+
+// foreach($resultat as $row)
+// {
+    // foreach($row as $col)
+    // {
+        // $test[] = $col;
+    // }
+    
+// }
+
 
 $pdf = new PDF();
             
