@@ -302,9 +302,6 @@ for($i=0;$i<count($annee);$i++)
 // Données des requetes SQL
 $effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovin,$mlandais,$sasi);
 
-// $effectif = array(array('Bovins',252,286,318,352,375),array(' - Béarnaise',193,209,234,253,264),array(' - Bordelaise',54,69,74,87,103),
-// array(' - Marine',5,8,10,12,8),array('Equins',65,75,75,82,92),array(' - Landais',65,75,75,82,92),array('Ovins',1356,1452,1632,1689,2213),
-// array(' - Landais',738,796,945,935,1379),array(' - Sasi Ardia',618,656,687,754,834));
 
 //Taille des colonnes
 $largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
@@ -323,7 +320,10 @@ $pdf->Ln(10);
 
 // Page des graphiques
 $pdf->AddPage();
-$pdf->Cell(50,50,'graphique.png',1);
+//Graphique d'évolution des effectifs des races
+//$pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
+//$pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
+//$pdf->Image('../../graph/EvoEffovins.png',7,100,-80);
 
 //Espace entre les différents éléments de la page
 $pdf->Ln();
