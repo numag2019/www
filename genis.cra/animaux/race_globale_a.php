@@ -107,6 +107,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+					$_SESSION['bovin'] = $bovin;
 					echo "</tr>";
 					
 							// Affichage des effectifs de béarnaises chaque case du tableau
@@ -127,6 +128,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['bearnaise'] = $bearnaise;
 							echo "</tr>";
 							
 							// Affichage des effectifs de bordelaises chaque case du tableau
@@ -147,6 +149,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['bordelaise'] = $bordelaise;
 							echo "</tr>";
 							
 							// Affichage des effectifs de marines chaque case du tableau
@@ -167,6 +170,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['marine'] = $marine;
 							echo "</tr>";
 					
 						
@@ -188,6 +192,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+					$_SESSION['equin'] = $equin;
 					echo "</tr></b>";
 					
 							// Affichage des effectifs de poneys landais chaque case du tableau
@@ -208,6 +213,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['plandais'] = $plandais;
 							echo "</tr>";
 					
 					// Affichage des effectifs d'ovins chaque case du tableau
@@ -228,6 +234,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 							}
 						$j=$j+1;
 					}
+					$_SESSION['ovin'] = $ovin;
 					echo "</tr>";
 					
 							// Affichage des effectifs de moutons landais chaque case du tableau
@@ -248,6 +255,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['mlandais'] = $mlandais;
 							echo "</tr>";
 							
 							// Affichage des effectifs de sasi ardia chaque case du tableau
@@ -268,6 +276,7 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 									}
 								$j=$j+1;
 							}
+							$_SESSION['sasi'] = $sasi;
 							echo "</tr></tbody>";
 						
 						echo "</table>";

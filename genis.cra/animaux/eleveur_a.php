@@ -85,7 +85,7 @@ foreach  ($result as $row)
 mysqli_data_seek($result,0);
 $_SESSION['resultat_ele'] = $resultat_ele;
 $_SESSION['resultat2'] = $result;
-            
+         
 $dep_prec='';
 while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
 	{
