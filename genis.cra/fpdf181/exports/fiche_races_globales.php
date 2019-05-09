@@ -1,8 +1,10 @@
 <?php
-//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
+//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race globales. Cet export est composé d'un tableau et de 3 graphiques
 //élève référent : Amaury Branthomme
 
 session_start();
+
+// Récupération des variables de session
 $bovin = $_SESSION['bovin'];
 $bearnaise = $_SESSION['bearnaise'];
 $bordelaise = $_SESSION['bordelaise'];
@@ -14,8 +16,10 @@ $mlandais = $_SESSION['mlandais'];
 $sasi = $_SESSION['sasi'];
 $annee = $_SESSION['annee_glo'];
 
+// Appel du fichier traitant la création de pdf
 require('../fpdf.php');
 
+// Ajout de fonctions à la classe pdf déjà existante en php
 class PDF extends FPDF
 {
 protected $B = 0;
@@ -293,9 +297,9 @@ $pdf = new PDF();
 // Titres des colonnes des tableaux
 //création de l'entete des années
 $header = array();
-array_push($header,NULL);
+array_push($header,NULL);       //ajout d'un champ NULL en début des années pour laisser place à la légende
 for($i=0;$i<count($annee);$i++) 
-    array_push($header,$annee[$i]);   //ajout d'un champ NULL en début des années pour laisser place à la légende
+    array_push($header,$annee[$i]);   
 
 
 

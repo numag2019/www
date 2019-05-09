@@ -1,4 +1,8 @@
 <?php
+// Cette page à pour but de coder l'exportation en pdf de l'export Fiche eleveurs contenant l'ensemble des informations 
+// des eleveurs. Cet export est composé d'un unique tableau.
+//élève référent : Amaury Branthomme
+
 session_start();
 $resultat = $_SESSION['resultat_ele'] ;
 $resultat_req = $_SESSION['resultat2'] ;
