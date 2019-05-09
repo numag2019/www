@@ -70,10 +70,10 @@ foreach  ($result as $row)
 {
 	$resultat_ele[] = $row;
 }
+
+mysqli_data_seek($result,0);
 $_SESSION['resultat_ele'] = $resultat_ele;
 $_SESSION['resultat2'] = $result;
-mysqli_data_seek($result,0);
-
             
 $dep_prec='';
 while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
