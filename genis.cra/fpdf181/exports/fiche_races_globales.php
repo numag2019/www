@@ -187,8 +187,8 @@ $pdf->Ln(10);
 // Page des graphiques
 $pdf->AddPage();
 //Graphique d'évolution des effectifs des races
-// $pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
-// $pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
+$pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
+$pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
 // $pdf->Image('../../graph/EvoEffovins.png',7,100,-80);
 
 //Espace entre les différents éléments de la page
