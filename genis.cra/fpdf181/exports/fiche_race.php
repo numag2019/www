@@ -410,6 +410,19 @@ $pdf->Tableau_presence($header_pre,$resultat,28);
 
 
 //affichage et sauvegarde du fichier en pdf
-$pdf->Output('F','fiche_race_'.$race.'.pdf');
-$pdf->Output();
+
+for($i=1;$i<=2;$i++)
+	{
+	    if($i==1)
+	    {
+		//sauvegarde du fichier
+		$pdf->Output('../../exportation/pdf/fiche_race_'.$race.'.pdf','F');
+	    }
+	    else
+	    {
+		//affichage du fichier
+		$pdf->Output();
+	    }
+    }
+
 ?>

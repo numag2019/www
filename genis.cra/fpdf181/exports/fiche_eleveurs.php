@@ -178,6 +178,19 @@ $pdf->AddPage('L');
 $pdf->Tableau_ele($header,$resultat_4,35);
 
 //affichage et sauvegarde du fichier en pdf
-$pdf->Output('F','fiche_eleveur_'.$race.'.pdf');
-$pdf->Output();
+
+for($i=1;$i<=2;$i++)
+	{
+	    if($i==1)
+	    {
+		//sauvegarde du fichier
+		$pdf->Output('../../exportation/pdf/fiche_eleveur_'.$race.'.pdf','F');
+	    }
+	    else
+	    {
+		//affichage du fichier
+		$pdf->Output();
+	    }
+    }
+
 ?>

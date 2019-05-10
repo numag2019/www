@@ -197,6 +197,19 @@ $pdf->Image('../../graph/EvoEffovins.png',20,60,-90);
 $pdf->Ln();
 
 //affichage et sauvegarde du fichier en pdf
-$pdf->Output('F','fiche_race_globale.pdf');
-$pdf->Output();
+
+for($i=1;$i<=2;$i++)
+	{
+	    if($i==1)
+	    {
+		//sauvegarde du fichier
+		$pdf->Output('../../exportation/pdf/fiche_race_globale.pdf','F');
+	    }
+	    else
+	    {
+		//affichage du fichier
+		$pdf->Output();
+	    }
+    }
+
 ?>
