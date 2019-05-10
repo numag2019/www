@@ -96,7 +96,7 @@ $graph->SetShadow(5);
 $graph->tabtitle->Set("Effectif des femelles");
 $graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
 $graph->tabtitle->SetColor("black");
-$graph->tabtitle->SetFillColor("#E9EBF3");
+$graph->tabtitle->SetFillColor("white");
 
 // Apparence des grilles
 $graph->xaxis->setTickLabels($annees);
@@ -155,17 +155,17 @@ $graph->xaxis->setLabelAngle(50);
 	$graph->AddY(0,$courbe);
 	
 	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('#1FA055');
+	$graph->ynaxis[0]->SetColor('#2DA81C');
 	$graph->ynaxis[0]->title->Set("Nombre de détenteurs");
 	$graph->ynaxis[0]->title->SetMargin(13);
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
-	$courbe->mark->SetColor('black');
+	$courbe->mark->SetColor('#2DA81C');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("#1FA055");
+	$courbe->mark->SetFillColor("#2DA81C");
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("#1FA055");
+	$courbe->SetColor("#2DA81C");
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
 

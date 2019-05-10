@@ -66,7 +66,7 @@ $graph->SetFrame(false);
 $graph->tabtitle->Set("Evolution des naissances");
 $graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
 $graph->tabtitle->SetColor("black");
-$graph->tabtitle->SetFillColor("#E9EBF3");
+$graph->tabtitle->SetFillColor("white");
 
 // Apparence des grilles
 $graph->xaxis->setTickLabels($années);
