@@ -409,7 +409,7 @@ $pdf->AddPage('L');
 $pdf->Tableau_presence($header_pre,$resultat,28);
 
 
-
-
+//affichage et sauvegarde du fichier en pdf
+$pdf->Output('F','fiche_race_'.$race.'.pdf');
 $pdf->Output();
 ?>

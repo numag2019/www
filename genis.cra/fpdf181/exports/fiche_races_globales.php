@@ -196,5 +196,7 @@ $pdf->Image('../../graph/EvoEffovins.png',20,60,-90);
 //Espace entre les différents éléments de la page
 $pdf->Ln();
 
+//affichage et sauvegarde du fichier en pdf
+$pdf->Output('F','fiche_race_globale.pdf');
 $pdf->Output();
 ?>

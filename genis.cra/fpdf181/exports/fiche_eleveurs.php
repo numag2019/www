@@ -176,5 +176,8 @@ $pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage('L');
 $pdf->Tableau_ele($header,$resultat_4,35);
+
+//affichage et sauvegarde du fichier en pdf
+$pdf->Output('F','fiche_eleveur_'.$race.'.pdf');
 $pdf->Output();
 ?>
