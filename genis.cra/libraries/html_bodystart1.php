@@ -143,10 +143,15 @@ if (isset($_SESSION['compte'])){
                     <li <?php if ($_SESSION['current_page']=='modifyContact') echo 'class="current"'; ?>><a href="../contacts/modifierContact.php">Modification de contact</a></li>
                 </ul>
             </li>
-            <li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-upload"></i> Importations <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+            <li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-upload"></i> Importations<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                 <ul>
                     <li <?php if ($_SESSION['current_page']=='import' ) echo 'class="current"'; ?>><a href="../importation/import.php">Importation des animaux </a></li>
                     <li <?php if ($_SESSION['current_page']=='importEleveurs' ) echo 'class="current"'; ?>><a href="../importation/importEleveurs.php">Importation des éleveurs </a></li>
+                </ul>
+            </li>
+			<li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-upload"></i> Exportations<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                <ul>
+					<li <?php if ($_SESSION['current_page']=='importEleveurs' ) echo 'class="current"'; ?>><a href="../exportation/exportCRAnet.php">Exportation vers DataCRAnet </a></li>
                 </ul>
             </li>
             <li class="has_sub <?php if ($_SESSION['current_page']=='visu_animal' || $_SESSION['current_page']=='visu_elevage' || $_SESSION['current_page']=='del_animal') echo 'open'; ?>"><a href="../animaux/#"><i class="fa fa-info"></i> Animaux <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
