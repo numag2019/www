@@ -165,4 +165,5 @@ $graph->Add($gbarplot);
 
 // Afficher
 $graph->Stroke();
+$graph->Stroke("EvoEffovins.png");
 ?>
