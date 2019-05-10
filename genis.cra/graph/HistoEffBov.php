@@ -27,9 +27,9 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
-// **********************************************
-// Récupération des données de la page race_a.php
-// **********************************************
+// ******************************************************
+// Récupération des données de la page race_globale_a.php
+// ******************************************************
 
 $annee1=$_GET["annee1"];
 $annee2=$_GET["annee2"];
