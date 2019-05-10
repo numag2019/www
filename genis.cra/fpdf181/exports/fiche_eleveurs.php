@@ -108,17 +108,27 @@ function Tableau_ele($header,$effectif,$largeur_col)
     
 	foreach($effectif as $row)
 	{
-        
-        
         foreach($row as $col)
-        {           
+        {
+
+            if (strlen($col)>16)
+            {
             // Restauration des couleurs et de la police pour les données du tableau
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
-                $this->SetFontSize(7);
-                $this->Cell($largeur_col,6,utf8_decode(substr($col,0,15)),'LR',0,'C');
-            
+                $this->SetFontSize(5);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
+            }
+            else
+            {
+              // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(10);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');  
+            }                
         }
 		$this->Ln();
 	}
@@ -155,7 +165,7 @@ for($i=0;$i<count($resultat);$i++)
 //création des pages pdf
 $pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
-$pdf->AddPage();
-$pdf->Tableau_ele($header,$resultat_4,24);
+$pdf->AddPage('L');
+$pdf->Tableau_ele($header,$resultat_4,35);
 $pdf->Output();
 ?>
