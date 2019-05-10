@@ -38,7 +38,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(110,10,utf8_decode('Effectif des populations entre ').$annee[0].' et '.end($annee) ,0,0,'C');
+	$this->Cell(70,10,utf8_decode('Effectif des populations entre ').$annee[0].' et '.end($annee) ,0,0,'C');
 	//Saut de ligne
 	$this->Ln(40);
 }
@@ -187,9 +187,11 @@ $pdf->Ln(10);
 // Page des graphiques
 $pdf->AddPage();
 //Graphique d'évolution des effectifs des races
-// $pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
-// $pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
-// $pdf->Image('../../graph/EvoEffovins.png',7,100,-80);
+$pdf->Image('../../graph/EvoEffBovins.png',7,100,-80);
+$pdf->AddPage();
+$pdf->Image('../../graph/EvoEffEquin.png',7,100,-80);
+$pdf->AddPage();
+$pdf->Image('../../graph/EvoEffovins.png',7,100,-80);
 
 //Espace entre les différents éléments de la page
 $pdf->Ln();

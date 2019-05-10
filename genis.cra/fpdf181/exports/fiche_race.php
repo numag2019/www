@@ -16,6 +16,7 @@ $nb_veau = $_SESSION['nb_veau'];
 $nb_veau_m = $_SESSION['nb_veau_m'];
 $nb_veau_f = $_SESSION['nb_veau_f'];
 $resultat = $_SESSION['resultat'] ;
+$race = $_SESSION['race_race'];
 
 require('../fpdf.php');
 
@@ -29,6 +30,8 @@ protected $HREF = '';
 // En-tête
 function Header()
 {
+    $annee = $_SESSION['annee'];
+    $race = $_SESSION['race_race'];
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
@@ -36,7 +39,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(70,10,'Voici le titre de mon entete',1,0,'C');
+	$this->Cell(70,10,'Evolution de la population de '.$race.' entre '.$annee[0].' et '.end($annee).'',0,0,'C');
 	//Saut de ligne
 	$this->Ln(40);
 }
@@ -179,7 +182,7 @@ function Tableau_presence($header,$effectif,$largeur_col)
             $this->SetTextColor(0);
             $this->SetFont('');
             $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
+            $this->Cell($largeur_col,6,utf8_decode(substr($col,0,10)),'LR',0,'C'); //substr pour que les listes rentrent dans les colonnes
             
             
         }

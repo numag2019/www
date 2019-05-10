@@ -90,6 +90,7 @@ while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
 	{
 		$race = $row[0];
 	}
+    $_SESSION['race_race']=$race;
 		?>
 					
 	<div class="widget">

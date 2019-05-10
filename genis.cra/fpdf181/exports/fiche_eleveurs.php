@@ -117,7 +117,7 @@ function Tableau_ele($header,$effectif,$largeur_col)
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(7);
-                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');          
+                $this->Cell($largeur_col,6,utf8_decode(substr($col,0,15)),'LR',0,'C');
             
         }
 		$this->Ln();
