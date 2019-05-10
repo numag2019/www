@@ -64,6 +64,18 @@ function Footer()
 //Fonction réalisant le tableau des informations des eleveurs
 function Tableau_ele($header,$effectif,$largeur_col)
 {
+    //Titre
+    // Couleurs, épaisseur du trait et police pour le titre
+	$this->SetFillColor(133,195,43);
+	$this->SetTextColor(0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
+	$this->SetLineWidth(.3);
+	$this->SetFont('','B');
+    $this->SetFontSize(12);
+    
+    $this->Cell($largeur_col,7,utf8_decode('Informations sur les éleveurs'));
+    $this->Ln();
+    
     // Couleurs, épaisseur du trait et police grasse pour l'entete
 	$this->SetFillColor(133,195,43); //couleur du fond des cases
 	$this->SetTextColor(0); //couleur du texte
