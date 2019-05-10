@@ -95,8 +95,8 @@ for($i=0;$i<$counter;$i++)
 
 	// Création du graphique conteneur
 	$graph = new Graph(640,480,'auto');    
-	$graph->SetScale('textlin', 0,maximum($somme));
-	$graph->img->SetMargin(80,80,30,100);
+	$graph->SetScale('textlin', 0,(maximum($somme)+100));
+	$graph->img->SetMargin(80,120,30,100);
 
 
 	// Ajouter un onglet
@@ -116,7 +116,6 @@ for($i=0;$i<$counter;$i++)
 	$graph->yaxis->SetColor('black');
 
 	// Couleurs et transparence par histogramme
-	$aColor=array('#BCD0F0','#5F84BF','#14438F');
 	$bNoms=array('Béarnaise','Bordelaise','Marine');
 
 $i=0;
@@ -136,17 +135,18 @@ $i=0;
 	$courbe = new LinePlot($somme);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,(maximum($somme)+100));
+	$graph->SetYScale(0,'lin', 0,(maximum($somme)+150));
 
 	// $graph->xaxis->title->Set("Années");
 	$graph->yaxis->title->Set("Nombre d'individus");
-	$graph->yaxis->title->SetMargin(15);
+	$graph->yaxis->title->SetMargin(20);
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
 	
+	// Couleur de l'axe Y supplémentaire
+	$graph->ynaxis[0]->SetColor('black');
 	$graph->ynaxis[0]->SetFont(FF_FONT1);
-
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
@@ -158,7 +158,7 @@ $i=0;
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
 	$courbe->SetLegend("Nombre total de bovins");
-	
+
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
 	$courbe->value->SetFormat('%d');
