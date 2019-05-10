@@ -111,7 +111,7 @@ function Tableau_ele($header,$effectif,$largeur_col)
         foreach($row as $col)
         {
 
-            if (strlen($col)>16)
+            if (strlen($col)>25) //modification de la taille de la police en fonction de la taille des chaines de caractère
             {
             // Restauration des couleurs et de la police pour les données du tableau
                 $this->SetFillColor(224,235,255);
@@ -120,15 +120,24 @@ function Tableau_ele($header,$effectif,$largeur_col)
                 $this->SetFontSize(5);
                 $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
             }
+            elseif(strlen($col)>16 and strlen($col)<=25)
+            {
+            // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(7);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');  
+            }
             else
             {
-              // Restauration des couleurs et de la police pour les données du tableau
+                // Restauration des couleurs et de la police pour les données du tableau
                 $this->SetFillColor(224,235,255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
                 $this->SetFontSize(10);
-                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');  
-            }                
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');                 
+            }
         }
 		$this->Ln();
 	}
