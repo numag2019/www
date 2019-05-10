@@ -68,30 +68,25 @@ for($i=0;$i<$counter;$i++)
 
 	// Création du graphique conteneur
 	$graph = new Graph(640,480,'auto');    
-	$graph->SetScale('textlin', 0,maximum($somme));
-	$graph->img->SetMargin(60,80,30,40);
-	$graph->legend->Pos(0.02,0.05);
+	$graph->SetScale('textlin', 0,(maximum($somme)+150));
+	$graph->img->SetMargin(80,80,30,100);
 
-	// Couleur de l'ombre et du fond de la légende
-	$graph->legend->SetShadow('darkgray@0.5');
-	$graph->legend->SetFillColor('lightblue@0.3');
+	// Ajouter un onglet
+	$graph->tabtitle->Set("Effectif du nombre d'équins par race");
+	$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
+	$graph->tabtitle->SetColor("black");
+	$graph->tabtitle->SetFillColor("white");
 
 	// Pimper les axes
 	$graph->xaxis->setTickLabels($années);
-	$graph->xaxis->title->Set('Annees');
 	$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->title->SetColor('black');
 	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->SetColor('black');
 
-	$graph->yaxis->SetFont(FF_FONT1,FS_BOLD);
+	$graph->yaxis->SetFont(FF_FONT1);
 	$graph->yaxis->SetColor('black');
 	$graph->ygrid->SetColor('black@0.5');
-
-
-	$graph->title->Set("Effectif du nombre d'équins par race");
-	$graph->title->SetMargin(6);
-	$graph->title->SetFont(FF_ARIAL,FS_NORMAL,12);
 
 // Liste des noms
 $bNoms=array('Poney Landais');
@@ -115,27 +110,29 @@ $i=0;
 	$courbe = new LinePlot($somme);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,maximum($somme));
+	$graph->SetYScale(0,'lin', 0,(maximum($somme)+150));
 
 	// $graph->xaxis->title->Set("Années");
 	$graph->yaxis->title->Set("Nombre d'individus");
+	$graph->yaxis->title->SetMargin(20);
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
-
+	
 	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('blue');
-	$graph->ynaxis[0]->title->Set("Nombre total d'individus équins");
+	$graph->ynaxis[0]->SetColor('black');
+	$graph->yaxis->SetFont(FF_FONT1);
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
 	$courbe->mark->SetColor('black');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("blue");
+	$courbe->mark->SetFillColor("black");
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("blue");
+	$courbe->SetColor("black");
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
+	$courbe->SetLegend("Nombre total d'équins");
 
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
@@ -149,6 +146,7 @@ $gbarplot->SetWidth(0.8);
 $graph->Add($gbarplot);
 
 // Afficher
+$graph->legend->Pos(0.28,0.85);
 $graph->Stroke();
 $graph->Stroke("EvoEffEquin.png");
 ?>
