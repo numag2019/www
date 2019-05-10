@@ -49,44 +49,6 @@ function Footer()
     $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
-function WriteHTML($html)
-{
-	// Parseur HTML
-	$html = str_replace("\n",' ',$html);
-	$a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
-	foreach($a as $i=>$e)
-	{
-		if($i%2==0)
-		{
-			// Texte
-			if($this->HREF)
-				$this->PutLink($this->HREF,$e);
-			else
-				$this->Write(5,$e);
-		}
-		else
-		{
-			// Balise
-			if($e[0]=='/')
-				$this->CloseTag(strtoupper(substr($e,1)));
-			else
-			{
-				// Extraction des attributs
-				$a2 = explode(' ',$e);
-				$tag = strtoupper(array_shift($a2));
-				$attr = array();
-				foreach($a2 as $v)
-				{
-					if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
-						$attr[strtoupper($a3[1])] = $a3[2];
-				}
-				$this->OpenTag($tag,$attr);
-			}
-		}
-	}
-}
-
-
 
 //Fonction réalisant le tableau
 function Tableau_ele($header,$effectif,$largeur_col)
