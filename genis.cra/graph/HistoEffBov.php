@@ -8,7 +8,7 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Page crée par les NumAg 2019
-//Cette page permet l'affichage de l'histogramme d'évolution de la population de Bovins
+//Cette page permet l'affichage de l'histogramme d'évolution de la population de bovins
 
 // *************************
 // Fonctions
@@ -27,9 +27,9 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
-// *************************
-// Récupération des données
-// *************************
+// **********************************************
+// Récupération des données de la page race_a.php
+// **********************************************
 
 $annee1=$_GET["annee1"];
 $annee2=$_GET["annee2"];
@@ -96,79 +96,77 @@ for($i=0;$i<$counter;$i++)
 // Création du graphique 
 // **********************
 
-	// Création du graphique conteneur
-	$graph = new Graph(640,480,'auto');
-	
-	//Type d'échelle
-	$graph->SetScale('textlin', 0,(maximum($somme)+100));
-	
-	//Fixer les marges
-	$graph->img->SetMargin(80,120,30,100);
+// Création du graphique conteneur
+$graph = new Graph(640,480,'auto');
 
-	// Ajouter un onglet
-	$graph->tabtitle->Set("Effectif du nombre de bovins par race");
-	$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
-	$graph->tabtitle->SetColor("black");
-	$graph->tabtitle->SetFillColor("white");
+//Type d'échelle
+$graph->SetScale('textlin', 0,(maximum($somme)+100));
 
-	// Axe X
-	$graph->xaxis->setTickLabels($années);
-	$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
-	$graph->xaxis->title->SetColor('black');
-	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
-	$graph->xaxis->SetColor('black');
-	
-	//Axe Y
-	$graph->yaxis->SetFont(FF_FONT1);
-	$graph->yaxis->SetColor('black');
+//Fixer les marges
+$graph->img->SetMargin(80,120,30,100);
 
-	// Nom par histogramme
-	$bNoms=array('Béarnaise','Bordelaise','Marine');
+// Ajouter un onglet
+$graph->tabtitle->Set("Effectif du nombre de bovins par race");
+$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
+$graph->tabtitle->SetColor("black");
+$graph->tabtitle->SetFillColor("white");
 
-	$i=0;
-	// Chaque  histogramme est un élément du tableau:
-	$aGroupBarPlot = array();
+// Axe X
+$graph->xaxis->setTickLabels($années);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
+$graph->xaxis->title->SetColor('black');
+$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
+$graph->xaxis->SetColor('black');
 
-	foreach ($listVal as $key => $value) {
-		$bplot = new BarPlot($listVal[$key]);
-		$bplot->SetLegend($bNoms[$i++]);
-		$aGroupBarPlot[] = $bplot; 
-	}
+//Axe Y
+$graph->yaxis->SetFont(FF_FONT1);
+$graph->yaxis->SetColor('black');
+
+// Liste des noms par histogramme
+$bNoms=array('Béarnaise','Bordelaise','Marine');
+
+$i=0;
+// Chaque  histogramme est un élément du tableau:
+$aGroupBarPlot = array();
+
+foreach ($listVal as $key => $value) {
+	$bplot = new BarPlot($listVal[$key]);
+	$bplot->SetLegend($bNoms[$i++]);
+	$aGroupBarPlot[] = $bplot; 
+}
 
 // ***********************
 // Graphique courbe
 // ***********************
 	
-	$courbe = new LinePlot($somme);
-	
-	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,(maximum($somme)+150));
+$courbe = new LinePlot($somme);
 
-	// $graph->xaxis->title->Set("Années");
-	$graph->yaxis->title->Set("Nombre d'individus");
-	$graph->yaxis->title->SetMargin(20);
+// Echelle des Y
+$graph->SetYScale(0,'lin', 0,(maximum($somme)+150));
+$graph->yaxis->title->Set("Nombre d'individus");
+$graph->yaxis->title->SetMargin(20);
 
-	// Ajouter un axe Y supplémentaire
-	$graph->AddY(0,$courbe);
-	
-	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('black');
-	$graph->ynaxis[0]->SetFont(FF_FONT1);
-	
-	// Apparence des points
-	$courbe->mark->SetType(MARK_SQUARE);
-	$courbe->mark->SetColor('black');
-	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("black");
-	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("black");
-	$courbe->SetCenter();
-	$courbe->SetWeight(6);
-	$courbe->SetLegend("Nombre total de bovins");
+// Ajouter un axe Y supplémentaire
+$graph->AddY(0,$courbe);
 
-	// Affichage des valeurs
-	$courbe->SetBarCenter();
-	$courbe->value->SetFormat('%d');
+// Couleur de l'axe Y supplémentaire
+$graph->ynaxis[0]->SetColor('black');
+$graph->ynaxis[0]->SetFont(FF_FONT1);
+
+// Apparence des points
+$courbe->mark->SetType(MARK_SQUARE);
+$courbe->mark->SetColor('black');
+$courbe->mark->SetSize(6);
+$courbe->mark->SetFillColor("black");
+$courbe->mark->SetWidth(6);
+$courbe->SetColor("black");
+$courbe->SetCenter();
+$courbe->SetWeight(6);
+$courbe->SetLegend("Nombre total de bovins");
+
+// Affichage des valeurs
+$courbe->SetBarCenter();
+$courbe->value->SetFormat('%d');
 
 // ***********************
 // Affichage
