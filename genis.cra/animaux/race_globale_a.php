@@ -287,6 +287,17 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 		</div>
 	</div>
 
+	<?php
+//Transmission des valeurs à la page HistoEffBov pour afficher le graphique
+echo "<center><img src='../graph/HistoEffBov.php?annee1=".$annee1."&annee2=".$annee2."'></center>";
+
+
+//Transmission des valeurs à la page HistoEffEquin pour afficher le graphique
+echo "<center><img src='../graph/HistoEffEquin.php?annee1=".$annee1."&annee2=".$annee2."'></center>";
+
+//Transmission des valeurs à la page HistoEffOvins pour afficher le graphique
+echo "<center><img src='../graph/HistoEffOvins.php?annee1=".$annee1."&annee2=".$annee2."'></center>";
+	?>
 
 </div>
 </div>

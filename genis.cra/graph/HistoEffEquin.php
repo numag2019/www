@@ -21,27 +21,36 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
+//Récupération des données
+$annee1=$_GET["annee1"];
+$annee2=$_GET["annee2"];
 
+//Liste des années
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	$années[$j]=$i;
+	$j=$j+1;
+}
 
-/* Cas où plusieurs listes sortent les effectifs de chaque race 
-pour un même groupe de bêtes (bovin, équin,ovins)
-$datay1=$_GET["-_Insérer les vaches nées et conservées en ordonnée issu des requêtes_-"];
-$datay2=$_GET["-_Insérer les éleveurs issu des requêtes_-"];
-$datay3=$_GET["-_Insérer le nombre total de vache en ordonnée issu des requêtes_-"];
-$années=$_GET["-_Insérer les années_-"];
-*/
+//Connection au serveur
+$link = mysqli_connect('127.0.0.1','root','','genis_test');
+mysqli_set_charset ($link, "utf8mb4");
 
-/* Cas où la sortie est une liste contenant les listes des effectifs de chaque race
-d'un même groupe de bêtes (bovin, équin, ovins)
-$listeVal=$_GET["-_Insérer la grosse liste contenant les listes_-"];
-*/
+//Requête pour récupérer le nombre de poneys landais
+$j=0;
+for($i=$annee1;$i<=$annee2;$i++)
+{
+	//Requête pour récupérer l'effectifs de poneys landais
+	$query= "SELECT nb_race(2,".$i.")";
+	$result = mysqli_query ($link, $query);
+	$tab = mysqli_fetch_all ($result);
+	$datay1[$j] = $tab[0][0];
 
-//Les datas pour l'exemple, a mettre en commentaire pour la mise en commun
-$datay1=array(20,25,20,50,68,90,25);
- 
-$années=array("2014","2015","2016","2017","2018","2019","2023");
+	$j=$j+1;
+}
+
 $listVal=array($datay1);
-
 
 $counter=count($datay1);
 $somme=array();
