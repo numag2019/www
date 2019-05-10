@@ -3,6 +3,8 @@
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race globales. Cet export est composé d'un tableau et de 3 graphiques
 //élève référent : Amaury Branthomme
 
+/////////////////////////////////////////// Initialisation ///////////////////////////////////////////////////
+
 session_start();
 
 // Récupération des variables de session
@@ -26,7 +28,8 @@ class PDF extends FPDF
 protected $B = 0;
 protected $I = 0;
 protected $U = 0;
-protected $HREF = '';
+
+/////////////////////////////////////////// Mise en page du PDF ///////////////////////////////////////////////////
 
 // En-tête
 function Header()
@@ -57,6 +60,8 @@ function Footer()
     $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
+
+/////////////////////////////////////////// début des fonctions de création des tableaux ///////////////////////////////////////////////////
 
 //Fonction réalisant le tableau
 function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
@@ -111,15 +116,8 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 
 }
 
+///////////////////////////////////////////Modifications des données pour remplir les tableaux ///////////////////////////////////////////////////
 
-
-
-///////////////////////////////////////////fin des fonctions ///////////////////////////////////////////////////
-
-//écriture des pages PDF
-$pdf = new PDF();
-
-// Titres des colonnes des tableaux
 //création de l'entete des années
 $header = array();
 array_push($header,NULL);       //ajout d'un champ NULL en début des années pour laisser place à la légende
@@ -131,6 +129,12 @@ for($i=0;$i<count($annee);$i++)
 // Récupération des données des requetes SQL par les variables de session et création d'une unique variable pour la création du tableau
 $effectif = array($bovin,$bearnaise,$bordelaise,$marine,$equin,$plandais,$ovin,$mlandais,$sasi);
 
+
+///////////////////////////////////////////Affichage des pages PDF ///////////////////////////////////////////////////
+
+
+//écriture des pages PDF
+$pdf = new PDF();
 
 //Taille des colonnes
 $largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années

@@ -4,20 +4,28 @@
 // des eleveurs. Cet export est composé d'un unique tableau.
 //élève référent : Amaury Branthomme
 
+/////////////////////////////////////////// Initialisation ///////////////////////////////////////////////////
+
 session_start();
+
+// Récupération des variables de session
 $resultat = $_SESSION['resultat_ele'] ;
 $resultat_req = $_SESSION['resultat2'] ;
 $race = $_SESSION['race_ele'];
 $annee_ele = $_SESSION['annee_ele'];
 
+// Appel du fichier traitant la création de pdf
 require('../fpdf.php');
 
+// Ajout de fonctions à la classe pdf déjà existante en php
 class PDF extends FPDF
 {
 protected $B = 0;
 protected $I = 0;
 protected $U = 0;
-protected $HREF = '';
+
+
+/////////////////////////////////////////// Mise en page du PDF ///////////////////////////////////////////////////
 
 // En-tête
 function Header()
@@ -49,8 +57,9 @@ function Footer()
     $this->Cell(80,10,date('d\/m\/Y'),0,0,'R');
 }
 
+/////////////////////////////////////////// début des fonctions de création des tableaux ///////////////////////////////////////////////////
 
-//Fonction réalisant le tableau
+//Fonction réalisant le tableau des informations des eleveurs
 function Tableau_ele($header,$effectif,$largeur_col)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
@@ -111,11 +120,14 @@ function Tableau_ele($header,$effectif,$largeur_col)
 }
 }
 
+///////////////////////////////////////////Modifications des données pour remplir les tableaux ///////////////////////////////////////////////////
+
+//création de l'entete
 $header = array('N°','Nom','Prénom','Adresse','N° fixe','N° portable','Adresse mail','Département');
 
 
+// Suppression de la colonne contenant la 2e adresse car elle n'est pas utilisée
 
-// Suppression de la colonne contenant la 2e adresse
 $resultat_4 = array();
 
 for($i=0;$i<count($resultat);$i++) 
@@ -133,12 +145,15 @@ for($i=0;$i<count($resultat);$i++)
    
 }
 
+///////////////////////////////////////////Affichage des pages PDF ///////////////////////////////////////////////////
+//Taille des colonnes
+$largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
 
 //création des pages pdf
 $pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage('L');
-$pdf->Tableau_ele($header,$resultat_4,35);
+$pdf->Tableau_ele($header,$resultat_4,$largeur_col);
 
 //affichage et sauvegarde du fichier en pdf
 
