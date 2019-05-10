@@ -331,6 +331,7 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
 
             $history_table_body = new HtmlContainer('tbody');
             $history_table_body->attr('id', 'story_table_body');
+			
             
         $history_table->content($history_head->get_html());
         $history_table->content($history_table_body->get_html());

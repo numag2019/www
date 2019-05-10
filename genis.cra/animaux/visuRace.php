@@ -1,5 +1,4 @@
 <!-- Page crée par les NumAg 2019
-Réprésentant de la page : Marine Gautier
 Cette page contient un formulaire permettant de récupérer la race choisie 
 et la période choisie par l'utilisateur pour le calcul des effectifs par race et l'affichage du catalogue ---->
 
