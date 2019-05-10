@@ -67,7 +67,6 @@ $listVal=array($datay1,$datay2);
 
 
 $counter=count($datay1);
-$somme=array();
 
 for($i=0;$i<$counter;$i++)
 {

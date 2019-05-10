@@ -15,6 +15,7 @@ et la période choisie par l'utilisateur pour le calcul des effectifs par race e
 
   <!--Optional sources start -->
   <script type="text/javascript" src="js/visu_elevage.js"></script>
+  <script language="javascript" src="valider.js" type="text/javascript"></script>
   <!-- Optional sources end -->
 
 </head>

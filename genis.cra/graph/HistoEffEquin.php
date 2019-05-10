@@ -53,7 +53,6 @@ for($i=$annee1;$i<=$annee2;$i++)
 $listVal=array($datay1);
 
 $counter=count($datay1);
-$somme=array();
 
 for($i=0;$i<$counter;$i++)
 {

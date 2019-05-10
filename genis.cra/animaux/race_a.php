@@ -63,7 +63,12 @@ unlink('../graph/EvoNbFem.png');
         <div class="padd">
           <?php
 //Récupération de la race et de la période choisies
+
 $code_race = $_GET["race"];
+
+if ($code_race=1)
+{
+	echo (
 $annee1 = $_GET["annee1"];
 $annee2 = $_GET["annee2"];
 

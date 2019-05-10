@@ -80,7 +80,6 @@ for($i=$annee1;$i<=$annee2;$i++)
 $listVal=array($datay1,$datay2,$datay3);
 
 $counter=count($datay1);
-$somme=array(0,0,0);
 
 for($i=0;$i<$counter;$i++)
 {
