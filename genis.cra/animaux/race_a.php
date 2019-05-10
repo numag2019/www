@@ -36,6 +36,12 @@ require BODY_START;
 //Connection à la base de donnée
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 
+//supression des graphiques pour ne pas les corrompres s'ils existents déjà
+if (is_readable('../graph/EvoNaissances.png') == TRUE)
+    unlink('../graph/EvoNaissances.png');
+if (is_readable('../graph/EvoNbFem.png') == TRUE)
+unlink('../graph/EvoNbFem.png');
+
 
 ?>
 

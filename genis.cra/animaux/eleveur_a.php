@@ -61,7 +61,7 @@ $query_race = "	SELECT lib_race
 			FROM race
 			WHERE code_race=".$code_race;
 $result_race = mysqli_query ($link, $query_race);
-while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
+while ($row = mysqli_fetch_array($result_race, MYSQLI_NUM))
 	{
 		$race = $row[0];
 	}
@@ -93,17 +93,17 @@ $_SESSION['resultat_ele'] = $resultat_ele;
 $_SESSION['resultat2'] = $result;
          
 $dep_prec='';
-while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 	{
 		$id = $row[0];
 		$nom = $row[1];
-		$prenom = $row["prenom"];
-		$adresse = $row["adresse"];
-		$adresse2 = $row["adresse2"];
-		$tel = $row["tel"];
-		$tel2 = $row["tel2"];
-		$mail = $row["mail"];
-		$dep = $row["lib_dpt"];
+		$prenom = $row[2];
+		$adresse = $row[3];
+		$adresse2 = $row[4];
+		$tel = $row[5];
+		$tel2 = $row[6];
+		$mail = $row[7];
+		$dep = $row[8];
 		if ($dep_prec!=$dep)
 		{	
 		echo "<br><b>".$dep."</b><br>";

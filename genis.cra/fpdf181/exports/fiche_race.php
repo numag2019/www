@@ -373,7 +373,7 @@ $pdf->Tableau_inv($header_inv_nais,$effectif,$largeur_col,$largeur_lgd);
 
 
 //Graphique d'évolution des effectifs
-//$pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
+$pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
 
 //Page des naissances
 $pdf->AddPage();
@@ -383,7 +383,7 @@ $pdf->Tableau_nais($header_inv_nais,$naissance1,$largeur_col,$largeur_lgd);
 $pdf->Tableau_nais_2($header_nais2,$naissance2,$largeur_col/2,$largeur_lgd);
 
 //Graphique d'évolution des naissances
-//$pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
+$pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
 
 
 // Page d'évolution des présences dans la race

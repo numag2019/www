@@ -105,30 +105,36 @@ function Tableau_ele($header,$effectif,$largeur_col)
     
     
 	// Données
+    
 	foreach($effectif as $row)
 	{
+        
+        
         foreach($row as $col)
-        {
+        {           
             // Restauration des couleurs et de la police pour les données du tableau
-            $this->SetFillColor(224,235,255);
-            $this->SetTextColor(0);
-            $this->SetFont('');
-            $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');
-            
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(7);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C');          
             
         }
 		$this->Ln();
 	}
-    // Trait de terminaison
+    
+        // Trait de terminaison
 	$this->Cell(count($header)*$largeur_col,0,'','T'); //trait pour fermer le tableau
 
 }
 }
 
 $header = array('N°','Nom','Prénom','Adresse','N° fixe','N° portable','Adresse mail','Département');
-// suppression de la colonne contenant la 2e adresse
-$test = array();
+
+
+
+// Suppression de la colonne contenant la 2e adresse
+$resultat_4 = array();
 
 for($i=0;$i<count($resultat);$i++) 
 {
@@ -137,40 +143,19 @@ for($i=0;$i<count($resultat);$i++)
     {
         if($j!=4)
         {
-            $test[$i][$k] = $resultat[$i][$j];
+            $resultat_4[$i][$k] = $resultat[$i][$j];
             $k++;
         }
-    
+        
     }   
    
 }
 
 
-// foreach($resultat as $row)
-// {
-    // foreach($row as $col)
-    // {
-        // $test[] = $col;
-    // }
-    
-// }
-
-
-$pdf = new PDF();
-            
-
-
-
 //création des pages pdf
+$pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
-// for($i=1;$i<=count($departement);$i++)
-// {
-    // $pdf->SetFont('Arial','BU',20); //police des départements
-    // $pdf->Cell(0,10,$departement[$i-1],0,1);
-    // $pdf->Ln(10);
-    $pdf->Tableau_ele($header,$test,24);
-    // $pdf->Ln(10);
-// }
+$pdf->Tableau_ele($header,$resultat_4,24);
 $pdf->Output();
 ?>
