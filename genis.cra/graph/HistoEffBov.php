@@ -173,4 +173,5 @@ $graph->Add($gbarplot);
 // Afficher
 $graph->legend->Pos(0.25,0.85);
 $graph->Stroke();
+$graph->Stroke("EvoEffBovins.png");
 ?>
