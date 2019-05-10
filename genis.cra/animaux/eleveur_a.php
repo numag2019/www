@@ -22,11 +22,9 @@ $_SESSION['current_page']='visu_elevage';
 
 require BODY_START;
 
-/*
- * Starting connection to database
- */
-$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
+//Connection à la BDD
 
+$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 
 ?>
 
@@ -46,13 +44,18 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	<div class="widget-content">
         <div class="padd">
           <?php
-//Récupération de la periode choisie
+// *********************************************************************
+// Récupération des informations à partir de la page visuEleveur.php
+// *********************************************************************
+
+//Récupération de la race choisie
 $code_race = $_GET["race"];
 if ($code_race==1)
 {
 	echo "Aucune race n'a été selectionnée";
 }
 else{
+//Récupération de l'année choisie
 $annee = $_GET["annee"];
 $_SESSION['annee_ele'] = $annee;
 

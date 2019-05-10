@@ -81,10 +81,6 @@ mysqli_set_charset ($link, "utf8mb4");
 	<div class="widget">
 		<div class="widget-head">
 			<div class="pull-left">Evolution des effectifs des races</div>
-			<div class="widget-icons pull-right">
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="widget-content">

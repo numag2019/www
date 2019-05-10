@@ -407,8 +407,12 @@ echo "<center><img src='../graph/HistoEvoBorn.php?code_race=".$code_race."&annee
 		</div>
 		<div class="widget-content">  
 		<?php
-//Requête pour récupérer la liste des animaux et leurs informations
 
+// **********************************************************************
+// Création du tableau des présences dans la race pour une période donnée
+// **********************************************************************
+
+//Requête pour récupérer la liste des animaux et leurs informations
 $query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, elevage_actuel(v_ani_mort.id_animal,".$annee2.") as Elevage, 
 					REPLACE (REPLACE(REPLACE(v_ani_mort.sexe, '1', 'M'), '2', 'F'), '3', 'MC') as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, 
 					mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
