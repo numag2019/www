@@ -23,10 +23,8 @@ function maximum($liste) //Pour liste unique
 
 
 //Récupération des données
-$annee1=2010;
-$annee2=2013;
-// $annee1=$_GET["annee1"];
-// $annee2=$_GET["annee2"];
+$annee1=$_GET["annee1"];
+$annee2=$_GET["annee2"];
 
 //Liste des années
 $j=0;
@@ -98,7 +96,7 @@ for($i=0;$i<$counter;$i++)
 	// Création du graphique conteneur
 	$graph = new Graph(640,480,'auto');    
 	$graph->SetScale('textlin', 0,maximum($somme));
-	$graph->img->SetMargin(60,80,30,80);
+	$graph->img->SetMargin(80,80,30,100);
 
 
 	// Ajouter un onglet
@@ -114,28 +112,22 @@ for($i=0;$i<$counter;$i++)
 	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->SetColor('black');
 
-	$graph->yaxis->SetFont(FF_FONT1,FS_BOLD);
+	$graph->yaxis->SetFont(FF_FONT1);
 	$graph->yaxis->SetColor('black');
-	$graph->ygrid->SetColor('black@0.5');
 
-	// Couleurs et transparence par histogramme A AUTOMATISER
+	// Couleurs et transparence par histogramme
 	$aColor=array('#BCD0F0','#5F84BF','#14438F');
 	$bNoms=array('Béarnaise','Bordelaise','Marine');
-	
-	$bplota = new BarPlot($listVal[0]);
-	$bplota->SetFillColor($aColor[0]);
-	$bplota->SetLegend($bNoms[0]);
-	
-	$bplotb = new BarPlot($listVal[1]);
-	$bplotb->SetFillColor($aColor[1]);
-	$bplotb->SetLegend($bNoms[1]);
-	
-	$bplotc = new BarPlot($listVal[2]);
-	$bplotc->SetFillColor($aColor[2]);
-	$bplotc->SetLegend($bNoms[2]);
-	
-	
-	$aGroupBarPlot = array($bplota,$bplotb,$bplotc);
+
+$i=0;
+	// Chaque  histogramme est un élément du tableau:
+	$aGroupBarPlot = array();
+
+	foreach ($listVal as $key => $value) {
+		$bplot = new BarPlot($listVal[$key]);
+		$bplot->SetLegend($bNoms[$i++]);
+		$aGroupBarPlot[] = $bplot; 
+	}
 
 // ***********************
 // Graphique courbe
@@ -144,32 +136,29 @@ for($i=0;$i<$counter;$i++)
 	$courbe = new LinePlot($somme);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,maximum($somme));
+	$graph->SetYScale(0,'lin', 0,(maximum($somme)+100));
 
 	// $graph->xaxis->title->Set("Années");
 	$graph->yaxis->title->Set("Nombre d'individus");
 	$graph->yaxis->title->SetMargin(15);
 
-
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
+	
+	$graph->ynaxis[0]->SetFont(FF_FONT1);
 
-	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('#2DA81C');
-	$graph->ynaxis[0]->title->Set("Nombre total de bovins");
-	$graph->ynaxis[0]->title->SetColor('#2DA81C');
-	$graph->ynaxis[0]->title->SetMargin(20);
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
-	$courbe->mark->SetColor('#2DA81C');
+	$courbe->mark->SetColor('black');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor("#2DA81C");
+	$courbe->mark->SetFillColor("black");
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor("#2DA81C");
+	$courbe->SetColor("black");
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
-
+	$courbe->SetLegend("Nombre total de bovins");
+	
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
 	$courbe->value->SetFormat('%d');
@@ -182,7 +171,6 @@ $gbarplot->SetWidth(0.8);
 $graph->Add($gbarplot);
 
 // Afficher
-$graph->legend->Pos(0.32,0.90);
+$graph->legend->Pos(0.25,0.85);
 $graph->Stroke();
-$graph->Stroke("EvoEffBovins.png");
 ?>

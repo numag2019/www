@@ -82,33 +82,28 @@ for($i=0;$i<$counter;$i++)
 
 	// Création du graphique conteneur
 	$graph = new Graph(640,480,'auto');    
-	$graph->SetScale('textlin', 0,maximum($somme));
-	$graph->img->SetMargin(60,80,30,40);
-	$graph->legend->Pos(0.02,0.05);
-
-	// Couleur de l'ombre et du fond de la légende
-	$graph->legend->SetShadow('darkgray@0.5');
-	$graph->legend->SetFillColor('lightblue@0.3');
+	$graph->SetScale('textlin', 0,(maximum($somme)+15));
+	$graph->img->SetMargin(80,80,30,80);
+	
+	// Ajouter un onglet
+	$graph->tabtitle->Set("Effectif du nombre d'ovins par race");
+	$graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
+	$graph->tabtitle->SetColor("black");
+	$graph->tabtitle->SetFillColor("white");
 
 	// Pimper les axes
 	$graph->xaxis->setTickLabels($années);
-	$graph->xaxis->title->Set('Annees');
 	$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->title->SetColor('black');
 	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->SetColor('black');
 
-	$graph->yaxis->SetFont(FF_FONT1,FS_BOLD);
+	$graph->yaxis->SetFont(FF_FONT1);
 	$graph->yaxis->SetColor('black');
 	$graph->ygrid->SetColor('black@0.5');
 
 
-	$graph->title->Set("Effectif du nombre d'ovins par race");
-	$graph->title->SetMargin(6);
-	$graph->title->SetFont(FF_ARIAL,FS_NORMAL,12);
-
-// Couleurs (qui ne marchent pas) et les noms (qui marchent)
-$aColors=array('pink','gray','blue', 'blue@0.3','green@0.8');
+// Couleurs (qui ne marchent pas) et les noms (qui marchent);
 $bNoms=array('Sasi Aria','Landais');
 
 $j=0;
@@ -130,27 +125,28 @@ $j=0;
 	$courbe = new LinePlot($somme);
 	
 	// Echelle des Y que si je met pas ça ne fonctionne pas
-	$graph->SetYScale(0,'lin', 0,maximum($somme));
+	$graph->SetYScale(0,'lin', 0,(maximum($somme)+15));
 
 	// $graph->xaxis->title->Set("Années");
 	$graph->yaxis->title->Set("Nombre d'individus");
+	$graph->yaxis->title->SetMargin(15);
 
 	// Ajouter un axe Y supplémentaire
 	$graph->AddY(0,$courbe);
 
 	// Couleur de l'axe Y supplémentaire
-	$graph->ynaxis[0]->SetColor('#3A5ED9');
-	$graph->ynaxis[0]->title->Set("Nombre total d'ovins");
+	$graph->ynaxis[0]->SetColor('black');
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);
 	$courbe->mark->SetColor('black');
 	$courbe->mark->SetSize(6);
-	$courbe->mark->SetFillColor('#3A5ED9');
+	$courbe->mark->SetFillColor('black');
 	$courbe->mark->SetWidth(6);
-	$courbe->SetColor('#7AC6EF');
+	$courbe->SetColor('black');
 	$courbe->SetCenter();
 	$courbe->SetWeight(6);
+	$courbe->SetLegend("Nombre total d'ovins");
 
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
@@ -164,6 +160,7 @@ $gbarplot->SetWidth(0.8);
 $graph->Add($gbarplot);
 
 // Afficher
+$graph->legend->Pos(0.25,0.90);
 $graph->Stroke();
 $graph->Stroke("EvoEffovins.png");
 ?>
