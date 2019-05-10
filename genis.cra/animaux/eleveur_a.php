@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Page crée par les NumAg 2019
+		Cette page contient l'export fiche eleveur avec la liste des éleveurs de la race
+		Etudiant référent : Marine Gautier---->
   <title>GenIS</title>
 
   <?php
@@ -22,11 +25,9 @@ $_SESSION['current_page']='visu_elevage';
 
 require BODY_START;
 
-/*
- * Starting connection to database
- */
-$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
+//Connection à la BDD
 
+$link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 
 ?>
 
@@ -46,16 +47,23 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 	<div class="widget-content">
         <div class="padd">
           <?php
-//Récupération de la periode choisie
+// *********************************************************************
+// Récupération des informations à partir de la page visuEleveur.php
+// *********************************************************************
+
+//Récupération de la race choisie
 $code_race = $_GET["race"];
+
+//Vérification la race "Inconnue" n'a pas été choisie
 if ($code_race==1)
 {
 	echo "Aucune race n'a été selectionnée";
 }
 else{
+	
+//Récupération de l'année choisie
 $annee = $_GET["annee"];
 $_SESSION['annee_ele'] = $annee;
-
 
 //Connection au serveur
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
@@ -72,6 +80,10 @@ while ($row = mysqli_fetch_array($result_race, MYSQLI_NUM))
 	}
     
 $_SESSION['race_ele'] = $race;
+
+// ********************************************************
+// Création de la liste des éleveurs de la race
+// *******************************************************
 
 //Récupération des informations sur l'eleveur
 $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, tel, tel2, mail, lib_dpt 
@@ -96,7 +108,8 @@ while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 mysqli_data_seek($result,0);
 $_SESSION['resultat_ele'] = $resultat_ele;
 $_SESSION['resultat2'] = $result;
-         
+ 
+//Affichage de la liste 
 $dep_prec='';
 while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 	{
