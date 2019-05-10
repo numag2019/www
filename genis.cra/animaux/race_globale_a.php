@@ -27,6 +27,13 @@ require BODY_START;
  */
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 
+//supression des graphiques pour ne pas les corrompres s'ils existents déjà
+if (is_readable('../graph/EvoEffBovins.png') == TRUE)
+    unlink('../graph/EvoEffBovins.png');
+if (is_readable('../graph/EvoEffEquin.png') == TRUE)
+    unlink('../graph/EvoEffEquin.png');
+if (is_readable('../graph/EvoEffovins.png') == TRUE)
+    unlink('../graph/EvoEffovins.png');
 
 ?>
 
