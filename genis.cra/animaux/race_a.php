@@ -66,9 +66,11 @@ unlink('../graph/EvoNbFem.png');
 
 $code_race = $_GET["race"];
 
-if ($code_race=1)
+if ($code_race==1)
 {
-	echo (
+	echo "Aucune race n'a été selectionnée";
+}
+else{
 $annee1 = $_GET["annee1"];
 $annee2 = $_GET["annee2"];
 
@@ -408,6 +410,7 @@ include "fonctions_php.php";
 echo "<center>";
 creer_tab_HTML ($result);
 echo "</center><br><br>";
+}
           ?>
 		</div>
     </div>

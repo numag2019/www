@@ -48,6 +48,11 @@ $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
           <?php
 //Récupération de la periode choisie
 $code_race = $_GET["race"];
+if ($code_race==1)
+{
+	echo "Aucune race n'a été selectionnée";
+}
+else{
 $annee = $_GET["annee"];
 $_SESSION['annee_ele'] = $annee;
 
@@ -75,7 +80,7 @@ $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, t
 						left join elevage on contact.id_elevage=elevage.id_elevage 
 						left join link_race_elevage on elevage.id_elevage=link_race_elevage.id_elevage 
 						left join periode on elevage.id_elevage=periode.id_elevage 
-			WHERE code_race=".$code_race."
+			WHERE code_race=".$code_race."and contact.Consentement='Oui'
 			ORDER BY departement.no_dpt";
 $result = mysqli_query ($link, $query);
 
@@ -110,7 +115,8 @@ while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 		}
 		$dep_prec=$dep;
 		echo "<p style='text-indent:20px'><b>".$id."</b> ".$nom." ".$prenom.", ".$adresse." ".$adresse2.", Tel : ".$tel."/".$tel2." Mail : ".$mail."</p>";
-	}			
+	}
+}	
           ?>
 		</div>
 
