@@ -1,4 +1,5 @@
 <?php
+//Page réalisé par l'équipe NumAg 2018-2019
 // Cette page à pour but de coder l'exportation en pdf de l'export Fiche eleveurs contenant l'ensemble des informations 
 // des eleveurs. Cet export est composé d'un unique tableau.
 //élève référent : Amaury Branthomme
