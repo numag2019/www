@@ -1,7 +1,9 @@
 <?php
 //Page réalisé par l'équipe NumAg 2018-2019
-//cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
+//Cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
 //élève référent : Amaury Branthomme
+
+//Commentaires : J'ai du utiliser la fonction utf8_decode car cette page est en lien avec une page où les données sont en UTF8
 
 
 /////////////////////////////////////////// Initialisation ///////////////////////////////////////////////////
@@ -111,7 +113,7 @@ function Tableau_inv($header,$effectif,$largeur_col,$largeur_lgd)
 		$this->Ln();
 	}
     // Trait de terminaison
-	$this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T'); //trait pour fermer le tableau
+	$this->Cell($largeur_lgd+(count($header)-1)*$largeur_col,0,'','T');
 
 }
 
@@ -136,9 +138,9 @@ function Tableau_nais($header,$effectif,$largeur_col,$largeur_lgd)
     
     
 	// Données
-	foreach($effectif as $row)
+	foreach($effectif as $row)//on parcourt l'ensemble des lignes
 	{
-        foreach($row as $col)
+        foreach($row as $col)//on parcourt l'ensemble des elements de la ligne
         {
             if (is_numeric($col))
             {
@@ -165,7 +167,7 @@ function Tableau_nais($header,$effectif,$largeur_col,$largeur_lgd)
 
 }
 
-//Fonction réalisant le tableau
+//Fonction réalisant le tableau avec le pourcentage des naissances
 function Tableau_nais_2($header,$effectif,$largeur_col,$largeur_lgd)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
@@ -345,27 +347,29 @@ $naissance2 = array($veaux_m,$veaux_f);
 //création du pdf
 $pdf = new PDF();
 
-//Page des tableaux
-$pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
-$pdf->AddPage();
-$pdf->SetFont('');
-
 //Taille des colonnes
 $largeur_col = 150/(count($header_inv_nais)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
 $largeur_lgd = 40;
 
+
+
+////Page de l'inventaire de la race
+$pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
+$pdf->AddPage();
+$pdf->SetFont('');
+
 //Tableau d'évolution des effectifs inventories dans la race
 $pdf->Tableau_inv($header_inv_nais,$effectif,$largeur_col,$largeur_lgd);
-
 
 //Graphique d'évolution des effectifs
 $pdf->Image('../../graph/EvoNbFem.png',7,100,-80);
 
-//Page des naissances
+
+
+////Page des naissances
 $pdf->AddPage();
 
 //Tableau d'évolution des naissances
-
 $pdf->Tableau_nais($header_inv_nais,$naissance1,$largeur_col,$largeur_lgd);
 $pdf->Tableau_nais_2($header_nais2,$naissance2,$largeur_col/2,$largeur_lgd);
 
@@ -373,14 +377,16 @@ $pdf->Tableau_nais_2($header_nais2,$naissance2,$largeur_col/2,$largeur_lgd);
 $pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
 
 
-// Page d'évolution des présences dans la race
+
+//// Page d'évolution des présences dans la race
 $pdf->AddPage('L');//affichage en mode paysage
 
 //Tableau d'évolution de la présence dans la race
 $pdf->Tableau_presence($header_pre,$resultat,28);
 
-//affichage et sauvegarde du fichier en pdf
 
+
+//affichage et sauvegarde du fichier en pdf
 for($i=1;$i<=2;$i++)
 	{
 	    if($i==1)

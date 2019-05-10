@@ -4,6 +4,8 @@
 // des eleveurs. Cet export est composé d'un unique tableau.
 //élève référent : Amaury Branthomme
 
+//Commentaires : J'ai du utiliser la fonction utf8_decode car cette page est en lien avec une page où les données sont en UTF8
+
 /////////////////////////////////////////// Initialisation ///////////////////////////////////////////////////
 
 session_start();
@@ -63,8 +65,8 @@ function Footer()
 function Tableau_ele($header,$effectif,$largeur_col)
 {
     // Couleurs, épaisseur du trait et police grasse pour l'entete
-	$this->SetFillColor(133,195,43);
-	$this->SetTextColor(0);
+	$this->SetFillColor(133,195,43); //couleur du fond des cases
+	$this->SetTextColor(0); //couleur du texte
 	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
@@ -78,9 +80,9 @@ function Tableau_ele($header,$effectif,$largeur_col)
     
 	// Données
     
-	foreach($effectif as $row)
+	foreach($effectif as $row)//on parcourt l'ensemble des lignes
 	{
-        foreach($row as $col)
+        foreach($row as $col)//on parcourt l'ensemble des elements de la ligne
         {
 
             if (strlen($col)>25) //modification de la taille de la police en fonction de la taille des chaines de caractère
@@ -147,13 +149,15 @@ for($i=0;$i<count($resultat);$i++)
 
 ///////////////////////////////////////////Affichage des pages PDF ///////////////////////////////////////////////////
 //Taille des colonnes
-$largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
+$largeur_col = 242/(count($header)-1); //taille des colonnes adaptatives en fonction du nombre d'informations.
 
 //création des pages pdf
 $pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
-$pdf->AddPage('L');
+$pdf->AddPage('L');//pour afficher le pdf en paysage
 $pdf->Tableau_ele($header,$resultat_4,$largeur_col);
+
+
 
 //affichage et sauvegarde du fichier en pdf
 

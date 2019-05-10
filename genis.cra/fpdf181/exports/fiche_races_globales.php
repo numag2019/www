@@ -3,6 +3,8 @@
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race globales. Cet export est composé d'un tableau et de 3 graphiques
 //élève référent : Amaury Branthomme
 
+//Commentaires : J'ai du utiliser la fonction utf8_decode car cette page est en lien avec une page où les données sont en UTF8
+
 /////////////////////////////////////////// Initialisation ///////////////////////////////////////////////////
 
 session_start();
@@ -83,9 +85,9 @@ function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
     
     
 	// Données
-	foreach($effectif as $row)
+	foreach($effectif as $row)//on parcourt l'ensemble des lignes
 	{
-        foreach($row as $col)
+        foreach($row as $col)//on parcourt l'ensemble des elements de la ligne
         {
             if (is_numeric($col))
             {
@@ -140,16 +142,17 @@ $pdf = new PDF();
 $largeur_col = 150/(count($header)-1); //taille des colonnes des années adaptatives en fonction du nombre d'années
 $largeur_lgd = 40;
 
-//Page des tableaux
+
+
+//Page des effectifs inventories dans l'ensembles des races
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage();
 $pdf->SetFont('');
 
-//Tableau d'évolution des effectifs inventories dans la race
+//Tableau d'évolution des effectifs dans l'ensemble des races
 $pdf->Tableau($header,$effectif,$largeur_col,$largeur_lgd);
 
-//Espace entre les différents éléments de la page
-$pdf->Ln(10);
+
 
 // Page des graphiques
 $pdf->AddPage();
@@ -160,8 +163,8 @@ $pdf->Image('../../graph/EvoEffEquin.png',20,60,-90);
 $pdf->AddPage();
 $pdf->Image('../../graph/EvoEffovins.png',20,60,-90);
 
-//Espace entre les différents éléments de la page
-$pdf->Ln();
+
+
 
 //affichage et sauvegarde du fichier en pdf
 
