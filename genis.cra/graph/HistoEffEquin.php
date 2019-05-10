@@ -150,4 +150,5 @@ $graph->Add($gbarplot);
 
 // Afficher
 $graph->Stroke();
+$graph->Stroke("EvoEffEquin.png");
 ?>

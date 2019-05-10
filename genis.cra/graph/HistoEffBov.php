@@ -123,30 +123,19 @@ for($i=0;$i<$counter;$i++)
 	$bNoms=array('Béarnaise','Bordelaise','Marine');
 	
 	$bplota = new BarPlot($listVal[0]);
-	$bplot->SetFillColor($aColor[0]);
+	$bplota->SetFillColor($aColor[0]);
+	$bplota->SetLegend($bNoms[0]);
 	
 	$bplotb = new BarPlot($listVal[1]);
-	$bplot->SetFillColor($aColor[1]);
+	$bplotb->SetFillColor($aColor[1]);
+	$bplotb->SetLegend($bNoms[1]);
 	
 	$bplotc = new BarPlot($listVal[2]);
-	$bplot->SetFillColor($aColor[2]);
+	$bplotc->SetFillColor($aColor[2]);
+	$bplotc->SetLegend($bNoms[2]);
 	
 	
-	
-
-$i=0;
-	// Chaque  histogramme est un élément du tableau:
-	
-	
-	$aGroupBarPlot = array();
-
-	foreach ($listVal as $key => $value) {
-		$bplot = new BarPlot($listVal[$key]);
-		$bplot->SetFillColor($aColor[$i]);
-		$bplot->SetLegend($bNoms[$i]);
-		$aGroupBarPlot[] = $bplot; 
-		$i=$i+1;
-	}
+	$aGroupBarPlot = array($bplota,$bplotb,$bplotc);
 
 // ***********************
 // Graphique courbe
@@ -195,4 +184,5 @@ $graph->Add($gbarplot);
 // Afficher
 $graph->legend->Pos(0.32,0.90);
 $graph->Stroke();
+$graph->Stroke("EvoEffBovins.png");
 ?>
