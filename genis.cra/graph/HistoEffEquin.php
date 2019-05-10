@@ -121,7 +121,7 @@ $i=0;
 	
 	// Couleur de l'axe Y supplémentaire
 	$graph->ynaxis[0]->SetColor('black');
-	$graph->yaxis->SetFont(FF_FONT1);
+	$graph->ynaxis[0]->SetFont(FF_FONT1);
 	
 	// Apparence des points
 	$courbe->mark->SetType(MARK_SQUARE);

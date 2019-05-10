@@ -308,7 +308,14 @@ $nb_veau_m[0]="Veaux mâles";
 			{
 					echo "<td><center>";
 					$nb_veau_m[$j]=$row[0];
-					echo $nb_veau_m[$j]." (".intval(($nb_veau_m[$j]/$nb_veau[$j])*100).")";
+					if ($nb_veau_m[$j]==0)
+					{
+						echo 0;
+					}
+					else
+					{
+						echo $nb_veau_m[$j]." (".intval(($nb_veau_m[$j]/$nb_veau[$j])*100).")";
+					}
 					echo"</center></td>";
 			}
 		$j=$j+1;
@@ -329,7 +336,14 @@ $nb_veau_f[0]="Veaux femelles";
 			{
 					echo "<td><center>";
 					$nb_veau_f[$j]=$row[0];
+					if ($nb_veau_f[$j]==0)
+					{
+						echo 0;
+					}
+					else
+					{
 					echo $nb_veau_f[$j]." (".intval(($nb_veau_f[$j]/$nb_veau[$j])*100).")";
+					}
 					echo"</center></td>";
 			}
 		$j=$j+1;
