@@ -7,6 +7,12 @@ require_once ('./jpgraph-4.2.6/src/jpgraph.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
+//Page crée par les NumAg 2019
+//Cette page permet l'affichage de l'histogramme d'évolution de la population de Bovins
+
+// *************************
+// Fonctions
+// *************************
 
 function maximum($liste) //Pour liste unique
 {
@@ -21,8 +27,10 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
+// *************************
+// Récupération des données
+// *************************
 
-//Récupération des données
 $annee1=$_GET["annee1"];
 $annee2=$_GET["annee2"];
 
@@ -38,25 +46,22 @@ for($i=$annee1;$i<=$annee2;$i++)
 $link = mysqli_connect('127.0.0.1','root','','genis_test');
 mysqli_set_charset ($link, "utf8mb4");
 
-//Requête pour récupérer le nombre de béarnaise
+//Requête pour récupérer les effectifs de béarnaise pour chaque année dans une liste
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
-	//Requête pour récupérer l'effectifs de béarnaise
-	$query= "SELECT nb_race(19,".$i.")";
+	$query= "SELECT nb_race(19,".$i.")"; //Le code race des béarnaise dans GENIS est 19
 	$result = mysqli_query ($link, $query);
 	$tab = mysqli_fetch_all ($result);
 	$datay1[$j] = $tab[0][0];
-
 	$j=$j+1;
 }
 
-//Requête pour récupérer le nombre de bordelaise
+//Requête pour récupérer les effectifs de bordelaises pour chaque année dans une liste
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
-	//Requête pour récupérer l'effectifs de bordelaise
-	$query= "SELECT nb_race(5,".$i.")";
+	$query= "SELECT nb_race(5,".$i.")";//Le code race des béarnaise dans GENIS est 5
 	$result = mysqli_query ($link, $query);
 	$tab = mysqli_fetch_all ($result);
 	$datay2[$j] = $tab[0][0];
@@ -64,12 +69,11 @@ for($i=$annee1;$i<=$annee2;$i++)
 	$j=$j+1;
 }
 
-//Requête pour récupérer le nombre de marine
+//Requête pour récupérer les effectifs de marines pour chaque année dans une liste
 $j=0;
 for($i=$annee1;$i<=$annee2;$i++)
 {
-	//Requête pour récupérer l'effectifs de marine
-	$query= "SELECT nb_race(6,".$i.")";
+	$query= "SELECT nb_race(6,".$i.")";//Le code race des marines dans GENIS est 6
 	$result = mysqli_query ($link, $query);
 	$tab = mysqli_fetch_all ($result);
 	$datay3[$j] = $tab[0][0];
@@ -77,14 +81,14 @@ for($i=$annee1;$i<=$annee2;$i++)
 	$j=$j+1;
 }
 
+//Regroupement des listes d'effectifs pour chaque race
 $listVal=array($datay1,$datay2,$datay3);
 
 $counter=count($datay1);
 
 for($i=0;$i<$counter;$i++)
 {
-	$somme[$i]=$datay1[$i]+$datay2[$i]+$datay3[$i];
-	
+	$somme[$i]=$datay1[$i]+$datay2[$i]+$datay3[$i];	
 }
 
 
@@ -93,10 +97,13 @@ for($i=0;$i<$counter;$i++)
 // **********************
 
 	// Création du graphique conteneur
-	$graph = new Graph(640,480,'auto');    
+	$graph = new Graph(640,480,'auto');
+	
+	//Type d'échelle
 	$graph->SetScale('textlin', 0,(maximum($somme)+100));
+	
+	//Fixer les marges
 	$graph->img->SetMargin(80,120,30,100);
-
 
 	// Ajouter un onglet
 	$graph->tabtitle->Set("Effectif du nombre de bovins par race");
@@ -104,20 +111,21 @@ for($i=0;$i<$counter;$i++)
 	$graph->tabtitle->SetColor("black");
 	$graph->tabtitle->SetFillColor("white");
 
-	// Pimper les axes
+	// Axe X
 	$graph->xaxis->setTickLabels($années);
 	$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->title->SetColor('black');
 	$graph->xaxis->SetFont(FF_FONT1,FS_BOLD);
 	$graph->xaxis->SetColor('black');
-
+	
+	//Axe Y
 	$graph->yaxis->SetFont(FF_FONT1);
 	$graph->yaxis->SetColor('black');
 
-	// Couleurs et transparence par histogramme
+	// Nom par histogramme
 	$bNoms=array('Béarnaise','Bordelaise','Marine');
 
-$i=0;
+	$i=0;
 	// Chaque  histogramme est un élément du tableau:
 	$aGroupBarPlot = array();
 
@@ -161,6 +169,10 @@ $i=0;
 	// Affichage des valeurs
 	$courbe->SetBarCenter();
 	$courbe->value->SetFormat('%d');
+
+// ***********************
+// Affichage
+// ***********************
 	
 // Création de l'objet qui regroupe nos histogrammes
 $gbarplot = new GroupBarPlot($aGroupBarPlot);
@@ -169,8 +181,10 @@ $gbarplot->SetWidth(0.8);
 // Ajouter au graphique
 $graph->Add($gbarplot);
 
-// Afficher
+//Positionner la légende
 $graph->legend->Pos(0.25,0.85);
+
+// Afficher et enregistrer l'image du graphique
 $graph->Stroke();
 $graph->Stroke("EvoEffBovins.png");
 ?>

@@ -80,7 +80,7 @@ $query = "	SELECT distinct elevage.no_elevage, nom, prenom, adresse, adresse2, t
 						left join elevage on contact.id_elevage=elevage.id_elevage 
 						left join link_race_elevage on elevage.id_elevage=link_race_elevage.id_elevage 
 						left join periode on elevage.id_elevage=periode.id_elevage 
-			WHERE code_race=".$code_race."and contact.Consentement='Oui'
+			WHERE code_race=".$code_race." and contact.Consentement='Oui'
 			ORDER BY departement.no_dpt";
 $result = mysqli_query ($link, $query);
 
