@@ -6,7 +6,7 @@
 	 
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
 	<!-- Page crée par les NumAg 2019
-		Cette page contient l'export fiche race avec les tableaux et graphique des effectis, des naisances et des présences dans la race
+		Cette page contient l'export fiche race avec les tableaux et graphique des effectifs, des naisances et des présences dans la race
 		Etudiant référent : Marine Gautier---->
   <title>GenIS</title>
 

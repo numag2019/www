@@ -1,4 +1,11 @@
 <?php
+// Page crée par les NumAg 2019
+// Cette page contient les fonctions utilisées dans les pages race_a.php, race_globale_a.php, eleveur_a.php 
+// Etudiant référent : Marine Gautier
+
+// ********************************************************
+// Fonctions de création de tableau et de liste déroulante
+// ********************************************************
 
 //Fonction qui crée et met en page un tableau pour afficher les données contenues dans le résultat d'une requête
 		function creer_tab_HTML ($result)
