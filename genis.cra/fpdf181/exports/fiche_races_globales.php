@@ -68,6 +68,19 @@ function Footer()
 //Fonction réalisant le tableau
 function Tableau($header,$effectif,$largeur_col,$largeur_lgd)
 {
+    //Titre
+    $annee = $_SESSION['annee_glo'];
+    // Couleurs, épaisseur du trait et police pour le titre
+	$this->SetFillColor(133,195,43);
+	$this->SetTextColor(0);
+	$this->SetDrawColor(0,0,0); //couleur des lignes du tableau
+	$this->SetLineWidth(.3);
+	$this->SetFont('','B');
+    $this->SetFontSize(12);
+    
+    $this->Cell($largeur_col,7,utf8_decode('Evolution des effectifs des races entre '.$annee[0].' et '.end($annee)));
+    $this->Ln();
+    
     // Couleurs, épaisseur du trait et police grasse pour l'entete
 	$this->SetFillColor(133,195,43);
 	$this->SetTextColor(0);
