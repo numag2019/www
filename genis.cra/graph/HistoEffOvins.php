@@ -9,6 +9,7 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Page crée par les NumAg 2019
 //Cette page permet l'affichage de l'histogramme d'évolution de la population d'ovins
+//Etudiant référant : Guillaume Vincent
 
 // *************************
 // Fonctions

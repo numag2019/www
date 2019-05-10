@@ -8,6 +8,7 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 
 //Page crée par les NumAg 2019
 //Cette page permet l'affichage de l'histogramme d'évolution des effectifs de femelles et de détenteurs pour une race donnée
+//Etudiant référant : Guillaume Vincent
 
 // **********************************************
 // Récupération des données de la page race_a.php

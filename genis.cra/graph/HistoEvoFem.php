@@ -10,6 +10,7 @@ require_once '../libraries/constants.php';
 
 //Page crée par les NumAg 2019
 //Cette page permet l'affichage de l'histogramme d'évolution des effectifs de femelles et de détenteurs pour une race donnée
+//Etudiant référant : Guillaume Vincent
 
 // *************************
 // Fonctions
