@@ -8,6 +8,12 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_bar.php');
 require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 require_once '../libraries/constants.php';
 
+//Page crée par les NumAg 2019
+//Cette page permet l'affichage de l'histogramme d'évolution des effectifs de femelles et de détenteurs pour une race donnée
+
+// *************************
+// Fonctions
+// *************************
 function maximum($liste) //Pour liste unique
 {
 	$stock=0;
@@ -21,7 +27,10 @@ function maximum($liste) //Pour liste unique
 	return $stock;
 }
 
-//Récupération des données
+// **********************************************
+// Récupération des données de la page race_a.php
+// **********************************************
+
 $annee1=$_GET["annee1"];
 $annee2=$_GET["annee2"];
 $code_race=$_GET["code_race"];
