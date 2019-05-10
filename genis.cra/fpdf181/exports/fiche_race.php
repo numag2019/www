@@ -175,14 +175,28 @@ function Tableau_presence($header,$effectif,$largeur_col)
 	// Données
 	foreach($effectif as $row)
 	{
+        // print_r($row);
         foreach($row as $col)
         {
+            if(strlen($col)>16)
+            {
+                // Restauration des couleurs et de la police pour les données du tableau
+                $this->SetFillColor(224,235,255);
+                $this->SetTextColor(0);
+                $this->SetFont('');
+                $this->SetFontSize(5);
+                $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C'); //substr pour que les listes rentrent dans les colonnes
+                
+            }
+            else
+            {            
             // Restauration des couleurs et de la police pour les données du tableau
             $this->SetFillColor(224,235,255);
             $this->SetTextColor(0);
             $this->SetFont('');
             $this->SetFontSize(7);
-            $this->Cell($largeur_col,6,utf8_decode(substr($col,0,10)),'LR',0,'C'); //substr pour que les listes rentrent dans les colonnes
+            $this->Cell($largeur_col,6,utf8_decode($col),'LR',0,'C'); //substr pour que les listes rentrent dans les colonnes
+            }
             
             
         }
@@ -390,9 +404,9 @@ $pdf->Image('../../graph/EvoNaissances.png',7,100,-80);
 
 
 // Page d'évolution des présences dans la race
-$pdf->AddPage();
+$pdf->AddPage('L');
 //Tableau d'évolution de la présence dans la race
-$pdf->Tableau_presence($header_pre,$resultat,19);
+$pdf->Tableau_presence($header_pre,$resultat,28);
 
 
 
