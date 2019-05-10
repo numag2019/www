@@ -6,7 +6,8 @@
 	 
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/cr-1.3.2/fc-3.2.2/kt-2.2.0/r-2.1.0/rr-1.2.0/sc-1.4.2/se-1.2.0/datatables.min.js"></script>
 	<!-- Page crée par les NumAg 2019
-		Cette page contient l'export fiche race avec les tableaux et graphique des effectis, des naisances et des présences dans la race ---->
+		Cette page contient l'export fiche race avec les tableaux et graphique des effectis, des naisances et des présences dans la race
+		Etudiant référent : Marine Gautier---->
   <title>GenIS</title>
 
   <?php
@@ -62,15 +63,22 @@ unlink('../graph/EvoNbFem.png');
 	<div class="widget-content">
         <div class="padd">
           <?php
-//Récupération de la race et de la période choisies
+		  
+// **************************************************************
+// Récupération des informations à partir de la page visuRace.php
+// **************************************************************
 
+//Récupération de la race choisie
 $code_race = $_GET["race"];
 
+//Vérification la race "Inconnue" n'a pas été choisie
 if ($code_race==1)
 {
 	echo "Aucune race n'a été selectionnée";
 }
 else{
+
+//Récupération de la période choisie
 $annee1 = $_GET["annee1"];
 $annee2 = $_GET["annee2"];
 
@@ -87,7 +95,6 @@ $_SESSION['annee'] = $annee;
 $link = mysqli_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
 mysqli_set_charset ($link, "utf8mb4");
 
-
 //Requête pour récupérer le nom de la race choisie
 $query_race = "	SELECT 	lib_race
 				FROM race
@@ -103,16 +110,16 @@ while ($row = mysqli_fetch_array($result_race, MYSQLI_BOTH))
 	<div class="widget">
 		<div class="widget-head">
 			<div class="pull-left">Evolution des effectifs inventoriés</div>
-			<div class="widget-icons pull-right">
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="widget-content">
 			  
 		<?php
-//Création du tableau
+		
+// **********************************************************
+// Création du tableau d'évolution des effectifs dans la race
+// **********************************************************
+
 echo "<table border ='1', class = 'table table-striped table-bordered table-hover'>";
 
 //Affichage des titres dans la 1ère ligne du tableau
@@ -124,6 +131,10 @@ echo "<table border ='1', class = 'table table-striped table-bordered table-hove
 		echo"</td>";
 	}
 	echo "</tr></thead>";
+	
+// **********************
+// Effectifs de femelles
+// **********************
 
 // Affichage des effectif de femelles dans chaque case du tableau
 echo "<tbody><tr><td> Totale femelles inventoriées </td>";
@@ -146,7 +157,6 @@ $nb_femelle[0]="Totale femelles inventoriées";
 	$_SESSION['nb_femelle'] = $nb_femelle;
 echo "</tr>";
 
-
 //Affichage des effectifs de femelles de plus de 2 ans dans chaque case du tableau
 echo "<tr><td> Femelles de plus de 2 ans  </td>";
 $j=1;
@@ -167,8 +177,6 @@ $nb_femelle_2[0]="Femelles de plus de 2 ans";
 	}
 	$_SESSION['nb_femelle_2'] = $nb_femelle_2;
 echo "</tr>";
-
-
 
 //Affichage des effectifs de femelles née dans l'année dans chaque case du tableau
 echo "<tr><td> Femelles nées dans l'année </td>";
@@ -191,6 +199,10 @@ $nb_femelle_nee[0]="Femelles nées dans l'année";
 	$_SESSION['nb_femelle_nee'] = $nb_femelle_nee;
 echo "</tr>";
 
+// **********************
+// Effectifs de taureaux
+// **********************
+
 //Affichage des effectifs de taureaux dans chaque case du tableau
 echo "<tr><td> Taureaux </td>";
 $j=1;
@@ -211,6 +223,10 @@ $nb_taureau[0]="Taureaux";
 	}
 	$_SESSION['nb_taureau'] = $nb_taureau;
 echo "</tr>";
+
+// ************************
+// Effectifs de détenteurs
+// ************************
 
 //Affichage des effectifs de détenteurs dans l'année dans chaque case du tableau
 echo "<tr><td> Détenteurs </td>";
@@ -240,6 +256,10 @@ echo "</table>";
 	</div>
 	
 	<?php
+// **********************
+// Affichage du graphique
+// **********************
+
 //Transmission des valeurs à la page HistoEvoFem pour afficher le graphique
 echo "<center><img src='../graph/HistoEvoFem.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
 		?>
@@ -248,16 +268,15 @@ echo "<center><img src='../graph/HistoEvoFem.php?code_race=".$code_race."&annee1
 	<div class="widget">
 		<div class="widget-head">
 			<div class="pull-left">Evolution du nombre de naissance</div>
-			<div class="widget-icons pull-right">
-				<a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				<a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="widget-content">
 			  
 		<?php
-//Création du tableau
+// *******************************************************************
+// Création du tableau d'évolution du nombre de naissance dans la race
+// *******************************************************************
+
 echo "<table border ='1', class = 'table table-striped table-bordered table-hover'>";
 
 //Affichage des titres dans la 1ère ligne du tableau
@@ -269,6 +288,10 @@ echo "<table border ='1', class = 'table table-striped table-bordered table-hove
 		echo"</td>";
 	}
 	echo "</tr></thead>";
+
+// *******************
+// Effectifs de veaux
+// *******************
 
 // Affichage des effectifs de veaux dans chaque case du tableau
 echo "<tbody><tr><td> Nombre de veaux nés </td>";
@@ -315,6 +338,7 @@ $nb_veau_m[0]="Veaux mâles";
 			{
 					echo "<td><center>";
 					$nb_veau_m[$j]=$row[0];
+					//Vérification que le nombre de veau n'est pas nul pour éviter une division par 0
 					if ($nb_veau_m[$j]==0)
 					{
 						echo 0;
@@ -343,6 +367,7 @@ $nb_veau_f[0]="Veaux femelles";
 			{
 					echo "<td><center>";
 					$nb_veau_f[$j]=$row[0];
+					//Vérification que le nombre de veau n'est pas nul pour éviter une division par 0
 					if ($nb_veau_f[$j]==0)
 					{
 						echo 0;
@@ -365,6 +390,10 @@ echo "</table>";
     </div>
 	
 	<?php
+// **********************
+// Affichage du graphique
+// **********************
+
 //Transmission des valeurs à la page HistoEvoBorn pour afficher le graphique
 echo "<center><img src='../graph/HistoEvoBorn.php?code_race=".$code_race."&annee1=".$annee1."&annee2=".$annee2."'></center>";
 		?>
@@ -374,10 +403,6 @@ echo "<center><img src='../graph/HistoEvoBorn.php?code_race=".$code_race."&annee
 		<?php
 			echo "<div class='pull-left'>Présence dans la race en ".$annee2." </div>"
 		?>
-			<div class="widget-icons pull-right">
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-				  <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
-			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="widget-content">  

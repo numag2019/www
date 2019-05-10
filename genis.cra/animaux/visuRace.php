@@ -122,26 +122,21 @@ mysqli_set_charset ($link, "utf8mb4");
 					$annee2 = "annee2";
 					//Création de la liste déroulante
 					creer_liste_HTML ($annee2,$tab_annee2);
-					
-	//Affichage du bouton rechercher
-	echo	"</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><br>
-					<INPUT TYPE = 'SUBMIT' class='btn btn-sm btn-success' name = 'bt_submit' value = 'Rechercher' ><br><br>
-				</td>
-				<td></td>
-				<td></td>
-			</tr>
-			
-			</FORM><br><br>
-		
-	</table>"
-
-          ?>
+		?>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td><br>
+		<INPUT TYPE = 'SUBMIT' class='btn btn-sm btn-success' name = 'bt_submit' value = 'Rechercher' ><br><br>
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+</FORM><br><br>
+</table>
 
         </div>
       </div>

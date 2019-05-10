@@ -9,7 +9,7 @@ require_once ('./jpgraph-4.2.6/src/jpgraph_line.php');
 
 //Page crée par les NumAg 2019
 //Cette page permet l'affichage de l'histogramme d'évolution de la population de bovins
-//Etudiant référant : Guillaume Vincent
+//Etudiants référants : Guillaume Vincent, Marine Gautier
 
 // *************************
 // Fonctions
@@ -107,7 +107,7 @@ $graph->SetScale('textlin', 0,(maximum($somme)+100));
 $graph->img->SetMargin(80,120,30,100);
 
 // Ajouter un onglet
-$graph->tabtitle->Set("Effectif du nombre de bovins par race");
+$graph->tabtitle->Set("Effectifs de bovins par race");
 $graph->tabtitle->SetFont(FF_ARIAL,FS_BOLD,14);
 $graph->tabtitle->SetColor("black");
 $graph->tabtitle->SetFillColor("white");
