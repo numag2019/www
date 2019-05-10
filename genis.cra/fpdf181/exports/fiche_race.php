@@ -1,4 +1,5 @@
 <?php
+//Page réalisé par l'équipe NumAg 2018-2019
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race. Cet export est composé de 3 tableaux et de 2 graphiques
 //élève référent : Amaury Branthomme
 
@@ -349,6 +350,8 @@ $naissance1 = array($nb_veau);
 $pourcent_veaux_m = array();
 $pourcent_veaux_f = array();
 
+//calcul du pourcentage des veaux males et femelles
+
 for($i=1;$i<count($nb_veau);$i++)
 {
     $pourcent_veaux_m[$i-1] = intval(($nb_veau_m[$i]/$nb_veau[$i])*100);
@@ -357,7 +360,8 @@ for($i=1;$i<count($nb_veau);$i++)
 
 //création d'une variable contenant le nombre et le pourcentage des veaux
 
-$veaux_m =array($nb_veau_m[0]); //ajout des titres des lignes en premier element de la liste
+//ajout des titres des lignes en premier element de la liste
+$veaux_m =array($nb_veau_m[0]); 
 $veaux_f =array($nb_veau_f[0]);
 
 $j=1;

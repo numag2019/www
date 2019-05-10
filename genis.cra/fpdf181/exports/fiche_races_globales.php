@@ -1,4 +1,5 @@
 <?php
+//Page réalisé par l'équipe NumAg 2018-2019
 //cette page à pour but de coder l'exportation en pdf de l'export Fiche Race globales. Cet export est composé d'un tableau et de 3 graphiques
 //élève référent : Amaury Branthomme
 
