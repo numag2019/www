@@ -35,7 +35,10 @@ class Elevage {
         $animals = $con->select($sql);
         $con->close_db_connection();
         $list_animals = $this->sort_animals($animals);
-        
+        $_SESSION["id_elevage"]={$this->id};
+		$_SESSION["period_start"]=$period_start;
+		$_SESSION["period_end"]=$period_end;
+		$_SESSION["sexe"]=$sex
         return $list_animals;
     }
     
