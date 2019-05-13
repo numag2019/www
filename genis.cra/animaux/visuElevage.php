@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 
+	<!-- Page modifiée par les NumAg 2019
+	L.307 Ajout d'un bouton export en PDF qui apelle la page fiche_elevage.php
+	L.343 Ajout d'une varible de session pour récupérer l'netête du tableau---->
+
   <title>GenIS</title>
 
   <?php
@@ -355,6 +359,7 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
 </div>
 
 <?php require BODY_END;
+echo $caught_farm_name;
 ?>
 
 <!--Optional scripts start -->
