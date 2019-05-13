@@ -415,7 +415,7 @@ echo "<center><img src='../graph/HistoEvoBorn.php?code_race=".$code_race."&annee
 //Requête pour récupérer la liste des animaux et leurs informations
 $query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as No_Identification, elevage_actuel(v_ani_mort.id_animal,".$annee2.") as Elevage, 
 					REPLACE (REPLACE(REPLACE(v_ani_mort.sexe, '1', 'M'), '2', 'F'), '3', 'MC') as Sexe, v_ani_mort.date_naiss as Date_Naissance, pere.nom_animal as Nom_Pere, pere.no_identification as No_Identification_Pere, 
-					mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, contact.nom as Naisseur
+					mere.nom_animal as Nom_Mere, mere.no_identification as No_Identification_Mere, (CASE contact.Consentement WHEN 'Oui' THEN contact.nom ELSE ' ' END) as Naisseur 
 			FROM v_ani_mort left join animal as pere on v_ani_mort.id_pere=pere.id_animal 
 							left join animal as mere on v_ani_mort.id_mere=mere.id_animal
 							left join animal as ani on v_ani_mort.id_animal=ani.id_animal
@@ -423,7 +423,7 @@ $query = "	SELECT 	v_ani_mort.nom_animal as Nom, v_ani_mort.no_identification as
 							left join elevage as lieu_naiss on naissance.id_elevage=lieu_naiss.id_elevage
 							left join contact on lieu_naiss.id_elevage=contact.id_elevage
 			WHERE v_ani_mort.code_race=".$code_race." and year(v_ani_mort.date_naiss)<".$annee2." and (v_ani_mort.id_type=NULL or year(v_ani_mort.date_sortie)>".$annee2.") and naissance.id_type =3
-			ORDER BY Elevage";
+			ORDER by Elevage";
 $result = mysqli_query ($link, $query);
 
 //Récupération des données de la requete SQL dans une variable $resultat
