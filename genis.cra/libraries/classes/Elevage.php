@@ -24,9 +24,9 @@ session_start();
 class Elevage {
     private $id;
     
-    /*public function get_farm_id(){
-        return $this->id;
-    }*/
+    // public function get_farm_id(){
+        // return $this->id;
+    // }
     
     public function get_farm_animals($race, $sex, $repro, $period_start, $period_end) {
         $sex_range = $this->determine_sex_range_of_animals_to_select($sex, $repro);
@@ -35,9 +35,11 @@ class Elevage {
         $animals = $con->select($sql);
         $con->close_db_connection();
         $list_animals = $this->sort_animals($animals);
-        $_SESSION["id_elevage"]={$this->id};
+		//Lignes ajoutée par NumAg 2019
+		$_SESSION["id_elevage"]=$this->id;
 		$_SESSION["period_start"]=$period_start;
 		$_SESSION["period_end"]=$period_end;
+		//Fin ajout
         return $list_animals;
     }
     
@@ -59,6 +61,7 @@ class Elevage {
         }
 		//Ligne ajoutée par NumAg 2019
 		$_SESSION["array_animals"]=$array_animals;
+		//Fin ajout
         return json_encode($array_animals, JSON_UNESCAPED_UNICODE);
     }
     

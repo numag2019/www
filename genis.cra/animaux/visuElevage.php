@@ -359,7 +359,6 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
 </div>
 
 <?php require BODY_END;
-echo $caught_farm_name;
 ?>
 
 <!--Optional scripts start -->
