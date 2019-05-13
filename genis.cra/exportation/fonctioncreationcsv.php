@@ -1,4 +1,5 @@
-<!--fonction créant les csv, variables: deux requêtes sql possibles et le nom du fichier à créer-->
+<!--fonction créant les csv ayant comme 
+variables: deux requêtes sql possibles et le nom du fichier à créer-->
 <?php
 // page contenant la variable DB NAME
 include("../libraries/constants.php");
