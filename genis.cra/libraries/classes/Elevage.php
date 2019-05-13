@@ -15,7 +15,7 @@
 require_once 'methods.php';
 require_once '../constants.php';
 require_once 'DatabaseConnection.php';
-
+session_start();
 class Elevage {
     private $id;
     
@@ -50,6 +50,7 @@ class Elevage {
             $array_animals[$i]['no_mere'] = $row['no_mere'];
             $i++;
         }
+		$_SESSION["array_animals"]=$array_animals;
         return json_encode($array_animals, JSON_UNESCAPED_UNICODE);
     }
     

@@ -318,7 +318,7 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
 
                 $history_head_row = new HtmlContainer('tr');
 
-                    $history_table_columns = array('Nom','N° d\'identification','Race','Sexe', 'Date de naissance', 'Nom du prère', 'N° d\'identitication père', 'Nom de la mère', 'N° d\'identification mère');
+                    $history_table_columns = array('Nom','N° d\'identification','Race','Sexe', 'Date de naissance', 'Nom du père', 'N° d\'identitication père', 'Nom de la mère', 'N° d\'identification mère');
                     $history_table_heads = '';
                     foreach ($history_table_columns as $tc){
                         $hist_table_head = new HtmlContainer('th');
@@ -336,6 +336,8 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
         $history_table->content($history_head->get_html());
         $history_table->content($history_table_body->get_html());
         $history_table->print_html();
+		
+		$_SESSION["elevage_entetes"]=$history_table_columns
 
         ?>
             
@@ -351,7 +353,8 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
   </div>
 </div>
 
-<?php require BODY_END;?>
+<?php require BODY_END;
+?>
 
 <!--Optional scripts start -->
 <script>

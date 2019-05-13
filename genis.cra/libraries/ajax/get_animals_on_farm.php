@@ -26,3 +26,5 @@ $farm = new Elevage($id_farm);
 $animals = $farm->get_farm_animals($race, $sex, $repro, $period_start, $period_end);
 
 echo $animals;
+
+?>

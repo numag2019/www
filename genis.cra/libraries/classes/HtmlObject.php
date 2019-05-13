@@ -13,14 +13,17 @@
  */
 
 class HtmlObject {
-    protected $tag;
-    private $properties = array();
-    protected $html;
+    public $tag;
+    public $properties = array();
+    public $html;
     
     protected function render_html(){
         $html = '<' . $this->tag . ' ';
-        foreach ($this->properties as $prop_k => $prop_v){
+        $i=0;
+		foreach ($this->properties as $prop_k => $prop_v){
             $html .= $prop_k .'="'. $prop_v .'" ';
+		$t[$i]=$prop_v;
+		$i++;
         }
         $html .= '>';
         $this->html = $html;
