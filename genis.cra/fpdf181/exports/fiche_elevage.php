@@ -37,7 +37,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('liste des animaux du troupeau'),0,0,'L');
+	$this->Cell(120,10,utf8_decode('Liste des animaux du troupeau'),0,0,'L');
 	//Saut de ligne
 	$this->Ln(40);
 }
