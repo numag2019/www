@@ -1,6 +1,3 @@
-﻿<!-- Cette page permet l'envoi des fichiers pdf vers cranet. Page appelé avec la page creationcsv.php-->
-
-
 <html>
 <body>
 
@@ -18,7 +15,6 @@ if($dossier = opendir('./pdf'))
 		if($fichier != '.' && $fichier != '..')
 		{
 			$chemin[]="pdf/".$fichier;
-			$ftpTarget[]="pdf/".$fichier;
 			$nb_fichier++; // On incrémente le compteur de 1
 			
 
@@ -27,18 +23,20 @@ if($dossier = opendir('./pdf'))
 	} // On termine la boucle
 
  
-closedir($dossier);
- 
-
-
-// transferts des fichiers pdf vers serveur CRAnet (fonction situé dans ftp.php)
-$i=0;
-while($i<$nb_fichier)
-{
-
-	$trsft=export_vers_cranet($chemin[$i], $ftpTarget[$i]);
-	$i++;
-}
+	closedir($dossier);
+	 
+	echo 'Noms des fichiers pdf mis à disposition : ';
+	echo "<BR>";
+	echo "Indications : vous pouvez mettre à disposition d'autres pdf en les créant dans les onglets 'animaux'";
+	echo "<BR>";
+	// transferts des fichiers pdf vers serveur CRAnet (fonction situé dans ftp.php)
+	$i=0;
+	while($i<$nb_fichier)
+	{
+		echo '<a href='.$chemin[$i].'>'.$chemin[$i].'</a>';
+		echo "<BR>";
+		$i++;
+	}
 }
 else
      echo 'Le dossier n\' a pas pu être ouvert';

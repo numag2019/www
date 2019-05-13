@@ -13,6 +13,9 @@ session_start();
 // Récupération des variables de session
 $header = $_SESSION["elevage_entetes"];
 $data = $_SESSION['array_animals'];
+$id = $_SESSION['id_elevage'];
+$annee_debut = $_SESSION['period_start'];
+$annee_fin = $_SESSION['period_end'];
 
 // Appel du fichier traitant la création de pdf
 require('../fpdf.php');
@@ -37,7 +40,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('Liste des animaux du troupeau'),0,0,'L');
+	$this->Cell(120,10,utf8_decode('Liste des animaux du troupeau de '.$id.' présent entre '.$annee_debut.' et '.$annee_fin),0,0,'L');
 	//Saut de ligne
 	$this->Ln(40);
 }

@@ -93,7 +93,7 @@ $csv=creationcsv($requeteCoeff,NULL,"tableauCoeff");
 <?php 
 // transferts des fichiers csv vers serveur CRAnet via un protocol ftp (fonction situé dans ftp.php)
 $chemin=array('csv/tableauEleveurs.csv','csv/tableauAnimal.csv','csv/tableauRace.csv','csv/tableauCoeff.csv');
-$ftpTarget=array('tableauEleveurs.csv','tableauAnimal.csv','tableauRace.csv','tableauCoeff.csv');
+$ftpTarget=array('csv/tableauEleveurs.csv','csv/tableauAnimal.csv','csv/tableauRace.csv','csv/tableauCoeff.csv');
 
 $i=0;
 while($i<count($chemin))

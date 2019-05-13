@@ -55,7 +55,12 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                     <div class="form-group">
                         <label class="col-lg-2 control-label"></label>
                         <div class="col-lg-5">
-                            <button class="btn btn-sm btn-success" type="submit" id="buttonImportEleveurs">Mise à jour des fichiers</button>
+                            <button class="btn btn-sm btn-success" type="submit" id="buttonImportEleveurs">Mise à jour de CRAnet</button>
+                        </div>
+						<div class="col-lg-5">
+						<?php
+                            include ('affichage_pdf.php');
+						?>
                         </div>
                     </div>
                 </fieldset>
