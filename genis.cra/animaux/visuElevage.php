@@ -303,6 +303,7 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
         <div class="pull-left">Historique des présences sur l'élevage</div>
         <div class="widget-icons pull-right">
           <a href="javascript:export_csv()"><i class="fa fa-download"></i></a>
+          <a href="http://genis.cra/fpdf181/exports/fiche_elevage.php"><i>PDF</i></a>
           <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
           <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
         </div>

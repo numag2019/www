@@ -11,10 +11,9 @@
 session_start();
 
 // Récupération des variables de session
-$resultat = $_SESSION['resultat_ele'] ;
-$resultat_req = $_SESSION['resultat2'] ;
-$race = $_SESSION['race_ele'];
-$annee_ele = $_SESSION['annee_ele'];
+$header = $_SESSION["elevage_entetes"];
+print_r($header);
+$data = $_SESSION['array_animals'];
 
 // Appel du fichier traitant la création de pdf
 require('../fpdf.php');
@@ -32,8 +31,6 @@ protected $U = 0;
 // En-tête
 function Header()
 {
-    $race = $_SESSION['race_ele'];
-    $annee_ele = $_SESSION['annee_ele'];
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
@@ -41,7 +38,7 @@ function Header()
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('Liste des éleveurs de ').$race.' en '.$annee_ele,0,0,'L');
+	$this->Cell(120,10,utf8_decode('liste des animaux du troupeau'),0,0,'L');
 	//Saut de ligne
 	$this->Ln(40);
 }
@@ -73,7 +70,7 @@ function Tableau_ele($header,$effectif,$largeur_col)
 	$this->SetFont('','B');
     $this->SetFontSize(12);
     
-    $this->Cell($largeur_col,7,utf8_decode('Informations sur les éleveurs'));
+    $this->Cell($largeur_col,7,utf8_decode('Informations sur les animaux'));
     $this->Ln();
     
     // Couleurs, épaisseur du trait et police grasse pour l'entete
@@ -136,28 +133,14 @@ function Tableau_ele($header,$effectif,$largeur_col)
 
 ///////////////////////////////////////////Modifications des données pour remplir les tableaux ///////////////////////////////////////////////////
 
-//création de l'entete
-$header = array('N°','Nom','Prénom','Adresse','N° fixe','N° portable','Adresse mail','Département');
 
+// Suppression de la première valeur de chaque sous-liste de $data car elle est vide
 
-// Suppression de la colonne contenant la 2e adresse car elle n'est pas utilisée
-
-$resultat_4 = array();
-
-for($i=0;$i<count($resultat);$i++) 
+for($i=0;$i<count($data);$i++)
 {
-    $k = 0;
-    for($j=0;$j<count($resultat[0]);$j++)
-    {
-        if($j!=4)
-        {
-            $resultat_4[$i][$k] = $resultat[$i][$j];
-            $k++;
-        }
-        
-    }   
-   
+    array_shift($data[$i]);   
 }
+print_r($data);
 
 ///////////////////////////////////////////Affichage des pages PDF ///////////////////////////////////////////////////
 //Taille des colonnes
@@ -167,7 +150,7 @@ $largeur_col = 242/(count($header)-1); //taille des colonnes adaptatives en fonc
 $pdf = new PDF();
 $pdf->AliasNbPages(); //nécessaire pour afficher le nombre de pages
 $pdf->AddPage('L');//pour afficher le pdf en paysage
-$pdf->Tableau_ele($header,$resultat_4,$largeur_col);
+$pdf->Tableau_ele($header,$data,$largeur_col);
 
 
 
@@ -178,7 +161,7 @@ for($i=1;$i<=2;$i++)
 	    if($i==1)
 	    {
 		//sauvegarde du fichier
-		$pdf->Output('../../exportation/pdf/fiche_eleveur_'.$race.'.pdf','F');
+		$pdf->Output('../../exportation/pdf/fiche_elevage'.pdf','F');
 	    }
 	    else
 	    {
