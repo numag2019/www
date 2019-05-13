@@ -11,6 +11,11 @@
  *
  * @author cl2811
  */
+ 
+ /**
+ Page modifiée par NumAg 2019
+ L.58 récupération de la liste des animaux dans une variable de session
+ */
 
 require_once 'methods.php';
 require_once '../constants.php';
@@ -50,6 +55,7 @@ class Elevage {
             $array_animals[$i]['no_mere'] = $row['no_mere'];
             $i++;
         }
+		//Ligne ajoutée par NumAg 2019
 		$_SESSION["array_animals"]=$array_animals;
         return json_encode($array_animals, JSON_UNESCAPED_UNICODE);
     }
