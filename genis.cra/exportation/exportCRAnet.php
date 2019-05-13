@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Page 'exportation de Genis-->
 <html lang="en">
 <head>
 
@@ -54,7 +55,7 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                     <div class="form-group">
                         <label class="col-lg-2 control-label"></label>
                         <div class="col-lg-5">
-                            <button class="btn btn-sm btn-success" type="submit" id="buttonImportEleveurs">Exporter les données</button>
+                            <button class="btn btn-sm btn-success" type="submit" id="buttonImportEleveurs">Mise à jour des fichiers</button>
                         </div>
                     </div>
                 </fieldset>

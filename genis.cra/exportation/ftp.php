@@ -10,31 +10,37 @@ $ftpTarget : emplacement où le fichier va être envoyé */
 
 // on établit la connexion au serveur
 	$ftpServer = '194.199.251.99';
-	
+
 	// on se connecte en tant qu'utilisateur
 	$ftpUser = 'cranet';
 	$ftpPwd = 'numag2019';
 	$connection = ftp_connect($ftpServer);
-	echo $connection;
-	$login = ftp_login($connection, $ftpUser, $ftpPwd);
-	// on active le mode passif 
-	ftp_pasv($connection, true);
 	
-	// si on est connecté avec succès, on transfère le fichier
-	if ($connection && $login) 
-		{
-		$upload = ftp_put($connection, $ftpTarget , $chemin, FTP_BINARY);
-		if (!$upload) 
-			{
-			$error="échec de l'envoie ";
-			}
-		} 
-	else 
+	//Si la connection a réussi, on continue
+	if ($connection)
 	{
-		$error= 'La tentative de connexion FTP a échoué !<br>';
+		$login = ftp_login($connection, $ftpUser, $ftpPwd);
+		// on active le mode passif 
+		ftp_pasv($connection, true);
+		
+		// si on est connecté avec succès, on transfère le fichier
+		if ($connection && $login) 
+			{
+			$upload = ftp_put($connection, $ftpTarget , $chemin, FTP_BINARY);
+			if (!$upload) 
+				{
+				$error="échec de l'envoie ";
+				}
+			} 
+		else 
+		{
+			$error= 'La tentative de connexion FTP a échoué !<br>';
+		}
+		// on clos la connexion
+		ftp_close($connection);
 	}
+	else 
+		echo 'Vous n\'êtes pas connecté au serveur de CRAnet';
 
-	// on clos la connexion
-	ftp_close($connection);
  }
 ?>

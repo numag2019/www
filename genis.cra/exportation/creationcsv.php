@@ -7,7 +7,7 @@
 
 // CETTE PAGE PERMET DE GÉNÉRER 4 FICHIERS .CSV À PARTIR DE LA BDD GENIS (ELEVEURS, ANIMAL, RACE, COEFFICIENTS).
 //CEUX-CI VONT ALIMENTER LES 4 TABLES INTERMÉDIAIRES DE LA BDD DATACRANET (eleveurs_intermediaire, bovins_intermediaire, races_intermediaire, coefficients_intermediaire).  //
-
+// ALIMENTE EN PDF ET EN CSV LE DOSSIER DE CRANET VIA FTP
 //******************************************************************************************************************************************************************************************************************************************\\
 
 // Page necessaire
@@ -91,7 +91,7 @@ $csv=creationcsv($requeteCoeff,NULL,"tableauCoeff");
 ?>
 
 <?php 
-// transferts des fichiers csv vers serveur CRAnet (fonction situé dans ftp.php)
+// transferts des fichiers csv vers serveur CRAnet via un protocol ftp (fonction situé dans ftp.php)
 $chemin=array('csv/tableauEleveurs.csv','csv/tableauAnimal.csv','csv/tableauRace.csv','csv/tableauCoeff.csv');
 $ftpTarget=array('tableauEleveurs.csv','tableauAnimal.csv','tableauRace.csv','tableauCoeff.csv');
 
@@ -102,11 +102,10 @@ while($i<count($chemin))
 	$i++;
 }
 
-// envoi des pdf du dossier pdf
-// include('envoi_pdf.php'); 
+//envoi des pdf du dossier pdf
+include('envoi_pdf.php'); 
 
-//Lancer la page php de mise à jour à distance après que les nouveaux csv aient été créé
-
+//Lancer la page php de mise à jour à distance après que les nouveaux csv aient été créé 
 header('location:http://cranet/site_web_paillette/importexportCSV/inserercsv.php');
 exit;
 
