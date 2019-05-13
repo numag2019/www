@@ -1,7 +1,7 @@
 <?php
 //Page réalisé par l'équipe NumAg 2018-2019
-// Cette page à pour but de coder l'exportation en pdf de l'export Fiche eleveurs contenant l'ensemble des informations 
-// des eleveurs. Cet export est composé d'un unique tableau.
+// Cette page à pour but de coder l'exportation en pdf de l'export Fiche elevage contenant l'ensemble des informations 
+// des animaux de l'élevage choisi. Cet export est composé d'un unique tableau.
 //élève référent : Amaury Branthomme
 
 //Commentaires : J'ai du utiliser la fonction utf8_decode car cette page est en lien avec une page où les données sont en UTF8
@@ -12,7 +12,6 @@ session_start();
 
 // Récupération des variables de session
 $header = $_SESSION["elevage_entetes"];
-print_r($header);
 $data = $_SESSION['array_animals'];
 
 // Appel du fichier traitant la création de pdf
@@ -140,7 +139,6 @@ for($i=0;$i<count($data);$i++)
 {
     array_shift($data[$i]);   
 }
-print_r($data);
 
 ///////////////////////////////////////////Affichage des pages PDF ///////////////////////////////////////////////////
 //Taille des colonnes
@@ -161,7 +159,7 @@ for($i=1;$i<=2;$i++)
 	    if($i==1)
 	    {
 		//sauvegarde du fichier
-		$pdf->Output('../../exportation/pdf/fiche_elevage'.pdf','F');
+		$pdf->Output('../../exportation/pdf/fiche_elevage.pdf','F');
 	    }
 	    else
 	    {
