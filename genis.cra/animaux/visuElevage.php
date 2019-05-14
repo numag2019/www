@@ -3,8 +3,8 @@
 <head>
 
 	<!-- Page modifiée par les NumAg 2019
-	L.307 Ajout d'un bouton export en PDF qui apelle la page fiche_elevage.php
-	L.343 Ajout d'une varible de session pour récupérer l'netête du tableau---->
+	L.311 Ajout d'un bouton export en PDF qui appelle la page fiche_elevage.php
+	L.348 Ajout d'une variable de session pour récupérer l'entête du tableau---->
 
   <title>GenIS</title>
 
@@ -307,7 +307,9 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
         <div class="pull-left">Historique des présences sur l'élevage</div>
         <div class="widget-icons pull-right">
           <a href="javascript:export_csv()"><i class="fa fa-download"></i></a>
+		  <!--Ligne ajoutée par l'équipe NumAg 20A9 -->
           <a href="http://genis.cra/fpdf181/exports/fiche_elevage.php"><i>PDF</i></a>
+		  <!--Fin ajout -->
           <a href="../mac_bootstrap/macadmin/theme/#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
           <a href="../mac_bootstrap/macadmin/theme/#" class="wclose"><i class="fa fa-times"></i></a>
         </div>
@@ -342,7 +344,9 @@ if (isset($_GET['id_elevage']) && isset($_GET['nom_elevage'])) {
         $history_table->content($history_table_body->get_html());
         $history_table->print_html();
 		
+		//Ligne ajoutée par l'équipe NumAg 2019
 		$_SESSION["elevage_entetes"]=$history_table_columns
+		//Fin ajout
 
         ?>
             
