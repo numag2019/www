@@ -199,8 +199,8 @@ for($i=1;$i<=2;$i++)
 	    if($i==1)
 	    {
 		//sauvegarde du fichier
-		// $pdf->Output('../../exportation/pdf/fiche_elevage.pdf','F');
-        $pdf->Output('../../exportation/pdf/fiche_elevage_'.$nom.'.pdf','F'); //Pour afficher le nom des éleveurs dans le titre des pdf
+		// $pdf->Output('../../pdf/fiche_elevage.pdf','F');
+        $pdf->Output('../../pdf/fiche_elevage_'.$nom.'.pdf','F'); //Pour afficher le nom des éleveurs dans le titre des pdf
 	    }
 	    else
 	    {

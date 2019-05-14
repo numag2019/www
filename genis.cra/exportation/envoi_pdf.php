@@ -11,14 +11,14 @@ Page appelé avec la page creationcsv.php-->
 $nb_fichier = 0;   //variable nombre de fichier
 $chemin=array();
 $ftpTarget=array();
-if($dossier = opendir('./pdf'))
+if($dossier = opendir('../pdf'))
 {
 	
 	while(false !== ($fichier = readdir($dossier)))
 	{
 		if($fichier != '.' && $fichier != '..')
 		{
-			$chemin[]="pdf/".$fichier;
+			$chemin[]="../pdf/".$fichier;
 			$ftpTarget[]="pdf/".$fichier;
 			$nb_fichier++; // On incrémente le compteur de 1
 			
