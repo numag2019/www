@@ -1,5 +1,5 @@
 <!-- Page modifiée par l'équipe NumAg 2019
-Ajout de la ligne 152 à 158 qui permet l'ajout des onglets "fiches race/races globales/eleveurs" sur le menu principal 
+Ajout de la ligne 152 à 158 qui permet l'ajout de l'onglet exportation sur le menu principal 
 Ajout de la ligne 163 à 167 qui permet l'ajout des onglets "fiches race/races globales/eleveurs" sur le menu principal -->
 
 <?php
