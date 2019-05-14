@@ -14,7 +14,8 @@
  
  /**
  Page modifiée par NumAg 2019
- L.58 récupération de la liste des animaux dans une variable de session
+ L.40 à 43 Récupération de l'id_elevage et de la période choisie par l'utilisateur
+ L.64 Récupération de la liste des animaux dans une variable de session
  */
 
 require_once 'methods.php';
