@@ -46,11 +46,13 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
       <div class="widget-content">
         <div class="padd">
           <!-- Content goes here -->
+          <!-- Lignes ajoutées par l'équipe NumAg 2019 -->
           <form class="form-horizontal" id="coeff_genis" action="c.extraction_coeff_bear.php">
             <div class="col-lg-5">
                 <button class="btn btn-sm btn-success" type="submit" id="coeff_genis">Exporter les coefficients vers GENIS</button>
             </div>
           </form>
+          <!-- Fin de l'ajout -->
             
           <?php
           $code = $_SESSION['prog'];
