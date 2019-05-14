@@ -1,9 +1,13 @@
+<!-- Cette page permet l'affichage des fichiers pdf présents dans le dossier 'exportation/pdf'
+de genis. Ceux-ci seront envoyés au site cranet
+Page appelé avec la page exportCRAnet.php-->
+
 <html>
 <body>
 
 <?php
 
-// On prend tous les noms des fichiers présents dans le dosssier pdf
+// On prend tous les noms des fichiers présents dans le dossier pdf
 $nb_fichier = 0;   //variable nombre de fichier
 $chemin=array();
 $ftpTarget=array();
@@ -27,7 +31,7 @@ if($dossier = opendir('./pdf'))
 	 
 	echo 'Noms des fichiers pdf mis à disposition : ';
 	echo "<BR>";
-	echo "Indications : vous pouvez mettre à disposition d'autres pdf en les créant dans les onglets 'animaux'";
+	echo "Indication : vous pouvez mettre à disposition d'autres pdf en les créant dans les onglets 'animaux'";
 	echo "<BR>";
 	// transferts des fichiers pdf vers serveur CRAnet (fonction situé dans ftp.php)
 	$i=0;

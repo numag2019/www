@@ -1,6 +1,6 @@
 <!-- Page modifiée par l'équipe NumAg 2019
-Ajout de la ligne 157 à 159 qui permet l'ajout des onglets "fiches race/races globales/eleveurs" sur le menu principal -->
-
+Ajout de la ligne 152 à 158 qui permet l'ajout des onglets "fiches race/races globales/eleveurs" sur le menu principal 
+Ajout de la ligne 163 à 167 qui permet l'ajout des onglets "fiches race/races globales/eleveurs" sur le menu principal -->
 
 <?php
 /**
@@ -144,16 +144,19 @@ if (isset($_SESSION['compte'])){
                 </ul>
             </li>
             <li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-download"></i> Importations<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+            <li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-upload"></i> Importations<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                 <ul>
                     <li <?php if ($_SESSION['current_page']=='import' ) echo 'class="current"'; ?>><a href="../importation/import.php">Importation des animaux </a></li>
                     <li <?php if ($_SESSION['current_page']=='importEleveurs' ) echo 'class="current"'; ?>><a href="../importation/importEleveurs.php">Importation des éleveurs </a></li>
                 </ul>
             </li>
+			<!-- Lignes rajoutées par Numag2019 -->
 			<li class="has_sub <?php if ($_SESSION['current_page']=='import' || $_SESSION['current_page']=='importEleveurs') echo 'open'; ?>"><a href="../importation/#"><i class="fa fa-upload"></i> Exportations<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                 <ul>
 					<li <?php if ($_SESSION['current_page']=='importEleveurs' ) echo 'class="current"'; ?>><a href="../exportation/exportCRAnet.php">Exportation vers DataCRAnet </a></li>
                 </ul>
             </li>
+			<!-- Fin ajout -->
             <li class="has_sub <?php if ($_SESSION['current_page']=='visu_animal' || $_SESSION['current_page']=='visu_elevage' || $_SESSION['current_page']=='del_animal') echo 'open'; ?>"><a href="../animaux/#"><i class="fa fa-info"></i> Animaux <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                 <ul>
                     <li <?php if ($_SESSION['current_page']=='visu_animal') echo 'class="current"'; ?>><a href="../animaux/visuAnimal.php">Fiches individuelles </a></li>

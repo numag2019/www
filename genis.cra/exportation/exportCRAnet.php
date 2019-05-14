@@ -1,3 +1,7 @@
+<!-- Cette page permet l'affichage des boutons de l'interface de l'onglet 
+'exportation' de Genis-->
+
+
 <!DOCTYPE html>
 <!-- Page 'exportation de Genis-->
 <html lang="en">
@@ -59,6 +63,7 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
                         </div>
 						<div class="col-lg-5">
 						<?php
+						// page d'affichage des pdf présent dans le dossier 'exportation/pdf'
                             include ('affichage_pdf.php');
 						?>
                         </div>
