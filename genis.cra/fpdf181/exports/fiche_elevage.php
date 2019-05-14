@@ -13,9 +13,7 @@ session_start();
 // Récupération des variables de session
 $header = $_SESSION["elevage_entetes"];
 $data = $_SESSION['array_animals'];
-$id = $_SESSION['id_elevage'];
-$annee_debut = $_SESSION['period_start'];
-$annee_fin = $_SESSION['period_end'];
+
 
 // Appel du fichier traitant la création de pdf
 require('../fpdf.php');
@@ -33,14 +31,35 @@ protected $U = 0;
 // En-tête
 function Header()
 {
+    //Récupération des variables de session
+    $id = $_SESSION["id_elevage"];
+    
+    //Connection à la base de donnée
+    $link = mysqli_connect ('127.0.0.1','root','','genis_test');
+    mysqli_set_charset ($link, 'utf8mb4');
+    
+    //Requête pour récupérer le nom de l'elevage
+    $query = "  SELECT nom_elevage
+                FROM elevage
+                WHERE id_elevage =".$id."";
+    $result = mysqli_query($link,$query);
+    while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+    {
+        $nom = $row[0];
+    }
+
+    
+    
+    $annee_debut = $_SESSION["period_start"];
+    $annee_fin = $_SESSION["period_end"];
 	//Logo
 	$this->Image('logo.jpg',10,6,30,0,'','http://racesaquitaine.fr/');
 	//Police Arial gras 15
-	$this->SetFont('Arial','B',15);
+	$this->SetFont('Arial','B',12);
 	//Décalage à droite
 	$this->Cell(80);
 	//Titre
-	$this->Cell(120,10,utf8_decode('Liste des animaux du troupeau de '.$id.' présent entre '.$annee_debut.' et '.$annee_fin),0,0,'L');
+	$this->Cell(50,10,utf8_decode('Liste des animaux du troupeau de '.$nom.' présent entre le '.$annee_debut.' et le '.$annee_fin),0,0,'L');
 	//Saut de ligne
 	$this->Ln(40);
 }
@@ -154,6 +173,24 @@ $pdf->AddPage('L');//pour afficher le pdf en paysage
 $pdf->Tableau_ele($header,$data,$largeur_col);
 
 
+//Récupération du nom de l'éleveurs
+//Récupération des variables de session
+    $id = $_SESSION["id_elevage"];
+    
+//Connection à la base de donnée
+$link = mysqli_connect ('127.0.0.1','root','','genis_test');
+mysqli_set_charset ($link, 'utf8mb4');
+
+//Requête pour récupérer le nom de l'elevage
+$query = "  SELECT nom_elevage
+            FROM elevage
+            WHERE id_elevage =".$id."";
+$result = mysqli_query($link,$query);
+while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+{
+    $nom = $row[0];
+}
+
 
 //affichage et sauvegarde du fichier en pdf
 
@@ -162,7 +199,8 @@ for($i=1;$i<=2;$i++)
 	    if($i==1)
 	    {
 		//sauvegarde du fichier
-		$pdf->Output('../../exportation/pdf/fiche_elevage.pdf','F');
+		// $pdf->Output('../../exportation/pdf/fiche_elevage.pdf','F');
+        $pdf->Output('../../exportation/pdf/fiche_elevage_'.$nom.'.pdf','F'); //Pour afficher le nom des éleveurs dans le titre des pdf
 	    }
 	    else
 	    {

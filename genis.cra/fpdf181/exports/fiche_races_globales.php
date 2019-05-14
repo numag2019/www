@@ -186,7 +186,8 @@ for($i=1;$i<=2;$i++)
 	    if($i==1)
 	    {
 		//sauvegarde du fichier
-		$pdf->Output('../../exportation/pdf/fiche_race_globale.pdf','F');
+		// $pdf->Output('../../exportation/pdf/fiche_globale.pdf','F');
+        $pdf->Output('../../exportation/pdf/fiche_globale_'.$annee[0].'_'.end($annee).'.pdf','F'); //Pour afficher les années dans le titre des pdf
 	    }
 	    else
 	    {
