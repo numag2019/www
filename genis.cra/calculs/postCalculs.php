@@ -46,7 +46,12 @@ $con = pdo_connection(HOST_DB,DB_NAME,USER_DB,PW_DB);
       <div class="widget-content">
         <div class="padd">
           <!-- Content goes here -->
-
+          <form class="form-horizontal" id="coeff_genis" action="c.extraction_coeff_bear.php">
+            <div class="col-lg-5">
+                <button class="btn btn-sm btn-success" type="submit" id="coeff_genis">Exporter les coefficients vers GENIS</button>
+            </div>
+          </form>
+            
           <?php
           $code = $_SESSION['prog'];
           $race = $_SESSION['race'];

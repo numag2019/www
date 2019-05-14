@@ -1,36 +1,768 @@
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
-[03-May-2019 08:47:12 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
-[03-May-2019 08:47:12 UTC] PHP Stack trace:
-[03-May-2019 08:47:12 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
-[03-May-2019 08:47:12 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
-[03-May-2019 08:47:12 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
-[03-May-2019 08:47:12 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
+[14-May-2019 07:58:33 UTC] PHP Warning:  A non-numeric value encountered in C:\wamp64\www\genis.cra\libraries\fonctions.php on line 370
+[14-May-2019 07:58:33 UTC] PHP Stack trace:
+[14-May-2019 07:58:33 UTC] PHP   1. {main}() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:0
+[14-May-2019 07:58:33 UTC] PHP   2. extract_individual_relationships() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:81
+[14-May-2019 07:58:33 UTC] PHP   3. generate_relationship_matrix() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:253
+[14-May-2019 07:58:33 UTC] PHP   4. sum_equi_dimensional_array() C:\wamp64\www\genis.cra\libraries\ajax\ajaxparente.php:304
