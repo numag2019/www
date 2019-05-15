@@ -191,6 +191,9 @@ while ($row = mysqli_fetch_array($result, MYSQLI_BOTH))
     $nom = $row[0];
 }
 
+if(strpos($nom,' ') != False) //s'il y a des espaces vides dans le nom de l'éleveur
+    $nom = str_replace(' ','',$nom); // Pour retirer l'espace dans le nom de l'éleveur
+
 
 //affichage et sauvegarde du fichier en pdf
 
